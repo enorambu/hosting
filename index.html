@@ -1,957 +1,562 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONG Enlace | Conectando Comunidades</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: { 50:'#effefb', 100:'#c8fff4', 200:'#91fee9', 300:'#53f5da', 400:'#20e0c5', 500:'#0bbfad', 600:'#059d92', 700:'#087e78', 800:'#0b6461', 900:'#0e5351', 950:'#003331' },
-                        accent: { 50:'#fff7ed', 100:'#ffedd5', 200:'#fed7aa', 300:'#fdba74', 400:'#fb923c', 500:'#f97316', 600:'#ea580c', 700:'#c2410c', 800:'#9a3412', 900:'#7c2d12' },
-                        coral: { 400:'#fb7185', 500:'#f43f5e', 600:'#e11d48' },
-                        surface: { 50:'#fafafa', 100:'#f5f5f5', 200:'#e5e5e5', 300:'#d4d4d4' }
-                    },
-                    fontFamily: { inter: ['Inter', 'sans-serif'] },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delay': 'float 6s ease-in-out 2s infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
-                        'slide-left': 'slideLeft 0.6s ease-out forwards',
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'bounce-gentle': 'bounceGentle 2s ease-in-out infinite',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        * { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        @keyframes float { 0%,100%{ transform: translateY(0px); } 50%{ transform: translateY(-20px); } }
-        @keyframes slideUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes slideLeft { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
-        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-        @keyframes bounceGentle { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
-        .gradient-hero { background: linear-gradient(135deg, #003331 0%, #087e78 30%, #0bbfad 60%, #059d92 100%); }
-        .gradient-accent { background: linear-gradient(135deg, #f97316, #fb7185); }
-        .gradient-text { background: linear-gradient(135deg, #087e78, #0bbfad, #f97316); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        .gradient-section { background: linear-gradient(180deg, #003331 0%, #087e78 50%, #0bbfad 100%); }
-        .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
-        .glass-dark { background: rgba(0,51,49,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
-        .glass-white { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); }
-        .card-hover { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(8,126,120,0.25); }
-        .news-card:hover .news-img { transform: scale(1.08); }
-        .news-card:hover .news-overlay { opacity: 1; }
-        .social-pill-item { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .social-pill-item:hover { transform: translateX(8px); }
-        .whatsapp-btn { transition: all 0.3s ease; }
-        .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
-        .nav-link { position: relative; }
-        .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background: linear-gradient(90deg, #0bbfad, #f97316); transition: width 0.3s ease; }
-        .nav-link:hover::after { width:100%; }
-        .blob { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        .counter { font-variant-numeric: tabular-nums; }
-        .scroll-indicator { animation: bounceGentle 2s ease-in-out infinite; }
-        .text-shadow-hero { text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-        .section-hidden { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1); }
-        .section-visible { opacity: 1; transform: translateY(0); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f5f5f5; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #087e78, #0bbfad); border-radius: 10px; }
-        .marquee { animation: marquee 30s linear infinite; }
-        @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-        
-        .news-filter-btn { transition: all 0.3s ease; }
-        .news-filter-btn.active { background: linear-gradient(135deg, #087e78, #0bbfad); color: white; box-shadow: 0 4px 15px rgba(8,126,120,0.3); }
-        .news-filter-btn:not(.active):hover { background: #f5f5f5; }
-        
-        .news-modal-overlay { transition: opacity 0.3s ease; }
-        .news-modal-content { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Zona Tributaria Chile - Tu portal de noticias, asesoría y actualización tributaria en Chile. RSS de Diario Financiero y las principales fuentes tributarias." />
+  <meta name="keywords" content="zona tributaria, chile, impuestos, SII, noticias tributarias, asesoría fiscal, renta, IVA" />
+  <meta property="og:title" content="Zona Tributaria Chile" />
+  <meta property="og:description" content="Portal de noticias y asesoría tributaria en Chile" />
+  <title>Zona Tributaria Chile | Noticias y Asesoría Tributaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-white text-gray-800 overflow-x-hidden">
+<body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl gradient-accent flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <span class="text-white font-bold text-lg">E</span>
-                    </div>
-                    <div>
-                        <span class="text-lg font-bold nav-logo-text">ONG Enlace</span>
-                        <p class="text-[10px] nav-logo-sub -mt-1 tracking-wider uppercase opacity-70">Conectando Comunidades</p>
-                    </div>
-                </a>
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#inicio" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Inicio</a>
-                    <a href="#nosotros" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Nosotros</a>
-                    <a href="#programas" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Programas</a>
-                    <a href="#noticias" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Noticias</a>
-                    <a href="#impacto" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Impacto</a>
-                    <a href="#testimonios" class="nav-link text-sm font-medium hover:text-primary-600 transition-colors">Testimonios</a>
-                    <a href="#contacto" class="px-5 py-2.5 rounded-full text-sm font-semibold gradient-accent text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all">Colabora</a>
-                </div>
-                <button id="menuBtn" class="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors">
-                    <i data-lucide="menu" class="w-6 h-6 nav-menu-icon"></i>
-                </button>
-            </div>
+  <!-- ===== SOCIAL MEDIA LEFT SIDEBAR ===== -->
+  <div class="social-sidebar">
+    <div class="social-sidebar-links">
+      <a href="https://www.facebook.com/zonatributaria" target="_blank" rel="noopener" class="social-link facebook" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com/zonatributaria" target="_blank" rel="noopener" class="social-link instagram" title="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://twitter.com/zonatributaria" target="_blank" rel="noopener" class="social-link twitter" title="Twitter / X">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/company/zonatributaria" target="_blank" rel="noopener" class="social-link linkedin" title="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://www.youtube.com/@zonatributaria" target="_blank" rel="noopener" class="social-link youtube" title="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+  <a href="https://wa.me/56912345678?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20asesor%C3%ADa%20tributaria" 
+     target="_blank" rel="noopener" class="whatsapp-fab" id="whatsapp-fab" title="Contáctanos por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">¡Escríbenos!</span>
+  </a>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="header" id="header">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <div class="brand-icon">
+          <i class="fas fa-balance-scale"></i>
         </div>
-        <div id="mobileMenu" class="md:hidden hidden glass-white shadow-xl rounded-b-2xl mx-4 overflow-hidden">
-            <div class="p-6 flex flex-col gap-4">
-                <a href="#inicio" class="mobile-link py-2 text-sm font-medium">Inicio</a>
-                <a href="#nosotros" class="mobile-link py-2 text-sm font-medium">Nosotros</a>
-                <a href="#programas" class="mobile-link py-2 text-sm font-medium">Programas</a>
-                <a href="#noticias" class="mobile-link py-2 text-sm font-medium">Noticias</a>
-                <a href="#impacto" class="mobile-link py-2 text-sm font-medium">Impacto</a>
-                <a href="#testimonios" class="mobile-link py-2 text-sm font-medium">Testimonios</a>
-                <a href="#contacto" class="mt-2 px-5 py-3 rounded-full text-sm font-semibold gradient-accent text-white text-center shadow-lg">Colabora con Nosotros</a>
-            </div>
+        <div class="brand-text">
+          <span class="brand-name">Zona Tributaria</span>
+          <span class="brand-sub">Chile</span>
         </div>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+        <li><a href="#noticias" class="nav-link">Noticias</a></li>
+        <li><a href="#nosotros" class="nav-link">Quiénes Somos</a></li>
+        <li><a href="#servicios" class="nav-link">Servicios</a></li>
+        <li><a href="#calendario" class="nav-link">Calendario 2026</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <!-- ===== HERO ===== -->
-    <section id="inicio" class="gradient-hero relative min-h-screen flex items-center overflow-hidden">
-        <div class="absolute top-20 right-10 w-72 h-72 bg-primary-400/20 blob animate-float"></div>
-        <div class="absolute bottom-20 left-10 w-96 h-96 bg-accent-400/10 blob animate-float-delay"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl"></div>
-        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px); background-size: 40px 40px;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 animate-fade-in">
-                        <span class="w-2 h-2 bg-accent-400 rounded-full animate-pulse"></span>
-                        <span class="text-white/80 text-xs font-medium tracking-wider uppercase">Transformando vidas desde 2012</span>
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.05] tracking-tight text-shadow-hero mb-6" style="animation: slideUp 0.8s ease-out forwards;">
-                        Creamos <span class="relative inline-block"><span class="relative z-10">enlaces</span><span class="absolute bottom-2 left-0 w-full h-3 gradient-accent opacity-40 rounded-sm"></span></span> que transforman comunidades
-                    </h1>
-                    <p class="text-lg text-white/70 max-w-xl mb-10 leading-relaxed" style="animation: slideUp 0.8s 0.2s ease-out both;">
-                        Trabajamos junto a comunidades vulnerables en Chile, generando oportunidades de desarrollo social, educativo y comunitario a través de programas sostenibles.
-                    </p>
-                    <div class="flex flex-wrap gap-4" style="animation: slideUp 0.8s 0.4s ease-out both;">
-                        <a href="#programas" class="group px-8 py-4 rounded-full gradient-accent text-white font-semibold shadow-lg hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2">
-                            Conoce nuestros programas <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                        <a href="#nosotros" class="px-8 py-4 rounded-full glass text-white font-semibold hover:bg-white/20 transition-all flex items-center gap-2">
-                            <i data-lucide="play-circle" class="w-5 h-5"></i> Ver nuestro video
-                        </a>
-                    </div>
-                    <div class="flex gap-8 mt-12 pt-8 border-t border-white/10" style="animation: slideUp 0.8s 0.6s ease-out both;">
-                        <div><p class="text-3xl font-bold text-white counter" data-target="2500">0</p><p class="text-xs text-white/50 mt-1 uppercase tracking-wider">Familias beneficiadas</p></div>
-                        <div><p class="text-3xl font-bold text-white counter" data-target="48">0</p><p class="text-xs text-white/50 mt-1 uppercase tracking-wider">Comunidades</p></div>
-                        <div><p class="text-3xl font-bold text-white counter" data-target="12">0</p><p class="text-xs text-white/50 mt-1 uppercase tracking-wider">Años de trabajo</p></div>
-                    </div>
-                </div>
-                <div class="hidden lg:block relative" style="animation: slideLeft 1s 0.3s ease-out both;">
-                    <div class="relative">
-                        <div class="absolute -top-4 -left-4 w-full h-full gradient-accent rounded-3xl rotate-3 opacity-20"></div>
-                        <img src="https://picsum.photos/seed/enlace-hero1/600/700.jpg" alt="Comunidad" class="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover">
-                        <div class="absolute -bottom-6 -left-10 glass rounded-2xl p-4 shadow-xl animate-float">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-full bg-accent-400/20 flex items-center justify-center"><i data-lucide="heart" class="w-6 h-6 text-accent-400"></i></div>
-                                <div><p class="text-white font-semibold text-sm">+120 Voluntarios</p><p class="text-white/50 text-xs">Activos este mes</p></div>
-                            </div>
-                        </div>
-                        <div class="absolute -top-4 -right-8 glass rounded-2xl p-4 shadow-xl animate-float-delay">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-full bg-primary-400/20 flex items-center justify-center"><i data-lucide="trending-up" class="w-6 h-6 text-primary-300"></i></div>
-                                <div><p class="text-white font-semibold text-sm">Crecimiento 35%</p><p class="text-white/50 text-xs">Respecto al 2023</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
-            <div class="flex flex-col items-center gap-2"><span class="text-white/40 text-xs tracking-widest uppercase">Scroll</span><i data-lucide="chevron-down" class="w-5 h-5 text-white/40"></i></div>
-        </div>
-    </section>
-
-    <!-- ===== PARTNERS MARQUEE ===== -->
-    <section class="bg-surface-50 py-8 border-b border-surface-200 overflow-hidden">
-        <div class="flex items-center">
-            <div class="flex gap-16 items-center marquee whitespace-nowrap">
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">GOBIERNO REGIONAL</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">UNICEF CHILE</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">FUNDACIÓN MUSTAKIS</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">MINISTERIO DE DESARROLLO SOCIAL</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">CORPORACIÓN NACIONAL DEL MENOR</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">UNIVERSIDAD DE CHILE</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">GOBIERNO REGIONAL</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">UNICEF CHILE</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">FUNDACIÓN MUSTAKIS</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">MINISTERIO DE DESARROLLO SOCIAL</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">CORPORACIÓN NACIONAL DEL MENOR</span><span class="text-primary-300">●</span>
-                <span class="text-gray-300 font-semibold text-lg tracking-wider">UNIVERSIDAD DE CHILE</span><span class="text-primary-300">●</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== NOSOTROS ===== -->
-    <section id="nosotros" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl opacity-50"></div>
-        <div class="absolute bottom-0 left-0 w-72 h-72 bg-accent-50 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="section-hidden relative">
-                    <div class="relative">
-                        <img src="https://picsum.photos/seed/enlace-nosotros/600/500.jpg" alt="Nuestro equipo" class="rounded-3xl shadow-xl w-full h-[450px] object-cover">
-                        <div class="absolute inset-0 rounded-3xl bg-gradient-to-t from-primary-950/30 to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 glass-white rounded-2xl p-5 shadow-xl">
-                            <p class="text-4xl font-extrabold gradient-text">12+</p>
-                            <p class="text-sm text-gray-600 font-medium">Años de experiencia transformando vidas</p>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-8 -right-8 w-40 h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white hidden md:block">
-                        <img src="https://picsum.photos/seed/enlace-small/200/200.jpg" alt="" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div class="section-hidden" style="transition-delay: 0.2s;">
-                    <div class="inline-flex items-center gap-2 bg-primary-50 rounded-full px-4 py-2 mb-6">
-                        <i data-lucide="users" class="w-4 h-4 text-primary-600"></i>
-                        <span class="text-primary-700 text-xs font-semibold tracking-wider uppercase">Quiénes Somos</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">Somos el <span class="gradient-text">enlace</span> entre la solidaridad y quienes más lo necesitan</h2>
-                    <p class="text-gray-600 leading-relaxed mb-8 text-lg">Desde 2012, trabajamos en territorio con comunidades vulnerables de la Región Metropolitana y Valparaíso. Nuestro enfoque integra desarrollo social, educación y emprendimiento para generar cambios sostenibles.</p>
-                    <div class="space-y-4 mb-10">
-                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="target" class="w-5 h-5 text-primary-600"></i></div><div><h4 class="font-semibold text-gray-900 mb-1">Misión</h4><p class="text-gray-500 text-sm leading-relaxed">Promover el desarrollo integral de comunidades vulnerables mediante programas de educación, salud y emprendimiento social.</p></div></div>
-                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="eye" class="w-5 h-5 text-accent-600"></i></div><div><h4 class="font-semibold text-gray-900 mb-1">Visión</h4><p class="text-gray-500 text-sm leading-relaxed">Ser la organización referente en vinculación comunitaria, logrando comunidades autónomas y resilientes en Chile.</p></div></div>
-                        <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-coral-400/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="sparkles" class="w-5 h-5 text-coral-500"></i></div><div><h4 class="font-semibold text-gray-900 mb-1">Valores</h4><p class="text-gray-500 text-sm leading-relaxed">Solidaridad, transparencia, compromiso, respeto por la diversidad e innovación social.</p></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== PROGRAMAS ===== -->
-    <section id="programas" class="py-24 bg-surface-50 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(#0bbfad 0.5px, transparent 0.5px); background-size: 30px 30px;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 section-hidden">
-                <div class="inline-flex items-center gap-2 bg-primary-100 rounded-full px-4 py-2 mb-6"><i data-lucide="layout-grid" class="w-4 h-4 text-primary-600"></i><span class="text-primary-700 text-xs font-semibold tracking-wider uppercase">Nuestros Programas</span></div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Cuatro pilares para el <span class="gradient-text">cambio social</span></h2>
-                <p class="text-gray-500 text-lg">Cada programa está diseñado para abordar necesidades específicas de las comunidades, con un enfoque integral y participativo.</p>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="section-hidden card-hover bg-white rounded-3xl p-8 shadow-sm border border-surface-200 group relative overflow-hidden" style="transition-delay:0.1s;"><div class="absolute top-0 right-0 w-32 h-32 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div><div class="relative z-10"><div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform"><i data-lucide="book-open" class="w-7 h-7 text-white"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Educación Comunitaria</h3><p class="text-gray-500 text-sm leading-relaxed mb-6">Talleres de refuerzo escolar, alfabetización digital y capacitación laboral para jóvenes y adultos.</p><div class="flex items-center gap-2 text-primary-600 font-semibold text-sm group-hover:gap-3 transition-all"><span>Saber más</span><i data-lucide="arrow-right" class="w-4 h-4"></i></div></div></div>
-                <div class="section-hidden card-hover bg-white rounded-3xl p-8 shadow-sm border border-surface-200 group relative overflow-hidden" style="transition-delay:0.2s;"><div class="absolute top-0 right-0 w-32 h-32 bg-accent-50 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div><div class="relative z-10"><div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform"><i data-lucide="stethoscope" class="w-7 h-7 text-white"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Salud Preventiva</h3><p class="text-gray-500 text-sm leading-relaxed mb-6">Jornadas de salud mental, talleres de nutrición y talleres de actividad física en comunidades.</p><div class="flex items-center gap-2 text-accent-600 font-semibold text-sm group-hover:gap-3 transition-all"><span>Saber más</span><i data-lucide="arrow-right" class="w-4 h-4"></i></div></div></div>
-                <div class="section-hidden card-hover bg-white rounded-3xl p-8 shadow-sm border border-surface-200 group relative overflow-hidden" style="transition-delay:0.3s;"><div class="absolute top-0 right-0 w-32 h-32 bg-coral-400/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div><div class="relative z-10"><div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-coral-500 to-coral-600 flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform"><i data-lucide="rocket" class="w-7 h-7 text-white"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Emprendimiento Social</h3><p class="text-gray-500 text-sm leading-relaxed mb-6">Acompañamiento en creación de microempresas comunitarias con enfoque de economía circular.</p><div class="flex items-center gap-2 text-coral-500 font-semibold text-sm group-hover:gap-3 transition-all"><span>Saber más</span><i data-lucide="arrow-right" class="w-4 h-4"></i></div></div></div>
-                <div class="section-hidden card-hover bg-white rounded-3xl p-8 shadow-sm border border-surface-200 group relative overflow-hidden" style="transition-delay:0.4s;"><div class="absolute top-0 right-0 w-32 h-32 bg-violet-50 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div><div class="relative z-10"><div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 transition-transform"><i data-lucide="home" class="w-7 h-7 text-white"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Vivienda Digna</h3><p class="text-gray-500 text-sm leading-relaxed mb-6">Programa de mejoramiento habitacional y mediación con instituciones para acceso a subsidios.</p><div class="flex items-center gap-2 text-violet-600 font-semibold text-sm group-hover:gap-3 transition-all"><span>Saber más</span><i data-lucide="arrow-right" class="w-4 h-4"></i></div></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ╔══════════════════════════════════════════════════════════════╗ -->
-    <!-- ║                    SECCIÓN NOTICIAS                         ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════════╝ -->
-    <section id="noticias" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-20 left-0 w-80 h-80 bg-accent-50 rounded-full -translate-x-1/2 blur-3xl opacity-40"></div>
-        <div class="absolute bottom-20 right-0 w-96 h-96 bg-primary-50 rounded-full translate-x-1/2 blur-3xl opacity-40"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Header -->
-            <div class="text-center max-w-3xl mx-auto mb-12 section-hidden">
-                <div class="inline-flex items-center gap-2 bg-accent-50 rounded-full px-4 py-2 mb-6">
-                    <i data-lucide="newspaper" class="w-4 h-4 text-accent-600"></i>
-                    <span class="text-accent-700 text-xs font-semibold tracking-wider uppercase">Noticias</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                    Últimas <span class="gradient-text">novedades</span>
-                </h2>
-                <p class="text-gray-500 text-lg">Mantente informado sobre nuestras actividades, logros y eventos en las comunidades.</p>
-            </div>
-
-            <!-- Filter buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 section-hidden" style="transition-delay:0.1s;">
-                <button class="news-filter-btn active px-5 py-2.5 rounded-full text-sm font-medium border border-surface-200" data-filter="todas">Todas</button>
-                <button class="news-filter-btn px-5 py-2.5 rounded-full text-sm font-medium border border-surface-200 text-gray-600" data-filter="eventos">Eventos</button>
-                <button class="news-filter-btn px-5 py-2.5 rounded-full text-sm font-medium border border-surface-200 text-gray-600" data-filter="programas">Programas</button>
-                <button class="news-filter-btn px-5 py-2.5 rounded-full text-sm font-medium border border-surface-200 text-gray-600" data-filter="alianzas">Alianzas</button>
-                <button class="news-filter-btn px-5 py-2.5 rounded-full text-sm font-medium border border-surface-200 text-gray-600" data-filter="resultados">Resultados</button>
-            </div>
-
-            <!-- NEWS GRID -->
-            <div id="newsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- NOTICIA DESTACADA (grande, span 2 cols) -->
-                <div class="news-card section-hidden md:col-span-2 lg:col-span-2 group cursor-pointer" data-category="eventos" onclick="openNewsModal(0)" style="transition-delay:0.1s;">
-                    <div class="relative rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full">
-                        <div class="overflow-hidden h-72 md:h-96">
-                            <img src="https://picsum.photos/seed/noticia-gala/1000/600.jpg" alt="Gala Solidaria 2024" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-500"></div>
-                        </div>
-                        <!-- Badge destacada -->
-                        <div class="absolute top-5 left-5 flex gap-2">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent-500 text-white shadow-lg">Destacada</span>
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white backdrop-blur-sm">Evento</span>
-                        </div>
-                        <!-- Content -->
-                        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-white/60 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>15 Diciembre 2024</span>
-                                <span class="text-white/30">•</span>
-                                <span class="text-white/60 text-xs font-medium flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i>5 min lectura</span>
-                                <span class="text-white/30">•</span>
-                                <span class="text-white/60 text-xs font-medium flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i>Hotel Hyatt, Santiago</span>
-                            </div>
-                            <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight group-hover:text-accent-300 transition-colors">Gala Solidaria 2024: Recaudamos $85 millones para nuevos programas comunitarios</h3>
-                            <p class="text-white/60 text-sm md:text-base leading-relaxed line-clamp-2">Más de 400 asistentes participaron en la cena benéfica más grande de nuestra historia, donde se presentaron los resultados del año y los planes para 2025.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA LATERAL 1 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="programas" onclick="openNewsModal(1)" style="transition-delay:0.2s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-talleres/600/400.jpg" alt="Talleres de verano" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-600 text-white">Programas</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>10 Dic 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">3 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Lanzamos talleres de verano gratuitos para 500 niños en La Granja</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">El programa incluye actividades de arte, ciencia, deportes y tecnología, con el objetivo de prevenir la deserción escolar durante el periodo estival.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-carolina/60/60.jpg" alt="Carolina Pérez" class="w-8 h-8 rounded-full object-cover">
-                                <div>
-                                    <p class="text-xs font-semibold text-gray-800">Carolina Pérez</p>
-                                    <p class="text-[10px] text-gray-400">Coordinadora de Educación</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 3 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="alianzas" onclick="openNewsModal(2)" style="transition-delay:0.1s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-alianza/600/400.jpg" alt="Alianza estratégica" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-600 text-white">Alianzas</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>5 Dic 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">4 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Nueva alianza con Fundación BCI permitirá beneficiar a 1.200 familias</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">El convenio trienal contempla inversión de $200 millones en programas de inclusión financiera y emprendimiento para comunidades de la RM.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-matias/60/60.jpg" alt="Matías Rivas" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Matías Rivas</p><p class="text-[10px] text-gray-400">Director Ejecutivo</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 4 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="resultados" onclick="openNewsModal(3)" style="transition-delay:0.2s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-resultados/600/400.jpg" alt="Resultados anual" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white">Resultados</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>28 Nov 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">6 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Balance 2024: Crecimos un 35% y alcanzamos a 8.500 personas</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">Nuestro informe anual muestra resultados récord en todas las métricas: más beneficiarios, más voluntarios y mayor impacto en las comunidades.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-matias/60/60.jpg" alt="Matías Rivas" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Matías Rivas</p><p class="text-[10px] text-gray-400">Director Ejecutivo</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 5 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="eventos" onclick="openNewsModal(4)" style="transition-delay:0.3s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-voluntariado/600/400.jpg" alt="Jornada voluntariado" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent-500 text-white">Evento</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>20 Nov 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">3 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Jornada de voluntariado corporativo con equipo de Google Chile</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">45 colaboradores de Google participaron en mejoramiento de espacios comunitarios y talleres de programación para jóvenes en San Ramón.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-paula/60/60.jpg" alt="Paula Soto" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Paula Soto</p><p class="text-[10px] text-gray-400">Coordinadora de Voluntariado</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 6 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="programas" onclick="openNewsModal(5)" style="transition-delay:0.1s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-emprendimiento/600/400.jpg" alt="Emprendimiento" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-600 text-white">Programas</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>12 Nov 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">5 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">15 microempresas comunitarias graduaron del programa "Impulso Social"</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">Tras 6 meses de formación intensiva, los emprendedores presentaron sus negocios en una feria que reunió a más de 300 personas en la comuna de Puente Alto.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-diego/60/60.jpg" alt="Diego Morales" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Diego Morales</p><p class="text-[10px] text-gray-400">Área de Emprendimiento</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 7 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="alianzas" onclick="openNewsModal(6)" style="transition-delay:0.2s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-universidad/600/400.jpg" alt="Convenio universidad" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-600 text-white">Alianzas</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>3 Nov 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">4 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Convenio con Universidad de Chile para práctica profesional en comunidades</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">Estudiantes de Trabajo Social y Psicología realizarán sus prácticas en nuestros programas, fortaleciendo la intervención comunitaria.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-matias/60/60.jpg" alt="Matías Rivas" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Matías Rivas</p><p class="text-[10px] text-gray-400">Director Ejecutivo</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NOTICIA 8 -->
-                <div class="news-card section-hidden group cursor-pointer" data-category="resultados" onclick="openNewsModal(7)" style="transition-delay:0.3s;">
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-surface-200 h-full flex flex-col card-hover">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="https://picsum.photos/seed/noticia-salud/600/400.jpg" alt="Salud mental" class="news-img w-full h-full object-cover transition-transform duration-700">
-                            <div class="news-overlay absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500"></div>
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white">Resultados</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-gray-400 text-xs font-medium flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>25 Oct 2024</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 text-xs font-medium">4 min</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary-600 transition-colors">Programa de salud mental alcanza al 92% de satisfacción entre beneficiarios</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed flex-1 line-clamp-3">Una encuesta independiente reveló que las jornadas de salud mental comunitaria mejoraron significativamente el bienestar de participantes.</p>
-                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-surface-100">
-                                <img src="https://picsum.photos/seed/autor-javiera/60/60.jpg" alt="Javiera López" class="w-8 h-8 rounded-full object-cover">
-                                <div><p class="text-xs font-semibold text-gray-800">Javiera López</p><p class="text-[10px] text-gray-400">Psicóloga Jefa</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Ver más button -->
-            <div class="text-center mt-12 section-hidden" style="transition-delay:0.4s;">
-                <button id="loadMoreBtn" class="px-8 py-4 rounded-full border-2 border-primary-600 text-primary-600 font-semibold hover:bg-primary-600 hover:text-white transition-all inline-flex items-center gap-2 group">
-                    <span>Cargar más noticias</span>
-                    <i data-lucide="chevron-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
-                </button>
-                <p class="text-gray-400 text-xs mt-3">Mostrando 8 de 24 noticias</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== NEWS MODAL ===== -->
-    <div id="newsModal" class="fixed inset-0 z-[60] hidden">
-        <div class="news-modal-overlay absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeNewsModal()"></div>
-        <div class="news-modal-content absolute inset-4 md:inset-8 lg:inset-y-8 lg:inset-x-[10%] bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-6 border-b border-surface-100 flex-shrink-0">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center"><span class="text-white font-bold text-sm">E</span></div>
-                    <span class="text-sm font-semibold text-gray-800">ONG Enlace — Noticias</span>
-                </div>
-                <button onclick="closeNewsModal()" class="w-10 h-10 rounded-xl hover:bg-surface-100 flex items-center justify-center transition-colors">
-                    <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
-                </button>
-            </div>
-            <!-- Modal body (scrollable) -->
-            <div class="flex-1 overflow-y-auto" id="newsModalBody">
-                <!-- Content injected by JS -->
-            </div>
-        </div>
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="inicio">
+    <div class="hero-slider">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1512403754473-27835f7b9984?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554224155-16974542e561?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="hero-overlay"></div>
     </div>
+    <div class="hero-content">
 
-    <!-- ===== IMPACTO / STATS ===== -->
-    <section id="impacto" class="py-24 gradient-section relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 50px 50px;"></div>
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/20"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 section-hidden">
-                <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-6"><i data-lucide="bar-chart-3" class="w-4 h-4 text-accent-400"></i><span class="text-white/80 text-xs font-semibold tracking-wider uppercase">Nuestro Impacto</span></div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">Números que cuentan <span class="text-accent-400">historias</span></h2>
-                <p class="text-white/60 text-lg">Cada cifra representa una vida transformada, una familia que encontró apoyo, una comunidad que se fortaleció.</p>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 section-hidden" style="transition-delay:0.2s;">
-                <div class="glass rounded-3xl p-8 text-center card-hover group"><div class="w-14 h-14 rounded-2xl bg-primary-400/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="users" class="w-7 h-7 text-primary-300"></i></div><p class="text-4xl md:text-5xl font-extrabold text-white counter" data-target="8500">0</p><p class="text-white/50 text-sm mt-2">Personas beneficiadas directamente</p></div>
-                <div class="glass rounded-3xl p-8 text-center card-hover group"><div class="w-14 h-14 rounded-2xl bg-accent-400/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="graduation-cap" class="w-7 h-7 text-accent-300"></i></div><p class="text-4xl md:text-5xl font-extrabold text-white counter" data-target="340">0</p><p class="text-white/50 text-sm mt-2">Jóvenes capacitados laboralmente</p></div>
-                <div class="glass rounded-3xl p-8 text-center card-hover group"><div class="w-14 h-14 rounded-2xl bg-coral-400/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="briefcase" class="w-7 h-7 text-coral-400"></i></div><p class="text-4xl md:text-5xl font-extrabold text-white counter" data-target="85">0</p><p class="text-white/50 text-sm mt-2">Microempresas creadas</p></div>
-                <div class="glass rounded-3xl p-8 text-center card-hover group"><div class="w-14 h-14 rounded-2xl bg-violet-400/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><i data-lucide="hand-heart" class="w-7 h-7 text-violet-300"></i></div><p class="text-4xl md:text-5xl font-extrabold text-white counter" data-target="450">0</p><p class="text-white/50 text-sm mt-2">Voluntarios activos</p></div>
-            </div>
+      <h1 class="hero-title">
+        Tu <span class="hero-highlight">Zona Tributaria</span><br/>de Confianza
+      </h1>
+      <p class="hero-subtitle">
+        Asesoría especializada y todo lo que necesitas sobre impuestos en Chile, con información y herramientas de primer nivel.
+      </p>
+      <div class="hero-actions">
+        <a href="#noticias" class="btn btn-primary">
+          <i class="fas fa-newspaper"></i> Ver Noticias
+        </a>
+        <a href="#contacto" class="btn btn-outline">
+          <i class="fas fa-phone-alt"></i> Contáctanos
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">+500</span>
+          <span class="stat-label">Clientes</span>
         </div>
-    </section>
-
-    <!-- ===== TESTIMONIOS ===== -->
-    <section id="testimonios" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-accent-50 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 section-hidden">
-                <div class="inline-flex items-center gap-2 bg-accent-50 rounded-full px-4 py-2 mb-6"><i data-lucide="message-circle" class="w-4 h-4 text-accent-600"></i><span class="text-accent-700 text-xs font-semibold tracking-wider uppercase">Testimonios</span></div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Voces que <span class="gradient-text">inspiran</span></h2>
-                <p class="text-gray-500 text-lg">Historias reales de personas que han transformado sus vidas con nuestro apoyo.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="section-hidden card-hover bg-surface-50 rounded-3xl p-8 relative" style="transition-delay:0.1s;"><div class="absolute top-6 right-6 text-primary-200 text-6xl font-serif leading-none">"</div><div class="relative z-10"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i></div><p class="text-gray-600 leading-relaxed mb-6 italic">"Gracias al programa de emprendimiento pude abrir mi propia tienda en la feria local. Ahora puedo darle un futuro mejor a mis hijos."</p><div class="flex items-center gap-4"><img src="https://picsum.photos/seed/testimonio1/80/80.jpg" alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-primary-200"><div><p class="font-semibold text-gray-900 text-sm">María González</p><p class="text-gray-400 text-xs">Emprendedora - La Granja</p></div></div></div></div>
-                <div class="section-hidden card-hover bg-surface-50 rounded-3xl p-8 relative" style="transition-delay:0.2s;"><div class="absolute top-6 right-6 text-accent-200 text-6xl font-serif leading-none">"</div><div class="relative z-10"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i></div><p class="text-gray-600 leading-relaxed mb-6 italic">"Los talleres de reforzamiento escolar me ayudaron a entrar a la universidad. Nunca imaginé que sería posible. ¡Gracias Enlace!"</p><div class="flex items-center gap-4"><img src="https://picsum.photos/seed/testimonio2/80/80.jpg" alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-accent-200"><div><p class="font-semibold text-gray-900 text-sm">Carlos Muñoz</p><p class="text-gray-400 text-xs">Estudiante universitario - San Bernardo</p></div></div></div></div>
-                <div class="section-hidden card-hover bg-surface-50 rounded-3xl p-8 relative" style="transition-delay:0.3s;"><div class="absolute top-6 right-6 text-coral-400/30 text-6xl font-serif leading-none">"</div><div class="relative z-10"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i></div><p class="text-gray-600 leading-relaxed mb-6 italic">"Como voluntaria durante 3 años, he visto el impacto real. Las jornadas de salud mental cambian vidas. Es un privilegio ser parte."</p><div class="flex items-center gap-4"><img src="https://picsum.photos/seed/testimonio3/80/80.jpg" alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-coral-200"><div><p class="font-semibold text-gray-900 text-sm">Valentina Rojas</p><p class="text-gray-400 text-xs">Voluntaria - Ñuñoa</p></div></div></div></div>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Años Exp.</span>
         </div>
-    </section>
-
-    <!-- ===== CTA BANNER ===== -->
-    <section class="py-20 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="section-hidden relative rounded-[2rem] overflow-hidden">
-                <img src="https://picsum.photos/seed/enlace-cta/1400/500.jpg" alt="" class="w-full h-[400px] object-cover">
-                <div class="absolute inset-0 bg-gradient-to-r from-primary-950/90 via-primary-900/80 to-primary-800/70"></div>
-                <div class="absolute inset-0 flex items-center"><div class="px-8 md:px-16 max-w-2xl"><h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">Sé parte del <span class="text-accent-400">cambio</span></h2><p class="text-white/70 text-lg mb-8">Tu aporte, tiempo o experiencia puede marcar la diferencia en la vida de miles de personas. Únete a nuestra comunidad.</p><div class="flex flex-wrap gap-4"><a href="#contacto" class="px-8 py-4 rounded-full gradient-accent text-white font-semibold shadow-lg hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-2"><i data-lucide="heart" class="w-5 h-5"></i>Quiero ayudar</a><a href="#" class="px-8 py-4 rounded-full glass text-white font-semibold hover:bg-white/20 transition-all flex items-center gap-2"><i data-lucide="download" class="w-5 h-5"></i>Descargar brochure</a></div></div></div>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Satisfacción</span>
         </div>
-    </section>
-
-    <!-- ===== CONTACTO ===== -->
-    <section id="contacto" class="py-24 bg-surface-50 relative overflow-hidden">
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-50 rounded-full translate-y-1/2 translate-x-1/2 blur-3xl opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16">
-                <div class="section-hidden">
-                    <div class="inline-flex items-center gap-2 bg-primary-100 rounded-full px-4 py-2 mb-6"><i data-lucide="mail" class="w-4 h-4 text-primary-600"></i><span class="text-primary-700 text-xs font-semibold tracking-wider uppercase">Contacto</span></div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Hablemos de cómo <span class="gradient-text">colaborar</span></h2>
-                    <p class="text-gray-500 text-lg mb-10">Estamos disponibles para responder tus dudas, recibir voluntarios o establecer alianzas.</p>
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-primary-100 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5 text-primary-600"></i></div><div><p class="font-semibold text-gray-900 text-sm">Dirección</p><p class="text-gray-500 text-sm">Av. Providencia 2345, Oficina 502, Santiago</p></div></div>
-                        <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-accent-100 flex items-center justify-center flex-shrink-0"><i data-lucide="phone" class="w-5 h-5 text-accent-600"></i></div><div><p class="font-semibold text-gray-900 text-sm">Teléfono</p><p class="text-gray-500 text-sm">+56 2 2345 6789</p></div></div>
-                        <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-coral-400/10 flex items-center justify-center flex-shrink-0"><i data-lucide="mail" class="w-5 h-5 text-coral-500"></i></div><div><p class="font-semibold text-gray-900 text-sm">Email</p><p class="text-gray-500 text-sm">contacto@ongenlace.cl</p></div></div>
-                        <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-violet-100 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5 text-violet-600"></i></div><div><p class="font-semibold text-gray-900 text-sm">Horario</p><p class="text-gray-500 text-sm">Lunes a Viernes, 9:00 - 18:00</p></div></div>
-                    </div>
-                </div>
-                <div class="section-hidden" style="transition-delay:0.2s;">
-                    <form id="contactForm" class="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-surface-200">
-                        <div class="grid sm:grid-cols-2 gap-5 mb-5"><div><label class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label><input type="text" required class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm" placeholder="Tu nombre"></div><div><label class="block text-sm font-medium text-gray-700 mb-2">Apellido *</label><input type="text" required class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm" placeholder="Tu apellido"></div></div>
-                        <div class="mb-5"><label class="block text-sm font-medium text-gray-700 mb-2">Email *</label><input type="email" required class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm" placeholder="tu@email.com"></div>
-                        <div class="mb-5"><label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label><input type="tel" class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm" placeholder="+56 9 XXXX XXXX"></div>
-                        <div class="mb-5"><label class="block text-sm font-medium text-gray-700 mb-2">¿Cómo quieres colaborar?</label><select class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm text-gray-500"><option>Selecciona una opción</option><option>Voluntariado</option><option>Donación</option><option>Alianza institucional</option><option>Otro</option></select></div>
-                        <div class="mb-6"><label class="block text-sm font-medium text-gray-700 mb-2">Mensaje *</label><textarea required rows="4" class="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-sm resize-none" placeholder="Cuéntanos cómo quieres ayudar..."></textarea></div>
-                        <button type="submit" class="w-full py-4 rounded-xl gradient-accent text-white font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-2"><i data-lucide="send" class="w-5 h-5"></i>Enviar mensaje</button>
-                        <div id="formSuccess" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm text-center font-medium"><i data-lucide="check-circle" class="w-5 h-5 inline mr-2"></i>¡Mensaje enviado! Te contactaremos pronto.</div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-primary-950 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 40px 40px;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                <div class="lg:col-span-1"><div class="flex items-center gap-3 mb-6"><div class="w-10 h-10 rounded-xl gradient-accent flex items-center justify-center shadow-lg"><span class="text-white font-bold text-lg">E</span></div><span class="text-xl font-bold">ONG Enlace</span></div><p class="text-white/50 text-sm leading-relaxed mb-6">Conectando comunidades, transformando vidas. Trabajamos por un Chile más justo e inclusivo.</p><div class="flex gap-3"><a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-primary-700 flex items-center justify-center transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-primary-700 flex items-center justify-center transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a><a href="#" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-primary-700 flex items-center justify-center transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></div></div>
-                <div><h4 class="font-semibold text-sm mb-6 tracking-wider uppercase text-white/70">Navegación</h4><ul class="space-y-3"><li><a href="#inicio" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Inicio</a></li><li><a href="#nosotros" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Nosotros</a></li><li><a href="#programas" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Programas</a></li><li><a href="#noticias" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Noticias</a></li><li><a href="#contacto" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Contacto</a></li></ul></div>
-                <div><h4 class="font-semibold text-sm mb-6 tracking-wider uppercase text-white/70">Programas</h4><ul class="space-y-3"><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Educación Comunitaria</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Salud Preventiva</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Emprendimiento Social</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Vivienda Digna</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Voluntariado</a></li></ul></div>
-                <div><h4 class="font-semibold text-sm mb-6 tracking-wider uppercase text-white/70">Legal</h4><ul class="space-y-3"><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Política de Privacidad</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Términos de Uso</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Transparencia</a></li><li><a href="#" class="text-white/50 hover:text-accent-400 text-sm transition-colors">Rendición de Cuentas</a></li></ul><div class="mt-6 p-4 rounded-2xl bg-white/5 border border-white/10"><p class="text-xs text-white/40 mb-1">Donaciones</p><p class="text-sm font-mono text-accent-400">CL56-0000-0000-00000000</p></div></div>
-            </div>
-            <div class="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-white/30 text-xs">&copy; 2024 ONG Enlace. Todos los derechos reservados.</p><p class="text-white/30 text-xs">Hecho con <span class="text-coral-500">♥</span> en Chile</p></div>
-        </div>
-    </footer>
-
-    <!-- ===== FLOATING SOCIAL PILL (LEFT SIDE) ===== -->
-    <div id="socialPill" class="fixed left-0 top-1/2 -translate-y-1/2 z-40 transition-all duration-500 -translate-x-full opacity-0" style="transition-delay: 1.5s;">
-        <div class="bg-white rounded-r-2xl shadow-2xl border border-surface-200 overflow-hidden">
-            <button id="socialToggle" class="w-12 h-12 flex items-center justify-center bg-primary-600 hover:bg-primary-700 transition-colors rounded-r-2xl mx-auto"><i data-lucide="share-2" class="w-5 h-5 text-white social-toggle-icon"></i></button>
-            <div id="socialIcons" class="flex flex-col overflow-hidden transition-all duration-500 max-h-0">
-                <a href="#" target="_blank" class="social-pill-item w-12 h-12 flex items-center justify-center hover:bg-blue-600 hover:text-white text-blue-600 transition-all" title="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-                <a href="#" target="_blank" class="social-pill-item w-12 h-12 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-pink-500 hover:to-purple-500 hover:text-white text-pink-600 transition-all" title="Instagram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-                <a href="#" target="_blank" class="social-pill-item w-12 h-12 flex items-center justify-center hover:bg-red-600 hover:text-white text-red-600 transition-all" title="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-                <a href="#" target="_blank" class="social-pill-item w-12 h-12 flex items-center justify-center hover:bg-cyan-500 hover:text-white text-cyan-600 transition-all rounded-br-2xl" title="TikTok"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Desplaza</span>
+    </div>
+  </section>
 
-    <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
-    <a href="https://wa.me/56912345678?text=Hola%2C%20me%20gustaría%20saber%20más%20sobre%20ONG%20Enlace" target="_blank" id="whatsappBtn" class="whatsapp-btn fixed bottom-6 right-6 z-40 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 translate-y-20 opacity-0" style="transition-delay: 2s;">
-        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <div class="absolute right-full mr-4 bg-white text-gray-800 text-sm font-medium px-4 py-2 rounded-xl shadow-lg whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-300" id="whatsappTooltip">¡Escríbenos por WhatsApp!<div class="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 bg-white rotate-45"></div></div>
-        <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
-    </a>
+  <!-- ===== TICKER DE NOTICIAS ===== -->
+  <div class="news-ticker">
+    <div class="ticker-label">
+      <i class="fas fa-bolt"></i> EN VIVO
+    </div>
+    <div class="ticker-wrapper">
+      <div class="ticker-content" id="ticker-content">
+        <span>Cargando noticias tributarias...</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- ===== BACK TO TOP ===== -->
-    <button id="backToTop" class="fixed bottom-6 right-24 z-40 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 translate-y-20 opacity-0"><i data-lucide="chevron-up" class="w-5 h-5"></i></button>
+  <!-- ===== SECCIÓN NOTICIAS RSS ===== -->
+  <section class="section news-section" id="noticias">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-rss"></i> Feed en tiempo real</div>
+        <h2 class="section-title">Noticias Tributarias</h2>
+        <p class="section-subtitle">Las últimas novedades sobre impuestos, SII y economía en Chile, directo desde las principales fuentes.</p>
+      </div>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script>
-        lucide.createIcons();
+      <!-- Filtros de categoría -->
+      <div class="news-filters" id="news-filters">
+        <button class="filter-btn active" data-filter="all">
+          <i class="fas fa-globe"></i> Todas
+        </button>
+        <button class="filter-btn" data-filter="df">
+          <i class="fas fa-chart-line"></i> Diario Financiero
+        </button>
+        <button class="filter-btn" data-filter="sii">
+          <i class="fas fa-file-invoice-dollar"></i> SII
+        </button>
+        <button class="filter-btn" data-filter="economia">
+          <i class="fas fa-coins"></i> Economía
+        </button>
+      </div>
 
-        // ===== NOTICIAS DATA =====
-        const noticiasData = [
-            {
-                title: "Gala Solidaria 2024: Recaudamos $85 millones para nuevos programas comunitarios",
-                category: "Eventos",
-                date: "15 Diciembre 2024",
-                readTime: "5 min lectura",
-                location: "Hotel Hyatt, Santiago",
-                image: "https://picsum.photos/seed/noticia-gala/1200/600.jpg",
-                author: { name: "Matías Rivas", role: "Director Ejecutivo", img: "https://picsum.photos/seed/autor-matias/60/60.jpg" },
-                excerpt: "Más de 400 asistentes participaron en la cena benéfica más grande de nuestra historia, donde se presentaron los resultados del año y los planes para 2025. La noche incluyó presentaciones artísticas de comunidades beneficiadas y la subasta de obras donadas por artistas nacionales.",
-                body: `<p>La noche del 15 de diciembre, el salón_principal del Hotel Hyatt Santiago se transformó en el escenario de la Gala Solidaria 2024, el evento de recaudación más importante del año para ONG Enlace.</p>
-                <h3>Un evento récord</h3>
-                <p>Con más de 400 asistentes entre empresarios, autoridades, voluntarios y colaboradores, la soirée superó todas las expectativas. La recaudación total alcanzó los $85.000.000, un 40% más que la edición anterior.</p>
-                <p>"Este resultado nos llena de gratitud y responsabilidad. Cada peso recaudado se traducirá directamente en beneficios para las comunidades que acompañamos", señaló Matías Rivas, Director Ejecutivo de la organización.</p>
-                <h3>Momentos destacados</h3>
-                <p>La cena incluyó la presentación del coro comunitario de San Ramón, compuesto por 30 niños y niñas del programa de educación. Además, se realizó una subasta silenciosa con obras donadas por artistas como Francisca Benítez y Rodrigo Bruna, que por sí sola recaudó $25 millones.</p>
-                <p>Entre los asistentes se contaron representantes del Ministerio de Desarrollo Social, la Fundación BCI, Google Chile y diversas embajadas acreditadas en Chile.</p>
-                <h3>Mirando hacia 2025</h3>
-                <p>Los fondos serán destinados a la apertura de dos nuevos centros comunitarios en Puente Alto y La Pintana, además de la expansión del programa de salud mental a 10 comunas adicionales de la Región Metropolitana.</p>`
-            },
-            {
-                title: "Lanzamos talleres de verano gratuitos para 500 niños en La Granja",
-                category: "Programas",
-                date: "10 Diciembre 2024",
-                readTime: "3 min lectura",
-                image: "https://picsum.photos/seed/noticia-talleres/1200/600.jpg",
-                author: { name: "Carolina Pérez", role: "Coordinadora de Educación", img: "https://picsum.photos/seed/autor-carolina/60/60.jpg" },
-                excerpt: "El programa incluye actividades de arte, ciencia, deportes y tecnología, con el objetivo de prevenir la deserción escolar durante el periodo estival.",
-                body: `<p>Desde el 5 de enero y durante todo el verano, 500 niños y niñas de La Granja participarán en talleres gratuitos organizados por ONG Enlace en alianza con la Municipalidad.</p>
-                <h3>¿Qué incluyen los talleres?</h3>
-                <p>Las actividades se dividen en cuatro módulos: arte y creatividad, ciencias experimentales, deportes adaptados e introducción a la programación. Cada módulo cuenta con profesionales especializados y material didáctico completo.</p>
-                <h3>Un objetivo claro</h3>
-                <p>"Sabemos que el periodo estival es crítico para los niños de comunidades vulnerables. Estos talleres no solo los mantienen activos, sino que refuerzan habilidades que suelen perder durante las vacaciones", explica Carolina Pérez.</p>
-                <p>Las inscripciones están abiertas en la sede de La Granja (Av. Santa Rosa 8345) y a través del formulario disponible en nuestra web.</p>`
-            },
-            {
-                title: "Nueva alianza con Fundación BCI permitirá beneficiar a 1.200 familias",
-                category: "Alianzas",
-                date: "5 Diciembre 2024",
-                readTime: "4 min lectura",
-                image: "https://picsum.photos/seed/noticia-alianza/1200/600.jpg",
-                author: { name: "Matías Rivas", role: "Director Ejecutivo", img: "https://picsum.photos/seed/autor-matias/60/60.jpg" },
-                excerpt: "El convenio trienal contempla inversión de $200 millones en programas de inclusión financiera y emprendimiento para comunidades de la RM.",
-                body: `<p>Fundación BCI y ONG Enlace firmaron un convenio de cooperación trienal por $200 millones, destinado a fortalecer programas de inclusión financiera y emprendimiento social.</p>
-                <h3>Alcance del convenio</h3>
-                <p>El programa contempla tres líneas de acción: talleres de educación financiera para familias, acompañamiento a microempresarios y creación de un fondo de microcrédito comunitario con tasas preferenciales.</p>
-                <p>"Esta alianza nos permite dar un salto cualitativo en nuestra intervención. No solo enseñamos a emprender, sino que vinculamos a las familias con el sistema financiero formal", destacó Matías Rivas durante la ceremonia de firma.</p>`
-            },
-            {
-                title: "Balance 2024: Crecimos un 35% y alcanzamos a 8.500 personas",
-                category: "Resultados",
-                date: "28 Noviembre 2024",
-                readTime: "6 min lectura",
-                image: "https://picsum.photos/seed/noticia-resultados/1200/600.jpg",
-                author: { name: "Matías Rivas", role: "Director Ejecutivo", img: "https://picsum.photos/seed/autor-matias/60/60.jpg" },
-                excerpt: "Nuestro informe anual muestra resultados récord en todas las métricas: más beneficiarios, más voluntarios y mayor impacto en las comunidades.",
-                body: `<p>ONG Enlace presentó su Informe Anual 2024, con resultados que marcan un hito en la historia de la organización: 8.500 personas beneficiadas, 340 jóvenes capacitados laboralmente y 85 microempresas creadas.</p>
-                <h3>Cifras destacadas</h3>
-                <ul><li><strong>8.500</strong> personas beneficiadas (35% más que 2023)</li><li><strong>340</strong> jóvenes completaron capacitación laboral</li><li><strong>85</strong> microempresas comunitarias en funcionamiento</li><li><strong>450</strong> voluntarios activos durante el año</li><li><strong>48</strong> comunidades intervenidas</li><li><strong>$420 millones</strong> gestionados con transparencia total</li></ul>
-                <p>El informe completo está disponible para descarga en nuestra sección de transparencia.</p>`
-            },
-            {
-                title: "Jornada de voluntariado corporativo con equipo de Google Chile",
-                category: "Eventos",
-                date: "20 Noviembre 2024",
-                readTime: "3 min lectura",
-                image: "https://picsum.photos/seed/noticia-voluntariado/1200/600.jpg",
-                author: { name: "Paula Soto", role: "Coordinadora de Voluntariado", img: "https://picsum.photos/seed/autor-paula/60/60.jpg" },
-                excerpt: "45 colaboradores de Google participaron en mejoramiento de espacios comunitarios y talleres de programación para jóvenes en San Ramón.",
-                body: `<p>El 18 de noviembre, 45 colaboradores de Google Chile llegaron a la comuna de San Ramón para una jornada intensiva de voluntariado corporativo organizada junto a ONG Enlace.</p>
-                <h3>Actividades realizadas</h3>
-                <p>El equipo se dividió en tres grupos: uno encargado de pintar y mejorar el espacio comunitario, otro que dictó talleres de Scratch y programación básica para 60 niños, y un tercero que trabajó en la creación de un huerto comunitario.</p>
-                <p>"Es increíble ver cómo un día de trabajo puede transformar un espacio. Los niños quedaron fascinados con las actividades de programación y varios preguntaron cuándo volvemos", compartió la líder del equipo de Google Volunteers Chile.</p>`
-            },
-            {
-                title: "15 microempresas comunitarias graduaron del programa 'Impulso Social'",
-                category: "Programas",
-                date: "12 Noviembre 2024",
-                readTime: "5 min lectura",
-                image: "https://picsum.photos/seed/noticia-emprendimiento/1200/600.jpg",
-                author: { name: "Diego Morales", role: "Área de Emprendimiento", img: "https://picsum.photos/seed/autor-diego/60/60.jpg" },
-                excerpt: "Tras 6 meses de formación intensiva, los emprendedores presentaron sus negocios en una feria que reunió a más de 300 personas en Puente Alto.",
-                body: `<p>En una emotiva ceremonia realizada en el Centro Comunitario de Puente Alto, 15 microempresarios recibieron su certificación del programa "Impulso Social" de ONG Enlace.</p>
-                <h3>Los negocios</h3>
-                <p>Los proyectos graduados incluyen una cooperativa de textiles reciclados, un servicio de catering saludable, un taller demuebles restaurados, una productora de compost comunitario y varios negocios de comercio justo, entre otros.</p>
-                <p>Cada emprendimiento recibió un kit de inicio valorado en $500.000 y acompañamiento continuo durante 6 meses adicionales.</p>`
-            },
-            {
-                title: "Convenio con Universidad de Chile para práctica profesional en comunidades",
-                category: "Alianzas",
-                date: "3 Noviembre 2024",
-                readTime: "4 min lectura",
-                image: "https://picsum.photos/seed/noticia-universidad/1200/600.jpg",
-                author: { name: "Matías Rivas", role: "Director Ejecutivo", img: "https://picsum.photos/seed/autor-matias/60/60.jpg" },
-                excerpt: "Estudiantes de Trabajo Social y Psicología realizarán sus prácticas en nuestros programas, fortaleciendo la intervención comunitaria.",
-                body: `<p>ONG Enlace y la Facultad de Ciencias Sociales de la Universidad de Chile firmaron un convenio marco que permitirá a estudiantes de pregrado realizar sus prácticas profesionales en los programas comunitarios de la organización.</p>
-                <h3>Beneficios mutuos</h3>
-                <p>El convenio contempla la incorporación de 20 estudiantes por semestre, quienes serán supervisados tanto por académicos de la universidad como por profesionales de Enlace. Esto fortalece nuestra capacidad de intervención y ofrece a los estudiantes una experiencia formativa en terreno real.</p>`
-            },
-            {
-                title: "Programa de salud mental alcanza al 92% de satisfacción entre beneficiarios",
-                category: "Resultados",
-                date: "25 Octubre 2024",
-                readTime: "4 min lectura",
-                image: "https://picsum.photos/seed/noticia-salud/1200/600.jpg",
-                author: { name: "Javiera López", role: "Psicóloga Jefa", img: "https://picsum.photos/seed/autor-javiera/60/60.jpg" },
-                excerpt: "Una encuesta independiente reveló que las jornadas de salud mental comunitaria mejoraron significativamente el bienestar de participantes.",
-                body: `<p>Los resultados de la evaluación externa realizada por el Departamento de Psicología de la UC confirmaron lo que veíamos en terreno: las jornadas de salud mental comunitaria de ONG Enlace tienen un impacto real y medible.</p>
-                <h3>Datos clave</h3>
-                <p>El 92% de los 680 participantes declaró sentirse "mejor" o "mucho mejor" tras participar en las jornadas. El 78% reportó mejora en sus relaciones familiares y el 65% indicó haber desarrollado nuevas herramientas de afrontamiento.</p>
-                <p>"Estos números nos validan, pero sobre todo nos motivan a seguir. La salud mental debe dejar de ser un lujo para convertirse en un derecho accesible para todos", afirmó Javiera López.</p>`
-            }
-        ];
+      <!-- Estado de carga / Error -->
+      <div class="news-status" id="news-status">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <p>Cargando noticias tributarias...</p>
+        </div>
+      </div>
 
-        // ===== NEWS FILTER =====
-        const filterBtns = document.querySelectorAll('.news-filter-btn');
-        const newsCards = document.querySelectorAll('.news-card');
+      <!-- Grid de noticias -->
+      <div class="news-grid" id="news-grid"></div>
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
+      <!-- Demo cards mientras carga -->
+      <div class="news-grid demo-grid" id="demo-grid"></div>
 
-                newsCards.forEach(card => {
-                    if (filter === 'todas' || card.dataset.category === filter) {
-                        card.style.display = '';
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.4s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 50);
-                    } else {
-                        card.style.transition = 'all 0.3s ease';
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => { card.style.display = 'none'; }, 300);
-                    }
-                });
-            });
-        });
+      <div class="news-actions">
+        <button class="btn btn-outline-gold" id="load-more-btn" style="display:none">
+          <i class="fas fa-sync-alt"></i> Cargar más noticias
+        </button>
+      </div>
+    </div>
+  </section>
 
-        // ===== NEWS MODAL =====
-        function openNewsModal(index) {
-            const news = noticiasData[index];
-            const modal = document.getElementById('newsModal');
-            const body = document.getElementById('newsModalBody');
-
-            const categoryColors = {
-                'Eventos': 'bg-accent-500',
-                'Programas': 'bg-primary-600',
-                'Alianzas': 'bg-violet-600',
-                'Resultados': 'bg-emerald-600'
-            };
-            const catColor = categoryColors[news.category] || 'bg-gray-600';
-
-            body.innerHTML = `
-                <div class="relative">
-                    <img src="${news.image}" alt="${news.title}" class="w-full h-64 md:h-96 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6">
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${catColor} text-white">${news.category}</span>
-                            ${news.location ? `<span class="px-3 py-1 rounded-full text-[10px] font-medium bg-white/20 text-white backdrop-blur-sm flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>${news.location}</span>` : ''}
-                        </div>
-                    </div>
+  <!-- ===== SECCIÓN QUIÉNES SOMOS ===== -->
+  <section class="section about-section" id="nosotros">
+    <div class="about-bg-decoration"></div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-image-main">
+            <img src="https://images.unsplash.com/photo-1600880292089-9d5d119335c0?q=80&w=800&auto=format&fit=crop" alt="Asesoría Profesional" class="img-main">
+            <div class="about-image-secondary">
+              <img src="https://images.unsplash.com/photo-1573496799652-c08c04666291?q=80&w=400&auto=format&fit=crop" alt="Confianza" class="img-sec">
+            </div>
+            <div class="about-badge-experience">
+              <span class="number">15+</span>
+              <span class="text">Años de Liderazgo</span>
+            </div>
+          </div>
+          <div class="about-card floating-card-1">
+            <i class="fas fa-award"></i>
+            <span>Excelencia Garantizada</span>
+          </div>
+          <div class="about-card floating-card-2">
+            <i class="fas fa-shield-alt"></i>
+            <span>Seguridad Tributaria</span>
+          </div>
+        </div>
+        <div class="about-content">
+          <div class="section-tag"><i class="fas fa-users"></i> Quiénes Somos</div>
+          <h2 class="section-title left">Tu Socio Estratégico<br/>en Materia Tributaria</h2>
+          <p class="about-lead">
+            Somos un equipo de profesionales altamente especializados en legislación tributaria chilena, con más de 15 años apoyando a personas, empresas y organizaciones en el cumplimiento y optimización de sus obligaciones fiscales.
+          </p>
+          <p class="about-text">
+            En <strong>Zona Tributaria Chile</strong> combinamos conocimiento legal profundo con tecnología de punta para brindar soluciones tributarias eficientes, transparentes y a la medida de cada cliente. Nuestra misión es simplificar el complejo mundo de los impuestos para que puedas enfocarte en lo que realmente importa: hacer crecer tu negocio.
+          </p>
+          <div class="about-values">
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+              <div class="value-info">
+                <h4>Confianza</h4>
+                <p>Confidencialidad absoluta y ética profesional</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+              <div class="value-info">
+                <h4>Innovación</h4>
+                <p>Soluciones modernas para desafíos tributarios</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-handshake"></i></div>
+              <div class="value-info">
+                <h4>Compromiso</h4>
+                <p>Tu tranquilidad tributaria es nuestra prioridad</p>
+              </div>
+            </div>
+          </div>
+          <div class="experts-section">
+            <h3 class="experts-title">Nuestros Socios Directores</h3>
+            <div class="experts-grid">
+              <!-- Experto 1 -->
+              <div class="expert-card">
+                <div class="expert-img-container">
+                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop" alt="Experto 1" class="expert-img">
                 </div>
-                <div class="px-6 md:px-12 py-8 md:py-12 max-w-4xl mx-auto">
-                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-6">${news.title}</h1>
-                    <div class="flex flex-wrap items-center gap-4 mb-8 pb-8 border-b border-surface-100">
-                        <img src="${news.author.img}" alt="${news.author.name}" class="w-10 h-10 rounded-full object-cover ring-2 ring-surface-100">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-900">${news.author.name}</p>
-                            <p class="text-xs text-gray-400">${news.author.role}</p>
-                        </div>
-                        <div class="flex items-center gap-4 ml-auto text-gray-400 text-xs">
-                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>${news.date}</span>
-                            <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i>${news.readTime}</span>
-                        </div>
-                    </div>
-                    <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed space-y-4 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_li]:text-gray-600 [&_strong]:text-gray-800">
-                        ${news.body}
-                    </div>
-                    <div class="mt-10 pt-8 border-t border-surface-100 flex flex-wrap items-center justify-between gap-4">
-                        <div class="flex items-center gap-3">
-                            <span class="text-sm text-gray-500 font-medium">Compartir:</span>
-                            <button class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
-                            <button class="w-9 h-9 rounded-lg bg-sky-500 text-white flex items-center justify-center hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></button>
-                            <button onclick="navigator.clipboard.writeText(window.location.href);this.innerHTML='<svg class=\\'w-4 h-4\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'2\\' viewBox=\\'0 0 24 24\\'><path d=\\'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101\\'/><path d=\\'M10.939 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1\\'/></svg><span class=\\'ml-1 text-xs\\'>¡Copiado!</span>';this.classList.add('bg-primary-600','text-white');this.classList.remove('bg-surface-100','text-gray-600')" class="w-9 h-9 rounded-lg bg-surface-100 text-gray-600 flex items-center justify-center hover:scale-110 transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101"/><path d="M10.939 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg></button>
-                        </div>
-                        <button onclick="closeNewsModal()" class="px-6 py-2.5 rounded-full border border-surface-200 text-sm font-medium text-gray-600 hover:bg-surface-50 transition-colors">Volver a noticias</button>
-                    </div>
+                <div class="expert-info">
+                  <h4 class="expert-name">Nombre del Director 1</h4>
+                  <p class="expert-title">Título Académico / Especialidad 1</p>
+                  <span class="expert-cargo">Socio Principal - Consultoría</span>
                 </div>
-            `;
+              </div>
+              <!-- Experto 2 -->
+              <div class="expert-card">
+                <div class="expert-img-container">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop" alt="Expert 2" class="expert-img">
+                </div>
+                <div class="expert-info">
+                  <h4 class="expert-name">Nombre de la Directora 2</h4>
+                  <p class="expert-title">Título Académico / Especialidad 2</p>
+                  <span class="expert-cargo">Socia Principal - Auditoría</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            lucide.createIcons();
-        }
+  <!-- ===== SECCIÓN SERVICIOS ===== -->
+  <section class="section services-section" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-cogs"></i> Lo que hacemos</div>
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <p class="section-subtitle">Soluciones tributarias integrales para personas naturales y empresas en Chile.</p>
+      </div>
+        <div class="service-card featured" data-aos="fade-up">
+          <div class="service-img-overlay" style="background-image: url('https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=600&auto=format&fit=crop')"></div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h3>Gestión Tributaria</h3>
+            <p>Optimización fiscal integral y cumplimiento legal para su tranquilidad económica.</p>
+          </div>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-img-overlay" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop')"></div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-calculator"></i></div>
+            <h3>Auditoría y Contabilidad</h3>
+            <p>Control riguroso de sus finanzas con reportes detallados y precisos.</p>
+          </div>
+        </div>
+        <div class="service-card featured" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-img-overlay" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800&auto=format&fit=crop')"></div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-gavel"></i></div>
+            <h3>Defensa y Legalidad</h3>
+            <p>Representación experta ante el SII y tribunales tributarios chilenos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        function closeNewsModal() {
-            const modal = document.getElementById('newsModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
+  <!-- ===== CALENDARIO TRIBUTARIO 2026 ===== -->
+  <section class="section calendar-section" id="calendario">
+    <div class="calendar-bg-decoration"></div>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-calendar-alt"></i> Fechas Clave 2026</div>
+        <h2 class="section-title">Calendario Tributario 2026</h2>
+        <p class="section-subtitle">No dejes pasar tus obligaciones fiscales. Revisa las principales normativas y fechas de vencimiento para este año.</p>
+      </div>
+      <div class="calendar-grid">
+        <!-- Item 1: Renta -->
+        <div class="calendar-card" data-aos="fade-up">
+          <div class="calendar-date">
+            <span class="month">Abr</span>
+            <span class="days">1 - 30</span>
+          </div>
+          <div class="calendar-info">
+            <h4>Operación Renta 2026</h4>
+            <p>Declaración anual F22 para personas y empresas.</p>
+            <ul class="calendar-details">
+              <li><i class="fas fa-check"></i> F22 sin pago: 1 al 30 de abril</li>
+              <li><i class="fas fa-money-bill-wave"></i> F22 con pago: 8 al 30 de abril</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Item 2: Declaraciones Juradas -->
+        <div class="calendar-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="calendar-date">
+            <span class="month">Feb-Mar</span>
+            <span class="days">DJ</span>
+          </div>
+          <div class="calendar-info">
+            <h4>Declaraciones Juradas (DJ)</h4>
+            <p>Presentación de declaraciones informativas base.</p>
+            <ul class="calendar-details">
+              <li><i class="fas fa-file-signature"></i> DJ 1887 (Sueldos): 26 Marzo (aprox)</li>
+              <li><i class="fas fa-file-signature"></i> DJ 1948 (Retiros): 27 Marzo (aprox)</li>
+            </ul>
+          </div>
+        </div>
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeNewsModal();
-        });
+        <!-- Item 3: IVA F29 -->
+        <div class="calendar-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="calendar-date">
+            <span class="month">Mensual</span>
+            <span class="days">12/20</span>
+          </div>
+          <div class="calendar-info">
+            <h4>Declaración de IVA (F29)</h4>
+            <p>Pago y declaración mensual de impuestos e IVA.</p>
+            <ul class="calendar-details">
+              <li><i class="fas fa-clock"></i> Contribuyentes papel: Día 12</li>
+              <li><i class="fas fa-laptop"></i> Factura electrónica: Día 20</li>
+            </ul>
+          </div>
+        </div>
 
-        // ===== LOAD MORE (demo) =====
-        document.getElementById('loadMoreBtn').addEventListener('click', function() {
-            this.innerHTML = '<span>Cargando...</span>';
-            setTimeout(() => {
-                this.innerHTML = '<span>No hay más noticias por ahora</span><i data-lucide="check" class="w-5 h-5"></i>';
-                this.disabled = true;
-                this.classList.add('opacity-50', 'cursor-not-allowed');
-                lucide.createIcons();
-            }, 1200);
-        });
+        <!-- Item 4: Contribuciones -->
+        <div class="calendar-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="calendar-date">
+            <span class="month">Trimestral</span>
+            <span class="days">30</span>
+          </div>
+          <div class="calendar-info">
+            <h4>Pago de Contribuciones</h4>
+            <p>Impuesto territorial a pagar en 4 cuotas.</p>
+            <ul class="calendar-details">
+              <li><i class="fas fa-home"></i> C1: Abril | C2: Junio</li>
+              <li><i class="fas fa-home"></i> C3: Septiembre | C4: Noviembre</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // ===== NAVBAR SCROLL =====
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 80) {
-                navbar.classList.add('glass-white', 'shadow-lg');
-                document.querySelectorAll('.nav-logo-text').forEach(el => { el.style.color = '#111827'; });
-                document.querySelectorAll('.nav-logo-sub').forEach(el => { el.style.color = '#6b7280'; });
-                document.querySelectorAll('.nav-link').forEach(el => { el.style.color = '#374151'; });
-                document.querySelectorAll('.nav-menu-icon').forEach(el => { el.style.color = '#1f2937'; });
-            } else {
-                navbar.classList.remove('glass-white', 'shadow-lg');
-                document.querySelectorAll('.nav-logo-text').forEach(el => { el.style.color = 'white'; });
-                document.querySelectorAll('.nav-logo-sub').forEach(el => { el.style.color = 'rgba(255,255,255,0.7)'; });
-                document.querySelectorAll('.nav-link').forEach(el => { el.style.color = 'rgba(255,255,255,0.8)'; });
-                document.querySelectorAll('.nav-menu-icon').forEach(el => { el.style.color = 'white'; });
-            }
-        });
+  <!-- ===== SECCIÓN CONTACTO + MAPA ===== -->
+  <section class="section contact-section" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-map-marker-alt"></i> Encuéntranos</div>
+        <h2 class="section-title">Contacto y Ubicación</h2>
+        <p class="section-subtitle">Estamos ubicados en el corazón de Santiago. Visítanos o comunícate con nosotros.</p>
+      </div>
+      <div class="contact-grid">
+        <!-- Formulario -->
+        <div class="contact-form-wrap">
+          <h3 class="contact-form-title">Envíanos un mensaje</h3>
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Correo electrónico *</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.cl" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" />
+            </div>
+            <div class="form-group">
+              <label for="servicio">Servicio de interés</label>
+              <select id="servicio" name="servicio">
+                <option value="">Selecciona un servicio...</option>
+                <option value="renta">Declaración de Renta</option>
+                <option value="empresa">Asesoría Empresarial</option>
+                <option value="auditoria">Auditoría Tributaria</option>
+                <option value="iva">IVA y Operaciones</option>
+                <option value="defensa">Defensa Tributaria</option>
+                <option value="capacitacion">Capacitación</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje *</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+              <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+            <div class="form-success" id="form-success">
+              <i class="fas fa-check-circle"></i>
+              <p>¡Mensaje enviado con éxito! Te contactaremos a la brevedad.</p>
+            </div>
+          </form>
+        </div>
 
-        // ===== MOBILE MENU =====
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+        <!-- Info de contacto + Mapa -->
+        <div class="contact-info-wrap">
+          <div class="contact-info-cards">
+            <div class="contact-info-card">
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <h4>Dirección</h4>
+                <p>Av. Providencia 1234, Oficina 501<br/>Providencia, Santiago, Chile</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <h4>Teléfono</h4>
+                <p>+56 2 2345 6789<br/>+56 9 1234 5678</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <h4>Email</h4>
+                <p>contacto@zonatributaria.cl<br/>info@zonatributaria.cl</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <h4>Horario</h4>
+                <p>Lunes – Viernes: 9:00 – 18:00<br/>Sábado: 9:00 – 13:00</p>
+              </div>
+            </div>
+          </div>
 
-        // ===== SOCIAL PILL =====
-        const socialPill = document.getElementById('socialPill');
-        const socialToggle = document.getElementById('socialToggle');
-        const socialIcons = document.getElementById('socialIcons');
-        let socialOpen = false;
-        setTimeout(() => { socialPill.classList.remove('-translate-x-full','opacity-0'); socialPill.classList.add('translate-x-0','opacity-100'); }, 1500);
-        socialToggle.addEventListener('click', () => { socialOpen = !socialOpen; socialIcons.style.maxHeight = socialOpen ? '300px' : '0'; });
+          <!-- Mapa Google Maps embed -->
+          <div class="map-container">
+            <div class="map-header">
+              <i class="fas fa-map"></i>
+              <span>Nuestra Ubicación</span>
+              <a href="https://maps.google.com/?q=Av.+Providencia+1234,+Santiago,+Chile" 
+                 target="_blank" rel="noopener" class="map-directions">
+                <i class="fas fa-directions"></i> Cómo llegar
+              </a>
+            </div>
+            <div class="map-embed">
+              <iframe
+                id="location-map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.5!2d-70.6506!3d-33.4325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf633b87bbf7%3A0x3e7e61f0e7e7e7e7!2sAv.%20Providencia%201234%2C%20Santiago%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e0!3m2!1ses!2scl!4v1680000000000!5m2!1ses!2scl"
+                width="100%"
+                height="280"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación Zona Tributaria Chile">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // ===== WHATSAPP =====
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        const whatsappTooltip = document.getElementById('whatsappTooltip');
-        setTimeout(() => { whatsappBtn.classList.remove('translate-y-20','opacity-0'); whatsappBtn.classList.add('translate-y-0','opacity-100'); }, 2000);
-        whatsappBtn.addEventListener('mouseenter', () => { whatsappTooltip.classList.remove('opacity-0','pointer-events-none'); whatsappTooltip.classList.add('opacity-100'); });
-        whatsappBtn.addEventListener('mouseleave', () => { whatsappTooltip.classList.add('opacity-0','pointer-events-none'); whatsappTooltip.classList.remove('opacity-100'); });
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <i class="fas fa-balance-scale"></i>
+              <div>
+                <span class="footer-brand-name">Zona Tributaria</span>
+                <span class="footer-brand-sub">Chile</span>
+              </div>
+            </div>
+            <p class="footer-tagline">Tu aliado estratégico en el mundo tributario chileno. Expertos, confiables y siempre a tu lado.</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/zonatributaria" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/zonatributaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/zonatributaria" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.linkedin.com/company/zonatributaria" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.youtube.com/@zonatributaria" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-links-col">
+            <h4>Navegación</h4>
+            <ul>
+              <li><a href="#inicio">Inicio</a></li>
+              <li><a href="#noticias">Noticias</a></li>
+              <li><a href="#nosotros">Quiénes Somos</a></li>
+              <li><a href="#servicios">Servicios</a></li>
+              <li><a href="#calendario">Calendario 2026</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Servicios</h4>
+            <ul>
+              <li><a href="#servicios">Declaración de Renta</a></li>
+              <li><a href="#servicios">Asesoría Empresarial</a></li>
+              <li><a href="#servicios">Auditoría Tributaria</a></li>
+              <li><a href="#servicios">IVA y Operaciones</a></li>
+              <li><a href="#servicios">Defensa Tributaria</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Recursos</h4>
+            <ul>
+              <li><a href="https://www.sii.cl" target="_blank" rel="noopener">SII Chile <i class="fas fa-external-link-alt fa-xs"></i></a></li>
+              <li><a href="https://www.df.cl" target="_blank" rel="noopener">Diario Financiero <i class="fas fa-external-link-alt fa-xs"></i></a></li>
+              <li><a href="https://www.hacienda.cl" target="_blank" rel="noopener">Ministerio de Hacienda <i class="fas fa-external-link-alt fa-xs"></i></a></li>
+              <li><a href="https://www.tesoreria.cl" target="_blank" rel="noopener">Tesorería General <i class="fas fa-external-link-alt fa-xs"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 Zona Tributaria Chile. Todos los derechos reservados.</p>
+        <p>Diseñado con <i class="fas fa-heart" style="color:#e74c3c"></i> en Santiago, Chile</p>
+      </div>
+    </div>
+  </footer>
 
-        // ===== BACK TO TOP =====
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 600) { backToTop.classList.remove('translate-y-20','opacity-0'); backToTop.classList.add('translate-y-0','opacity-100'); }
-            else { backToTop.classList.add('translate-y-20','opacity-0'); backToTop.classList.remove('translate-y-0','opacity-100'); }
-        });
-        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-        // ===== COUNTERS =====
-        const counters = document.querySelectorAll('.counter');
-        const counterAnimated = new Set();
-        const animateCounter = (el) => {
-            const target = parseInt(el.dataset.target);
-            const start = performance.now();
-            const update = (t) => {
-                const p = Math.min((t - start) / 2000, 1);
-                const eased = 1 - Math.pow(1 - p, 3);
-                el.textContent = Math.floor(eased * target).toLocaleString('es-CL') + '+';
-                if (p < 1) requestAnimationFrame(update); else el.textContent = target.toLocaleString('es-CL') + '+';
-            };
-            requestAnimationFrame(update);
-        };
-        new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting && !counterAnimated.has(e.target)) { counterAnimated.add(e.target); animateCounter(e.target); } }); }, { threshold: 0.5 }).observe(counters[0]);
-        counters.forEach(c => new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting && !counterAnimated.has(e.target)) { counterAnimated.add(e.target); animateCounter(e.target); } }); }, { threshold: 0.5 }).observe(c));
-
-        // ===== SCROLL REVEAL =====
-        new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('section-visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }).observe(document.querySelectorAll('.section-hidden')[0]);
-        document.querySelectorAll('.section-hidden').forEach(s => new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('section-visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }).observe(s));
-
-        // ===== CONTACT FORM =====
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.getElementById('formSuccess').classList.remove('hidden');
-            e.target.reset();
-            lucide.createIcons();
-            setTimeout(() => document.getElementById('formSuccess').classList.add('hidden'), 5000);
-        });
-
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
