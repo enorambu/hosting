@@ -130,18 +130,24 @@ async function loadAllRSS() {
 
   // Ensure true RSS is exclusively shown if request succeeds
   if (articles.length === 0) {
-    // Solo una por fuente de los artículos demo
-    const uniqueSources = new Set();
+    // Solo una noticia por fuente de los artículos demo
+    const seen = new Set();
     allArticles = DEMO_ARTICLES.filter(a => {
-      if (uniqueSources.has(a.id)) return false;
-      uniqueSources.add(a.id);
+      if (seen.has(a.id)) return false;
+      seen.add(a.id);
       return true;
     });
     showToast('Mostrando noticias guardadas (RSS no disponible localmente)', 'info');
   } else {
     // Al recolectar, ya limitamos a 1 por fuente en fetchRSSSource
-    allArticles = articles;
-    showToast(`Últimas noticias de ${articles.length} fuentes actualizadas`, 'success');
+    // Pero nos aseguramos aquí también por si acaso
+    const seen = new Set();
+    allArticles = articles.filter(a => {
+      if (seen.has(a.id)) return false;
+      seen.add(a.id);
+      return true;
+    });
+    showToast(`Últimas noticias de ${allArticles.length} fuentes actualizadas`, 'success');
   }
 
   hideStatus();
@@ -222,10 +228,20 @@ function getPlaceholderImgEl(source, id) {
     'economia': 'linear-gradient(135deg, #7c2d12 0%, #c8901a 100%)',
   };
   const gradient = gradients[id] || 'linear-gradient(135deg, #0a1628 0%, #2d4a75 100%)';
+  
+  // Usamos iconos más representativos según la fuente
+  const icons = {
+    'df': 'fa-chart-line',
+    'sii': 'fa-file-invoice-dollar',
+    'economia': 'fa-coins'
+  };
+  const icon = icons[id] || 'fa-newspaper';
+
   return `
-    <div class="news-card-img-placeholder" style="background: ${gradient}">
-      <i class="fas fa-newspaper"></i>
-      <span>${source}</span>
+    <div class="news-card-img-placeholder" style="background: ${gradient}; position: relative; overflow: hidden;">
+      <div style="position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.1; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+      <i class="fas ${icon}" style="font-size: 3.5rem; filter: drop-shadow(0 0 10px rgba(0,0,0,0.3)); z-index: 1;"></i>
+      <span style="font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; margin-top: 10px; z-index: 1;">${source}</span>
     </div>`;
 }
 
