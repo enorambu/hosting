@@ -130,12 +130,17 @@ async function loadAllRSS() {
 
   // Ensure true RSS is exclusively shown if request succeeds
   if (articles.length === 0) {
-    allArticles = DEMO_ARTICLES;
+    // Solo una por fuente de los artículos demo
+    const uniqueSources = new Set();
+    allArticles = DEMO_ARTICLES.filter(a => {
+      if (uniqueSources.has(a.id)) return false;
+      uniqueSources.add(a.id);
+      return true;
+    });
     showToast('Mostrando noticias guardadas (RSS no disponible localmente)', 'info');
   } else {
-    // Randomize slightly or sort to mix sources
-    // Limit to 3 articles total (1 from each source)
-    allArticles = articles.slice(0, 3);
+    // Al recolectar, ya limitamos a 1 por fuente en fetchRSSSource
+    allArticles = articles;
     showToast(`Últimas noticias de ${articles.length} fuentes actualizadas`, 'success');
   }
 

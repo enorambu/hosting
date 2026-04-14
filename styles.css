@@ -10,9 +10,9 @@
   --accent: #d4a017;
   --accent-light: #f7c948;
   --accent-gold: #e6b022;
-  --text-primary: #f0f4f8; /* Cambiado a claro */
-  --text-secondary: #cbd5e0; /* Cambiado a claro */
-  --text-light: #a0aec0; /* Cambiado a claro */
+  --text-primary: #1a202c; /* Cambiado a oscuro para legibilidad en superficies blancas */
+  --text-secondary: #4a5568; /* Cambiado a oscuro */
+  --text-light: #718096; /* Cambiado a oscuro */
   --link-color: #d4a017;
   --white: #ffffff;
   --off-white: #f8f9fb;
@@ -39,7 +39,7 @@
 html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
 body {
   font-family: var(--font-primary);
-  color: #ffffff; /* Texto global blanco */
+  color: #f0f4f8; /* Texto global claro para el fondo oscuro */
   background: linear-gradient(160deg, #06101e 0%, #0a1628 40%, #0d1f3c 70%, #08121f 100%);
   background-attachment: fixed;
   line-height: 1.6;
@@ -579,7 +579,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
-  color: var(--primary);
+  color: #ffffff; /* Aseguramos que los títulos de sección sean blancos sobre el fondo oscuro */
   line-height: 1.2;
   margin-bottom: 16px;
 }
@@ -650,7 +650,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
 
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   margin-bottom: 40px;
 }
@@ -673,7 +673,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   border-color: rgba(200,144,26,.2);
 }
 .news-card-img {
-  height: 190px;
+  height: 160px;
   overflow: hidden;
   position: relative;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -714,7 +714,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   gap: 5px;
 }
 .news-card-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.45;
@@ -727,7 +727,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
 }
 .news-card:hover .news-card-title { color: var(--secondary); }
 .news-card-summary {
-  font-size: .85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   line-height: 1.6;
   flex: 1;
