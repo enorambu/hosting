@@ -185,19 +185,65 @@ input, textarea, select, button { font-family: var(--font-primary); }
   align-items: center;
   gap: 12px;
   cursor: pointer;
+  height: 100%;
+  transition: var(--transition);
+  perspective: 1000px; /* Necesario para el efecto 3D */
 }
-.brand-icon {
-  width: 42px; height: 42px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--primary);
-  font-size: 1.2rem;
-  font-weight: 700;
+
+.nav-brand:hover {
+  transform: scale(1.1);
 }
-.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-name { font-weight: 700; font-size: 1.05rem; color: #fff; letter-spacing: -.3px; }
-.brand-sub  { font-size: .7rem; color: var(--accent-light); font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
+
+.logo-img {
+  height: 60px;
+  width: 60px; /* Ancho fijo para asegurar círculo perfecto */
+  display: block;
+  object-fit: cover;
+  border-radius: 50%; /* Asegura que sea redondo */
+  animation: logo-spin-3d 8s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(212, 160, 23, 0.2));
+  transition: var(--transition);
+  border: 2px solid var(--accent); /* Un borde fino para resaltar la forma */
+}
+
+.nav-brand:hover .logo-img {
+  animation-duration: 3s; /* Se acelera notablemente al pasar el mouse */
+  filter: drop-shadow(0 0 15px rgba(212, 160, 23, 0.7));
+  box-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
+}
+
+@keyframes logo-spin-3d {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.footer-logo {
+  display: inline-block;
+  transition: var(--transition);
+  perspective: 1000px;
+}
+
+.footer-logo:hover {
+  transform: scale(1.1);
+}
+
+.logo-img-footer {
+  height: 70px;
+  width: 70px;
+  margin-bottom: 20px;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: logo-spin-3d 12s linear infinite;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.footer-logo:hover .logo-img-footer {
+  opacity: 1;
+  filter: drop-shadow(0 0 15px rgba(212, 160, 23, 0.5));
+}
 
 .nav-menu {
   display: flex;

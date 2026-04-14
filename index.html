@@ -13,6 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logos/logo_circular.png?v=3" />
+  <link rel="shortcut icon" href="logos/logo_circular.png?v=3" type="image/png">
 </head>
 <body>
 
@@ -47,15 +49,9 @@
   <!-- ===== HEADER / NAVBAR ===== -->
   <header class="header" id="header">
     <nav class="navbar">
-      <div class="nav-brand">
-        <div class="brand-icon">
-          <i class="fas fa-balance-scale"></i>
-        </div>
-        <div class="brand-text">
-          <span class="brand-name">Zona Tributaria</span>
-          <span class="brand-sub">Chile</span>
-        </div>
-      </div>
+      <a href="#inicio" class="nav-brand">
+        <img src="logos/logo_circular.png" alt="Zona Tributaria Chile" class="logo-img">
+      </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
@@ -129,52 +125,7 @@
     </div>
   </div>
 
-  <!-- ===== SECCIÓN NOTICIAS RSS ===== -->
-  <section class="section news-section" id="noticias">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag"><i class="fas fa-rss"></i> Feed en tiempo real</div>
-        <h2 class="section-title">Noticias Tributarias</h2>
-        <p class="section-subtitle">Las últimas novedades sobre impuestos, SII y economía en Chile, directo desde las principales fuentes.</p>
-      </div>
 
-      <!-- Filtros de categoría -->
-      <div class="news-filters" id="news-filters">
-        <button class="filter-btn active" data-filter="all">
-          <i class="fas fa-globe"></i> Todas
-        </button>
-        <button class="filter-btn" data-filter="df">
-          <i class="fas fa-chart-line"></i> Diario Financiero
-        </button>
-        <button class="filter-btn" data-filter="sii">
-          <i class="fas fa-file-invoice-dollar"></i> SII
-        </button>
-        <button class="filter-btn" data-filter="economia">
-          <i class="fas fa-coins"></i> Economía
-        </button>
-      </div>
-
-      <!-- Estado de carga / Error -->
-      <div class="news-status" id="news-status">
-        <div class="loading-spinner">
-          <div class="spinner-ring"></div>
-          <p>Cargando noticias tributarias...</p>
-        </div>
-      </div>
-
-      <!-- Grid de noticias -->
-      <div class="news-grid" id="news-grid"></div>
-
-      <!-- Demo cards mientras carga -->
-      <div class="news-grid demo-grid" id="demo-grid"></div>
-
-      <div class="news-actions">
-        <button class="btn btn-outline-gold" id="load-more-btn" style="display:none">
-          <i class="fas fa-sync-alt"></i> Cargar más noticias
-        </button>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== SECCIÓN QUIÉNES SOMOS ===== -->
   <section class="section about-section" id="nosotros">
@@ -378,6 +329,34 @@
     </div>
   </section>
 
+  <!-- ===== SECCIÓN NOTICIAS RSS ===== -->
+  <section class="section news-section" id="noticias">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag"><i class="fas fa-rss"></i> Feed en tiempo real</div>
+        <h2 class="section-title">Noticias Tributarias</h2>
+        <p class="section-subtitle">Lo más relevante para estar al día, directo desde las principales fuentes tributarias de Chile.</p>
+      </div>
+
+      <!-- Estado de carga / Error -->
+      <div class="news-status" id="news-status">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <p>Actualizando noticias...</p>
+        </div>
+      </div>
+
+      <!-- Grid de noticias (Limitado a 1 por fuente) -->
+      <div class="news-grid" id="news-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));"></div>
+
+      <!-- Ocultamos filtros y cargar más para mantenerlo limpio según lo solicitado -->
+      <div class="news-filters" id="news-filters" style="display:none"></div>
+      <div class="news-actions">
+        <button class="btn btn-outline-gold" id="load-more-btn" style="display:none"></button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== SECCIÓN CONTACTO + MAPA ===== -->
   <section class="section contact-section" id="contacto">
     <div class="container">
@@ -501,11 +480,7 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <div class="footer-logo">
-              <i class="fas fa-balance-scale"></i>
-              <div>
-                <span class="footer-brand-name">Zona Tributaria</span>
-                <span class="footer-brand-sub">Chile</span>
-              </div>
+              <img src="logos/logo_circular.png" alt="Zona Tributaria Chile" class="logo-img-footer">
             </div>
             <p class="footer-tagline">Tu aliado estratégico en el mundo tributario chileno. Expertos, confiables y siempre a tu lado.</p>
             <div class="footer-socials">
@@ -520,10 +495,10 @@
             <h4>Navegación</h4>
             <ul>
               <li><a href="#inicio">Inicio</a></li>
-              <li><a href="#noticias">Noticias</a></li>
               <li><a href="#nosotros">Quiénes Somos</a></li>
               <li><a href="#servicios">Servicios</a></li>
               <li><a href="#calendario">Calendario 2026</a></li>
+              <li><a href="#noticias">Noticias</a></li>
               <li><a href="#contacto">Contacto</a></li>
             </ul>
           </div>

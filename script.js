@@ -35,7 +35,7 @@ const RSS_SOURCES = [
 const DEMO_ARTICLES = [
   {
     title: 'SII actualiza criterios para declaración de renta de personas con inversiones en el extranjero',
-    summary: 'El Servicio de Impuestos Internos publicó nuevas instrucciones para contribuyentes con activos fuera de Chile, aclarando la tributación de dividendos y ganancias de capital.',
+    summary: 'El Servicio de Impuestos Internos publicó nuevas instrucciones para contribuyentes con activos fuera de Chile, aclarando la tributación de dividendos.',
     date: new Date(Date.now() - 1 * 86400000).toLocaleDateString('es-CL'),
     source: 'SII Chile',
     link: 'https://www.sii.cl',
@@ -44,7 +44,7 @@ const DEMO_ARTICLES = [
   },
   {
     title: 'Reforma tributaria 2025: las principales medidas que impactarán a empresas chilenas',
-    summary: 'El Ministerio de Hacienda presentó las modificaciones al sistema tributario que entrarán en vigencia para el año comercial 2025, incluyendo cambios al impuesto de primera categoría.',
+    summary: 'El Ministerio de Hacienda presentó las modificaciones al sistema tributario que entrarán en vigencia para el año comercial 2025.',
     date: new Date(Date.now() - 2 * 86400000).toLocaleDateString('es-CL'),
     source: 'Diario Financiero',
     link: 'https://www.df.cl',
@@ -52,67 +52,13 @@ const DEMO_ARTICLES = [
     id: 'df'
   },
   {
-    title: 'Operación renta 2025: calendario de devoluciones y plazos para declarar',
-    summary: 'El SII publicó el calendario oficial para la Operación Renta, estableciendo las fechas de vencimiento y el cronograma de devoluciones automáticas para contribuyentes.',
-    date: new Date(Date.now() - 3 * 86400000).toLocaleDateString('es-CL'),
-    source: 'SII Chile',
-    link: 'https://www.sii.cl',
-    tag: 'SII',
-    id: 'sii'
-  },
-  {
     title: 'Hacienda confirma rebajas al impuesto de timbres y estampillas para créditos PYME',
     summary: 'En línea con las medidas pro-emprendimiento, el Ejecutivo firmó el decreto que reduce la carga tributaria para financiamiento de pequeñas y medianas empresas.',
     date: new Date(Date.now() - 4 * 86400000).toLocaleDateString('es-CL'),
-    source: 'La Tercera Economía',
-    link: 'https://www.latercera.com',
+    source: 'Emol Economía',
+    link: 'https://www.emol.com',
     tag: 'Economía',
     id: 'economia'
-  },
-  {
-    title: 'IVA en servicios digitales: SII fiscalizará plataformas extranjeras durante 2025',
-    summary: 'El organismo tributario intensificará la revisión del cumplimiento del IVA por parte de plataformas como Netflix, Spotify y Amazon en operaciones con consumidores en Chile.',
-    date: new Date(Date.now() - 5 * 86400000).toLocaleDateString('es-CL'),
-    source: 'Diario Financiero',
-    link: 'https://www.df.cl',
-    tag: 'Diario Financiero',
-    id: 'df'
-  },
-  {
-    title: 'Reforma al código tributario: nuevas sanciones por evasión y elusión fiscal en Chile',
-    summary: 'El proyecto de modernización establece penas más severas para contribuyentes que adopten esquemas agresivos de elusión, con multas que pueden alcanzar el 300% del impuesto evadido.',
-    date: new Date(Date.now() - 6 * 86400000).toLocaleDateString('es-CL'),
-    source: 'Diario Financiero',
-    link: 'https://www.df.cl',
-    tag: 'Diario Financiero',
-    id: 'df'
-  },
-  {
-    title: 'Beneficios tributarios para empresas que implementen teletrabajo permanente',
-    summary: 'Nuevas resoluciones del SII permiten deducir gastos asociados a infraestructura de trabajo remoto, incluyendo equipamiento tecnológico y conectividad para trabajadores.',
-    date: new Date(Date.now() - 7 * 86400000).toLocaleDateString('es-CL'),
-    source: 'La Tercera Economía',
-    link: 'https://www.latercera.com',
-    tag: 'Economía',
-    id: 'economia'
-  },
-  {
-    title: 'Todo lo que debes saber sobre el Impuesto Global Complementario en Chile',
-    summary: 'Una guía completa sobre quiénes están afectos, cómo se calcula la base imponible y cuáles son los créditos disponibles para reducir la carga tributaria de personas naturales.',
-    date: new Date(Date.now() - 8 * 86400000).toLocaleDateString('es-CL'),
-    source: 'SII Chile',
-    link: 'https://www.sii.cl',
-    tag: 'SII',
-    id: 'sii'
-  },
-  {
-    title: 'Tributación de criptomonedas en Chile: nuevo criterio del SII para 2025',
-    summary: 'El organismo precisó el tratamiento tributario de los activos digitales, estableciendo que las ganancias de compraventa de criptomonedas tributan como renta de capitales mobiliarios.',
-    date: new Date(Date.now() - 9 * 86400000).toLocaleDateString('es-CL'),
-    source: 'Diario Financiero',
-    link: 'https://www.df.cl',
-    tag: 'Diario Financiero',
-    id: 'df'
   }
 ];
 
@@ -152,7 +98,7 @@ async function fetchRSSSource(source) {
     const data = await response.json();
     if (data.status !== 'ok' || !data.items) return [];
     
-    return data.items.slice(0, 6).map(item => ({
+    return data.items.slice(0, 1).map(item => ({
       title: item.title || 'Sin título',
       summary: truncate(stripHtml(item.description || item.content || '')),
       date: formatDate(item.pubDate || ''),
@@ -188,8 +134,9 @@ async function loadAllRSS() {
     showToast('Mostrando noticias guardadas (RSS no disponible localmente)', 'info');
   } else {
     // Randomize slightly or sort to mix sources
-    allArticles = articles.sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 18);
-    showToast(`${articles.length} noticias RSS actualizadas con éxito`, 'success');
+    // Limit to 3 articles total (1 from each source)
+    allArticles = articles.slice(0, 3);
+    showToast(`Últimas noticias de ${articles.length} fuentes actualizadas`, 'success');
   }
 
   hideStatus();
