@@ -4,12 +4,12 @@
 
 /* ---- CSS Custom Properties ---- */
 :root {
-  --primary: #0a1628;
-  --primary-light: #0d1f3c;
+  --primary: #22547b;
+  --primary-light: #3470a2;
   --secondary: #1a3a6b;
-  --accent: #d4a017;
-  --accent-light: #f7c948;
-  --accent-gold: #e6b022;
+  --accent: #fe6016;
+  --accent-light: #ff8c52;
+  --accent-gold: #fe6016;
   --text-primary: #1a202c; /* Cambiado a oscuro para legibilidad en superficies blancas */
   --text-secondary: #4a5568; /* Cambiado a oscuro */
   --text-light: #718096; /* Cambiado a oscuro */
@@ -23,7 +23,7 @@
   --shadow-md: 0 8px 24px rgba(10,22,40,.12);
   --shadow-lg: 0 12px 48px rgba(10,22,40,.18);
   --shadow-xl: 0 24px 80px rgba(10,22,40,.24);
-  --accent-glow: 0 0 24px rgba(212,160,23,.3);
+  --accent-glow: 0 0 24px rgba(254,96,22,.3);
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 20px;
@@ -40,7 +40,7 @@ html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
 body {
   font-family: var(--font-primary);
   color: #f0f4f8; /* Texto global claro para el fondo oscuro */
-  background: linear-gradient(160deg, #06101e 0%, #0a1628 40%, #0d1f3c 70%, #08121f 100%);
+  background: linear-gradient(160deg, #163650 0%, #22547b 40%, #3470a2 70%, #163650 100%);
   background-attachment: fixed;
   line-height: 1.6;
   overflow-x: hidden;
