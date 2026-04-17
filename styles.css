@@ -161,14 +161,14 @@ input, textarea, select, button { font-family: var(--font-primary); }
   top: 0; left: 0; right: 0;
   z-index: 1000;
   height: var(--nav-height);
-  background: rgba(10,22,40,.95);
+  background: rgba(34, 84, 123, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(200,144,26,.2);
+  border-bottom: 1px solid rgba(254, 96, 22, 0.2);
   transition: var(--transition);
 }
 .header.scrolled {
-  background: rgba(10,22,40,.98);
+  background: rgba(34, 84, 123, 0.98);
   box-shadow: 0 4px 24px rgba(0,0,0,.3);
 }
 .navbar {
@@ -1622,7 +1622,14 @@ input, textarea, select, button { font-family: var(--font-primary); }
   :root { --nav-height: 64px; }
   .container { padding: 0 20px; }
   
-  .nav-toggle { display: flex; }
+  .nav-toggle { 
+    display: flex; 
+    z-index: 1001;
+    position: relative;
+  }
+  .nav-toggle span {
+    background: var(--accent); /* Naranja institucional para que resalte */
+  }
   .nav-menu {
     position: fixed;
     top: var(--nav-height); left: 0; right: 0;
