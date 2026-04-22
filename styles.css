@@ -255,7 +255,10 @@ input, textarea, select, button { font-family: var(--font-primary); }
 }
 
 .footer-logo {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
   transition: var(--transition);
   perspective: 1000px;
 }
@@ -265,9 +268,8 @@ input, textarea, select, button { font-family: var(--font-primary); }
 }
 
 .logo-img-footer {
-  height: 70px;
-  width: 70px;
-  margin-bottom: 20px;
+  height: 60px;
+  width: 60px;
   display: block;
   object-fit: cover;
   border-radius: 50%;
@@ -275,6 +277,19 @@ input, textarea, select, button { font-family: var(--font-primary); }
   animation: logo-spin-3d 12s linear infinite;
   opacity: 0.8;
   transition: var(--transition);
+}
+
+.logo-banner-footer {
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.footer-logo:hover .logo-img-footer,
+.footer-logo:hover .logo-banner-footer {
+  opacity: 1;
 }
 
 .footer-logo:hover .logo-img-footer {
