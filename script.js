@@ -423,17 +423,32 @@ function initAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        // Find all cards in the same parent and animate them with delay
+        const container = entry.target;
+        const cards = container.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
+        
+        cards.forEach((card, index) => {
+          if (!card.classList.contains('animated')) {
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+              card.classList.add('animated');
+            }, index * 100);
+          }
+        });
+        
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity .5s ease, transform .5s ease';
+  document.querySelectorAll('.services-grid, .value-prop-grid, .methodology-steps, .resources-grid, .contact-info-cards, .calendar-grid, .news-grid').forEach(el => {
+    const cards = el.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity .6s cubic-bezier(0.4, 0, 0.2, 1), transform .6s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
     observer.observe(el);
   });
 }
