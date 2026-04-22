@@ -10,7 +10,7 @@ const RSS_SOURCES = [
     name: 'Diario Financiero',
     url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://www.df.cl/noticias/site/tax/port/all/rss_1.xml'),
     tag: 'Diario Financiero',
-    color: '#0a1628',
+    color: '#0f172a',
     icon: 'fa-chart-line'
   },
   {
@@ -18,7 +18,7 @@ const RSS_SOURCES = [
     name: 'SII Chile',
     url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://www.sii.cl/rss/novedades.rss'),
     tag: 'SII',
-    color: '#1a3a6b',
+    color: '#1e293b',
     icon: 'fa-file-invoice-dollar'
   },
   {
@@ -26,7 +26,7 @@ const RSS_SOURCES = [
     name: 'Emol Economía',
     url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://www.emol.com/rss/economia.xml'),
     tag: 'Economía',
-    color: '#c8901a',
+    color: '#10b981',
     icon: 'fa-coins'
   }
 ];
@@ -430,7 +430,7 @@ function initAnimations() {
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.service-card, .value-item, .contact-info-card, .calendar-card').forEach(el => {
+  document.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity .5s ease, transform .5s ease';
