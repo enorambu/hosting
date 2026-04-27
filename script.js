@@ -367,6 +367,22 @@ function initNavbar() {
   }, { passive: true });
 }
 
+function initNavTextEffect() {
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(link => {
+    const text = link.textContent;
+    link.innerHTML = '';
+    [...text].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.display = 'inline-block';
+      span.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      span.style.transitionDelay = `${i * 20}ms`;
+      link.appendChild(span);
+    });
+  });
+}
+
 // ============ SOCIAL SIDEBAR ============
 // Sidebar is now purely CSS-driven and always visible
 
@@ -472,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSlider();
   initAnimations();
   initSmoothScroll();
+  initNavTextEffect();
 
   // Load RSS feed initially
   loadAllRSS();

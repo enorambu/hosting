@@ -182,6 +182,12 @@ input, textarea, select, button { font-family: var(--font-primary); }
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: nav-reveal 1s ease-out both;
+}
+
+@keyframes nav-reveal {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 .header.scrolled {
   top: 15px;
@@ -193,6 +199,22 @@ input, textarea, select, button { font-family: var(--font-primary); }
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(237, 110, 25, 0.2);
   height: 70px;
+  overflow: hidden; /* For the border beam */
+}
+
+.header.scrolled::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: border-beam 4s infinite linear;
+}
+
+@keyframes border-beam {
+  0% { left: -100%; }
+  100% { left: 200%; }
 }
 .header.scrolled .nav-link {
   color: var(--primary);
@@ -241,12 +263,36 @@ input, textarea, select, button { font-family: var(--font-primary); }
   flex-shrink: 0;
 }
 
+@keyframes spectacular-banner {
+  0%, 100% { 
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: brightness(1) drop-shadow(0 0 5px rgba(237, 110, 25, 0.2));
+  }
+  33% { 
+    transform: translateY(-5px) scale(1.05) rotate(1deg);
+    filter: brightness(1.2) drop-shadow(0 0 20px rgba(237, 110, 25, 0.6));
+  }
+  66% { 
+    transform: translateY(-2px) scale(1.02) rotate(-1deg);
+    filter: brightness(1.1) drop-shadow(0 0 15px rgba(237, 110, 25, 0.4));
+  }
+}
+
+@keyframes shine-sweep {
+  0% { -webkit-mask-position: -150%; }
+  100% { -webkit-mask-position: 150%; }
+}
+
 .logo-banner {
   height: 45px;
   width: auto;
   display: block;
   object-fit: contain;
   transition: var(--transition);
+  animation: spectacular-banner 8s ease-in-out infinite, shine-sweep 4s linear infinite;
+  -webkit-mask-image: linear-gradient(120deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,1) 55%);
+  -webkit-mask-size: 300% 100%;
+  filter: drop-shadow(0 0 8px rgba(237, 110, 25, 0.2));
 }
 
 .nav-brand:hover .logo-img {
@@ -256,8 +302,8 @@ input, textarea, select, button { font-family: var(--font-primary); }
 }
 
 .nav-brand:hover .logo-banner {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 8px rgba(237, 110, 25, 0.3));
+  transform: scale(1.08) rotate(2deg);
+  filter: drop-shadow(0 0 12px rgba(237, 110, 25, 0.5));
 }
 
 @keyframes logo-spin-3d {
@@ -296,6 +342,9 @@ input, textarea, select, button { font-family: var(--font-primary); }
   object-fit: contain;
   opacity: 0.8;
   transition: var(--transition);
+  animation: spectacular-banner 10s ease-in-out infinite, shine-sweep 5s linear infinite;
+  -webkit-mask-image: linear-gradient(120deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,1) 55%);
+  -webkit-mask-size: 300% 100%;
 }
 
 .footer-logo:hover .logo-img-footer,
@@ -323,26 +372,57 @@ input, textarea, select, button { font-family: var(--font-primary); }
   position: relative;
   padding: 8px 16px;
   border-radius: 100px;
-  overflow: hidden;
   z-index: 1;
 }
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 20px;
+}
+
 .nav-link::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(237, 110, 25, 0.15);
+  background: rgba(237, 110, 25, 0.1);
   border-radius: 100px;
-  transform: scale(0.5);
+  transform: scale(0.8);
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: -1;
 }
-.nav-link:hover, .nav-link.active { 
-  color: var(--accent-light); 
-}
+
 .nav-link:hover::before, .nav-link.active::before { 
   transform: scale(1);
   opacity: 1;
+}
+
+.nav-link:hover span {
+  transform: translateY(-5px);
+  color: var(--accent-light);
+  text-shadow: 0 5px 15px rgba(237, 110, 25, 0.4);
+}
+
+.nav-link.active span {
+  color: var(--accent-light);
+}
+
+.nav-link span {
+  display: inline-block;
+  pointer-events: none;
 }
 
 .nav-toggle {
