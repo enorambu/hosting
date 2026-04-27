@@ -114,11 +114,8 @@ async function fetchRSSSource(source) {
   }
 }
 
-async function loadAllRSS() {
-  if (rssLoadAttempted) return;
-  rssLoadAttempted = true;
-
-  showStatus('loading');
+async function loadAllRSS(silent = false) {
+  if (!silent) showStatus('loading');
   const results = await Promise.allSettled(RSS_SOURCES.map(src => fetchRSSSource(src)));
 
   let articles = [];
@@ -137,7 +134,7 @@ async function loadAllRSS() {
       seen.add(a.id);
       return true;
     });
-    showToast('Mostrando noticias guardadas (RSS no disponible localmente)', 'info');
+    if (!silent) showToast('Mostrando noticias guardadas (RSS no disponible localmente)', 'info');
   } else {
     // Al recolectar, ya limitamos a 1 por fuente en fetchRSSSource
     // Pero nos aseguramos aquí también por si acaso
@@ -147,10 +144,10 @@ async function loadAllRSS() {
       seen.add(a.id);
       return true;
     });
-    showToast(`Últimas noticias de ${allArticles.length} fuentes actualizadas`, 'success');
+    if (!silent) showToast(`Últimas noticias de ${allArticles.length} fuentes actualizadas`, 'success');
   }
 
-  hideStatus();
+  if (!silent) hideStatus();
   renderNews();
   updateTicker();
 }
@@ -476,8 +473,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initSmoothScroll();
 
-  // Load RSS feed
+  // Load RSS feed initially
   loadAllRSS();
+
+  // Actualizar automáticamente cada 3 minutos (180000 ms) en modo silencioso
+  setInterval(() => loadAllRSS(true), 180000);
 
   // Show demo articles immediately while RSS loads
   allArticles = DEMO_ARTICLES;
