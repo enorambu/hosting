@@ -199,7 +199,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(237, 110, 25, 0.2);
   height: 70px;
-  overflow: hidden; /* For the border beam */
+  overflow: visible; /* Permite que el menú móvil se vea */
 }
 
 .header.scrolled::before {
@@ -210,6 +210,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   animation: border-beam 4s infinite linear;
+  clip-path: inset(0 0 0 0 round 50px); /* Mantiene el rayo dentro de la forma de cápsula */
 }
 
 @keyframes border-beam {
@@ -263,25 +264,7 @@ input, textarea, select, button { font-family: var(--font-primary); }
   flex-shrink: 0;
 }
 
-@keyframes spectacular-banner {
-  0%, 100% { 
-    transform: translateY(0) scale(1) rotate(0deg);
-    filter: brightness(1) drop-shadow(0 0 5px rgba(237, 110, 25, 0.2));
-  }
-  33% { 
-    transform: translateY(-5px) scale(1.05) rotate(1deg);
-    filter: brightness(1.2) drop-shadow(0 0 20px rgba(237, 110, 25, 0.6));
-  }
-  66% { 
-    transform: translateY(-2px) scale(1.02) rotate(-1deg);
-    filter: brightness(1.1) drop-shadow(0 0 15px rgba(237, 110, 25, 0.4));
-  }
-}
 
-@keyframes shine-sweep {
-  0% { -webkit-mask-position: -150%; }
-  100% { -webkit-mask-position: 150%; }
-}
 
 .logo-banner {
   height: 45px;
@@ -289,9 +272,6 @@ input, textarea, select, button { font-family: var(--font-primary); }
   display: block;
   object-fit: contain;
   transition: var(--transition);
-  animation: spectacular-banner 8s ease-in-out infinite, shine-sweep 4s linear infinite;
-  -webkit-mask-image: linear-gradient(120deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,1) 55%);
-  -webkit-mask-size: 300% 100%;
   filter: drop-shadow(0 0 8px rgba(237, 110, 25, 0.2));
 }
 
@@ -302,7 +282,6 @@ input, textarea, select, button { font-family: var(--font-primary); }
 }
 
 .nav-brand:hover .logo-banner {
-  transform: scale(1.08) rotate(2deg);
   filter: drop-shadow(0 0 12px rgba(237, 110, 25, 0.5));
 }
 
@@ -342,9 +321,6 @@ input, textarea, select, button { font-family: var(--font-primary); }
   object-fit: contain;
   opacity: 0.8;
   transition: var(--transition);
-  animation: spectacular-banner 10s ease-in-out infinite, shine-sweep 5s linear infinite;
-  -webkit-mask-image: linear-gradient(120deg, rgba(0,0,0,1) 45%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,1) 55%);
-  -webkit-mask-size: 300% 100%;
 }
 
 .footer-logo:hover .logo-img-footer,
@@ -1994,18 +1970,31 @@ input, textarea, select, button { font-family: var(--font-primary); }
   }
   .nav-menu {
     position: fixed;
-    top: var(--nav-height); left: 0; right: 0;
-    background: #ffffff; /* Fondo blanco también en móvil */
+    top: 0; 
+    padding-top: calc(var(--nav-height) + 20px);
+    left: 0; right: 0;
+    background: #ffffff;
     backdrop-filter: blur(15px);
     flex-direction: column;
-    padding: 40px 20px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     gap: 20px;
     transform: translateY(-120%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
-    border-bottom: 3px solid var(--primary);
+    border-bottom: 3px solid var(--accent);
     text-align: center;
     box-shadow: var(--shadow-lg);
+  }
+  
+  .header.scrolled .nav-menu {
+    top: 15px;
+    border-radius: 30px;
+    padding-top: 80px;
+    width: 96%;
+    left: 2%;
+    margin: 0 auto;
   }
   .nav-link { font-size: 1.2rem; width: 100%; color: var(--primary); }
   .nav-menu.open { transform: translateY(0); }
