@@ -2048,6 +2048,9 @@ input, textarea, select, button { font-family: var(--font-primary); }
   .calendar-date { margin: 0 auto; }
   .calendar-info { text-align: center; }
   
+  .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+  .contact-info-cards { grid-template-columns: 1fr; }
+  
   .footer-grid { grid-template-columns: 1fr; text-align: center; }
   .footer-text-logo { justify-content: center; }
   .footer-socials { justify-content: center; }
