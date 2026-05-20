@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Recursos y Capacitación - Zona Tributaria. Descarga guías, planillas de Excel y normativas actualizadas para tu pyme o emprendimiento." />
+  <title>Recursos y Capacitación | Zona Tributaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logo_circular.png?v=3" />
+  <style>
+    /* Premium details specific to the resources page */
+    .resources-hero {
+      background: linear-gradient(135deg, #021822 0%, #043144 100%);
+      padding: 120px 0 60px;
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .resources-hero .back-btn {
+      position: absolute;
+      top: 40px;
+      left: 5%;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .resources-hero .back-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--accent);
+      transform: translateX(-5px);
+    }
+
+    .resources-container {
+      padding: 80px 0;
+    }
+
+    .category-section {
+      margin-bottom: 60px;
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 4px solid var(--accent);
+      padding-left: 15px;
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+
+    .download-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .download-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      opacity: 0.8;
+    }
+
+    .download-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .download-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .file-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .file-type-badge.pdf {
+      background: rgba(220, 38, 38, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(220, 38, 38, 0.25);
+    }
+
+    .file-type-badge.excel {
+      background: rgba(22, 163, 74, 0.15);
+      color: #22c55e;
+      border: 1px solid rgba(22, 163, 74, 0.25);
+    }
+
+    .file-size {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .download-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .download-info p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .download-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 12px 0;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .download-card:hover .download-action {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--accent);
+    }
+
+    /* Unified Horizontal Logo Styling with Rounded Borders */
+    .logo-horizontal {
+      height: 48px;
+      width: auto;
+      border-radius: 8px; /* Rounded corners */
+      background-color: #ffffff;
+      padding: 4px 10px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+    .logo-horizontal:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Footer Brand Logo - Enlarged and Rounded */
+    .logo-horizontal-footer {
+      height: 85px;
+      width: auto;
+      border-radius: 12px; /* Rounded corners */
+      background-color: #ffffff;
+      padding: 6px 15px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      transition: var(--transition);
+    }
+    .logo-horizontal-footer:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      .resources-hero .back-btn {
+        position: static;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="header scrolled" id="header" style="position: sticky; top: 0; background: rgba(255, 255, 255, 0.95);">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <img src="logo_horizontal.png" alt="Zona Tributaria Logo" class="logo-horizontal">
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html#inicio" class="nav-link" style="color: var(--primary);">Inicio</a></li>
+        <li><a href="index.html#nosotros" class="nav-link" style="color: var(--primary);">Quiénes Somos</a></li>
+        <li><a href="index.html#servicios" class="nav-link" style="color: var(--primary);">Servicios</a></li>
+        <li><a href="index.html#recursos" class="nav-link active" style="color: var(--accent);">Recursos</a></li>
+        <li><a href="index.html#contacto" class="nav-link" style="color: var(--primary);">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="resources-hero">
+    <a href="index.html#recursos" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Volver a la Landing Page
+    </a>
+    <div class="container">
+      <h1 class="section-title-modern">Centro de <span class="text-gradient-gold">Recursos y Capacitación</span></h1>
+      <p class="section-subtitle" style="max-width: 700px; margin: 0 auto;">
+        Contenido claro, actualizado y pensado para emprendedores, pymes, profesionales y estudiantes. Descarga herramientas clave para facilitar tu gestión y cumplimiento tributario.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== MAIN CONTENT CONTAINER ===== -->
+  <main class="resources-container">
+    <div class="container">
+
+      <!-- CATEGORY 1: PLANILLAS EXCEL -->
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-file-excel" style="color: #22c55e;"></i> Planillas Excel y Calculadoras
+        </h2>
+        <div class="download-grid">
+          <!-- Item 1 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge excel"><i class="far fa-file-excel"></i> Excel</span>
+                <span class="file-size">1.2 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Calculadora de Impuesto Único</h3>
+                <p>Simulador práctico en Excel para calcular el Impuesto Único de Segunda Categoría en remuneraciones mensuales.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Calculadora_Impuesto_Unico.xlsx')">
+              Descargar Planilla <i class="fas fa-download"></i>
+            </a>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge excel"><i class="far fa-file-excel"></i> Excel</span>
+                <span class="file-size">850 KB</span>
+              </div>
+              <div class="download-info">
+                <h3>Planilla de Control de Flujo de Caja</h3>
+                <p>Planilla simplificada para emprendimientos y microempresas, ideal para prever obligaciones mensuales e IVA.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Planilla_Flujo_Caja_Pyme.xlsx')">
+              Descargar Planilla <i class="fas fa-download"></i>
+            </a>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge excel"><i class="far fa-file-excel"></i> Excel</span>
+                <span class="file-size">1.5 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Simulador de Regímenes Tributarios</h3>
+                <p>Evalúa si te conviene el régimen Pro Pyme General, Pro Pyme Transparente o el Régimen General Semi-integrado.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Simulador_Regimenes_Tributarios.xlsx')">
+              Descargar Planilla <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY 2: GUÍAS Y MANUALES PDF -->
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-file-pdf" style="color: #ef4444;"></i> Guías Prácticas y Manuales (PDF)
+        </h2>
+        <div class="download-grid">
+          <!-- Item 1 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge pdf"><i class="far fa-file-pdf"></i> PDF</span>
+                <span class="file-size">3.4 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Guía de Inicio de Actividades F29 y F22</h3>
+                <p>Paso a paso detallado para constituir tu empresa, seleccionar el régimen óptimo y entender tus obligaciones ante el SII.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Guia_Inicio_Actividades_ZonaTributaria.pdf')">
+              Descargar Manual <i class="fas fa-download"></i>
+            </a>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge pdf"><i class="far fa-file-pdf"></i> PDF</span>
+                <span class="file-size">2.1 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Manual de Gastos Aceptados y Rechazados</h3>
+                <p>Evita observaciones del SII comprendiendo detalladamente qué desembolsos son deducibles en la renta de tu negocio.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Manual_Gastos_Aceptados_SII.pdf')">
+              Descargar Manual <i class="fas fa-download"></i>
+            </a>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge pdf"><i class="far fa-file-pdf"></i> PDF</span>
+                <span class="file-size">1.8 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Checklist de Cierre Anual Tributario</h3>
+                <p>Guía de verificación para preparar de forma robusta e infalible tu Balance General y Declaración de Renta.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Checklist_Cierre_Anual_Tributario.pdf')">
+              Descargar Manual <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY 3: NORMATIVAS Y OFICIOS -->
+      <section class="category-section">
+        <h2 class="category-title">
+          <i class="fas fa-gavel" style="color: var(--accent);"></i> Normativas, Leyes y Circulares
+        </h2>
+        <div class="download-grid">
+          <!-- Item 1 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge pdf"><i class="far fa-file-pdf"></i> PDF</span>
+                <span class="file-size">5.2 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Ley de Modernización Tributaria N° 21.210</h3>
+                <p>Texto oficial refundido de la ley que reformó el Código Tributario e introdujo los nuevos regímenes Pro Pyme en Chile.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Ley_21210_Modernizacion_Tributaria.pdf')">
+              Descargar Normativa <i class="fas fa-download"></i>
+            </a>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="download-card">
+            <div>
+              <div class="download-meta">
+                <span class="file-type-badge pdf"><i class="far fa-file-pdf"></i> PDF</span>
+                <span class="file-size">1.1 MB</span>
+              </div>
+              <div class="download-info">
+                <h3>Circular N° 62 de Regímenes Pro Pyme</h3>
+                <p>Instrucciones oficiales emitidas por el Servicio de Impuestos Internos (SII) sobre la tributación de micro, pequeñas y medianas empresas.</p>
+              </div>
+            </div>
+            <a href="#" class="download-action" onclick="simulateDownload(event, 'Circular_62_SII_ProPyme.pdf')">
+              Descargar Normativa <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img src="logo_horizontal.png" alt="Zona Tributaria Logo" class="logo-horizontal-footer">
+            </div>
+            <p class="footer-tagline"><span class="brand-zona">Zona</span> <span
+                class="brand-tributaria">Tributaria</span>: Consultoría y educación tributaria para emprendedores y
+              empresas.</p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Enlaces</h4>
+            <ul>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="index.html#recursos">Recursos</a></li>
+              <li><a href="index.html#nosotros">Quiénes somos</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Contacto</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+              <i class="fas fa-envelope"></i> contacto@zonatributaria.cl<br>
+              <i class="fas fa-map-marker-alt"></i> Santiago, Chile
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Zona Tributaria. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function simulateDownload(event, filename) {
+      event.preventDefault();
+      
+      const link = event.currentTarget;
+      const originalText = link.innerHTML;
+      
+      link.style.pointerEvents = 'none';
+      link.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando descarga...';
+      
+      setTimeout(() => {
+        link.innerHTML = '<i class="fas fa-check"></i> Descargando...';
+        
+        // Dynamic simulated browser trigger
+        const dummy = document.createElement('a');
+        dummy.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Contenido ficticio para el archivo descargable de Zona Tributaria ' + filename);
+        dummy.download = filename;
+        document.body.appendChild(dummy);
+        dummy.click();
+        document.body.removeChild(dummy);
+
+        setTimeout(() => {
+          link.style.pointerEvents = 'auto';
+          link.innerHTML = originalText;
+        }, 1500);
+      }, 1000);
+    }
+  </script>
+</body>
+
+</html>

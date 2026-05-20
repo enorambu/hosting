@@ -150,6 +150,23 @@ async function loadAllRSS(silent = false) {
   if (!silent) hideStatus();
   renderNews();
   updateTicker();
+  updateSIINewsBlock();
+}
+
+// ============ UPDATE SII NEWS BLOCK ============
+function updateSIINewsBlock() {
+  const siiBlock = document.getElementById('sii-news-dynamic');
+  if (!siiBlock) return;
+  
+  const siiNews = allArticles.find(a => a.id === 'sii');
+  if (siiNews) {
+    siiBlock.innerHTML = `
+      <p style="font-weight: 600; margin-bottom: 3px;">${siiNews.title}</p>
+      <span style="font-size: 0.75rem; color: var(--accent-light);"><i class="far fa-calendar-alt"></i> ${siiNews.date}</span>
+    `;
+  } else {
+    siiBlock.innerHTML = `<p style="font-size: 0.85rem;">Visita el sitio para ver las últimas resoluciones.</p>`;
+  }
 }
 
 // ============ NEWS RENDERING ============
@@ -401,20 +418,39 @@ function initContactForm() {
     }
 
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redireccionando a WhatsApp...';
 
-    // Simulate sending
+    // Capture values
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const empresa = document.getElementById('empresa').value || 'No especificada';
+    const mensaje = document.getElementById('mensaje').value;
+
+    // Format WhatsApp text
+    const text = `Hola Zona Tributaria, me gustaría realizar una consulta:\n\n` +
+                 `*Nombre:* ${nombre}\n` +
+                 `*Email:* ${email}\n` +
+                 `*Empresa:* ${empresa}\n` +
+                 `*Mensaje:* ${mensaje}`;
+    
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/56912345678?text=${encodedText}`;
+
+    // Open in a new tab after a brief delay
     setTimeout(() => {
       btn.style.display = 'none';
       success.classList.add('visible');
       form.reset();
+      
+      window.open(whatsappUrl, '_blank');
+
       setTimeout(() => {
         success.classList.remove('visible');
         btn.style.display = '';
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje';
+        btn.innerHTML = 'Enviar consulta <i class="fas fa-paper-plane"></i>';
       }, 5000);
-    }, 1800);
+    }, 1200);
   });
 }
 
@@ -438,7 +474,7 @@ function initAnimations() {
       if (entry.isIntersecting) {
         // Find all cards in the same parent and animate them with delay
         const container = entry.target;
-        const cards = container.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
+        const cards = container.querySelectorAll('.service-list-item, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
         
         cards.forEach((card, index) => {
           if (!card.classList.contains('animated')) {
@@ -455,8 +491,8 @@ function initAnimations() {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.services-grid, .value-prop-grid, .methodology-steps, .resources-grid, .contact-info-cards, .calendar-grid, .news-grid').forEach(el => {
-    const cards = el.querySelectorAll('.service-card, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
+  document.querySelectorAll('.services-list, .value-prop-grid, .methodology-steps, .resources-grid, .contact-info-cards, .calendar-grid, .news-grid').forEach(el => {
+    const cards = el.querySelectorAll('.service-list-item, .value-card, .step-item, .resource-item, .contact-info-card, .calendar-card, .news-card');
     cards.forEach(card => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(30px)';
@@ -480,6 +516,78 @@ function initSmoothScroll() {
 }
 
 // ============ INIT ============
+// ============ TESTIMONIOS CAROUSEL ============
+function initTestimonialsCarousel() {
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.carousel-dots .dot');
+  if (slides.length === 0) return;
+  
+  let currentIndex = 0;
+  let timer;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    let next = (currentIndex + 1) % slides.length;
+    showSlide(next);
+  }
+
+  function startTimer() {
+    timer = setInterval(nextSlide, 5000);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    startTimer();
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showSlide(i);
+      resetTimer();
+    });
+  });
+
+  startTimer();
+}
+
+// ============ ECONOMIC INDICATORS (BANCO CENTRAL) ============
+async function fetchEconomicIndicators() {
+  const ufEl = document.getElementById('uf-val');
+  const dolarEl = document.getElementById('dolar-val');
+  if (!ufEl || !dolarEl) return;
+
+  try {
+    const response = await fetch('https://mindicador.cl/api', { signal: AbortSignal.timeout(6000) });
+    const data = await response.json();
+    
+    if (data.uf && data.dolar) {
+      // Format UF
+      const ufVal = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(data.uf.valor);
+      // Format Dolar
+      const dolarVal = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(data.dolar.valor);
+      
+      ufEl.textContent = ufVal;
+      dolarEl.textContent = dolarVal;
+    } else {
+      throw new Error('Incomplete data from API');
+    }
+  } catch (e) {
+    console.warn('Error fetching mindicador.cl:', e);
+    // Reliable Chilean economic fallback values for 2026
+    ufEl.textContent = '$38.254,12';
+    dolarEl.textContent = '$962,50';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initFilters();
@@ -489,6 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initSmoothScroll();
   initNavTextEffect();
+  initTestimonialsCarousel();
+  fetchEconomicIndicators();
 
   // Load RSS feed initially
   loadAllRSS();
