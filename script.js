@@ -436,13 +436,13 @@ function initContactForm() {
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/56912345678?text=${encodedText}`;
 
-    // Open in a new tab after a brief delay
+    // Abrir ventana sincrónicamente para evitar el bloqueo de popups del navegador
+    window.open(whatsappUrl, '_blank');
+
     setTimeout(() => {
       btn.style.display = 'none';
       success.classList.add('visible');
       form.reset();
-      
-      window.open(whatsappUrl, '_blank');
 
       setTimeout(() => {
         success.classList.remove('visible');
@@ -450,7 +450,7 @@ function initContactForm() {
         btn.disabled = false;
         btn.innerHTML = 'Enviar consulta <i class="fas fa-paper-plane"></i>';
       }, 5000);
-    }, 1200);
+    }, 800);
   });
 }
 
