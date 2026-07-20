@@ -169,8 +169,28 @@
       .cat-box:last-child { border-bottom: none; }
     }
     @media (max-width: 640px) {
-      .rec-hero { padding: 60px 0 40px; }
+      .rec-hero { padding: 70px 0 40px; }
+      .rec-hero h1 { font-size: 1.8rem; }
       .rec-hero .back-btn { position: static; margin-bottom: 20px; display: inline-flex; }
+      
+      /* Mejoras UX para celulares: convertir links en tarjetas grandes */
+      .res-list { padding: 0 15px; gap: 12px; }
+      .res-item {
+        background: #f8f9fa;
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 8px;
+        padding: 14px;
+        gap: 0;
+      }
+      .res-bullet { display: none; }
+      .res-body { width: 100%; gap: 10px; }
+      .res-name { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+      .res-link {
+        width: 100%;
+        justify-content: center;
+        padding: 9px 0;
+        font-size: 0.85rem;
+      }
     }
 
     /* ── Logo (same as rest of the site) ── */
@@ -192,7 +212,7 @@
 <body>
 
   <!-- ===== NAVBAR ===== -->
-  <header class="header scrolled" id="header" style="position:sticky;top:0;background:rgba(255,255,255,.97);">
+  <header class="header" id="header" style="background: rgba(6, 76, 104, 0.95); position: fixed;">
     <nav class="navbar">
       <a href="index.html" class="nav-brand">
         <img src="logo_horizontal.png" alt="Zona Tributaria" class="logo-horizontal">
@@ -245,7 +265,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -285,7 +305,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Decreto Supremo N°100 (Ejemplo)</span>
-                  <a class="res-link" href="#" target="_blank">
+                  <a class="res-link" style="cursor:pointer;" target="_blank">
                     Ir al recurso <i class="fas fa-external-link-alt"></i>
                   </a>
                 </div>
@@ -304,7 +324,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -316,7 +336,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Resúmenes</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_LIR.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Resumenes_LIR.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -325,7 +345,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Análisis ZT</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_LIR.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Analisis_ZT_LIR.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -343,7 +363,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_LIR.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_LIR.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -353,7 +373,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Caso Práctico: Renta Líquida (Ejemplo)</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Caso_Practico_Renta.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Caso_Practico_Renta.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -372,7 +392,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -384,7 +404,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Formatos</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_LIR.docx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Formatos_LIR.docx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -393,7 +413,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Plantillas</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantillas_LIR.xlsx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Plantillas_LIR.xlsx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -411,7 +431,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_LIR.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_Misc_LIR.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -421,7 +441,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Calculadora Tributaria v2 (Ejemplo)</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Calculadora_v2.xlsx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Calculadora_v2.xlsx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -453,7 +473,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -511,7 +531,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -523,7 +543,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Resúmenes</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_IVA.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Resumenes_IVA.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -532,7 +552,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Análisis ZT</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_IVA.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Analisis_ZT_IVA.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -550,7 +570,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_IVA.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_IVA.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -569,7 +589,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -581,7 +601,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Formatos</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_IVA.docx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Formatos_IVA.docx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -590,7 +610,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Plantillas</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantilla_F29.xlsx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Plantilla_F29.xlsx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -608,7 +628,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_IVA.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_Misc_IVA.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -640,7 +660,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -698,7 +718,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -710,7 +730,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Resúmenes</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_Otras.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Resumenes_Otras.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -719,7 +739,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Análisis ZT</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_Otras.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Analisis_ZT_Otras.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -737,7 +757,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Otras.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_Otras.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -756,7 +776,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Nombre de tu nuevo archivo</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'TuArchivo.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -768,7 +788,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Formatos</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_Otras.docx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Formatos_Otras.docx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -777,7 +797,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Plantillas</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantillas_Otras.xlsx')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Plantillas_Otras.xlsx')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
@@ -795,7 +815,7 @@
                 <span class="res-bullet">•</span>
                 <div class="res-body">
                   <span class="res-name">Otros</span>
-                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_Otras.pdf')">
+                  <a class="res-link" style="cursor:pointer;" onclick="simulateDownload(event,'Otros_Misc_Otras.pdf')">
                     Ir al recurso <i class="fas fa-download"></i>
                   </a>
                 </div>
