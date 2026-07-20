@@ -349,37 +349,76 @@ function initNavbar() {
   const menu   = document.getElementById('nav-menu');
   const links  = document.querySelectorAll('.nav-link');
 
+  if (!header || !menu) return;
+
+  // Scroll: toggle sticky style
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 60);
-  });
+  }, { passive: true });
 
+  // Mobile toggle button
   toggle?.addEventListener('click', () => {
     menu.classList.toggle('open');
     const spans = toggle.querySelectorAll('span');
-    menu.classList.contains('open')
-      ? (spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)',
-         spans[1].style.opacity   = '0',
-         spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)')
-      : (spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; }));
+    if (menu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity   = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
   });
 
+  // Nav links: close menu + set active
   links.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+
+      // If it's an external page link (not an anchor), let the browser navigate normally
+      if (!href || !href.startsWith('#')) {
+        menu.classList.remove('open');
+        if (toggle) {
+          const spans = toggle.querySelectorAll('span');
+          spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+        }
+        return; // Don't prevent default — let browser follow the link
+      }
+
+      // From here: anchor links only
+      e.preventDefault();
+
+      // Close mobile menu
       menu.classList.remove('open');
+      if (toggle) {
+        const spans = toggle.querySelectorAll('span');
+        spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+      }
+
+      // Update active class
       links.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
+
+      // Smooth scroll
+      const target = document.querySelector(href);
+      if (target) {
+        const headerHeight = header.offsetHeight || 70;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     });
   });
 
-  // Active section on scroll
+  // Highlight active nav link while scrolling
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + (header.offsetHeight || 70) + 10;
     let current = '';
     sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+      if (scrollPos >= s.offsetTop) current = s.id;
     });
     links.forEach(l => {
-      l.classList.toggle('active', l.getAttribute('href') === `#${current}`);
+      const href = l.getAttribute('href');
+      l.classList.toggle('active', href === `#${current}`);
     });
   }, { passive: true });
 }
@@ -387,7 +426,12 @@ function initNavbar() {
 function initNavTextEffect() {
   const links = document.querySelectorAll('.nav-link');
   links.forEach(link => {
-    const text = link.textContent;
+    const href = link.getAttribute('href');
+    // Skip the text-span animation for external page links (e.g. recursos.html)
+    // to ensure clicks are always reliable
+    if (!href || !href.startsWith('#')) return;
+
+    const text = link.textContent.trim();
     link.innerHTML = '';
     [...text].forEach((char, i) => {
       const span = document.createElement('span');
@@ -395,7 +439,26 @@ function initNavTextEffect() {
       span.style.display = 'inline-block';
       span.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       span.style.transitionDelay = `${i * 20}ms`;
+      span.style.pointerEvents = 'none'; // Pass clicks through to parent <a>
       link.appendChild(span);
+    });
+  });
+}
+
+// ============ SMOOTH SCROLL (for other anchor links, e.g. in buttons) ============
+function initSmoothScroll() {
+  const header = document.getElementById('header');
+  // Only apply to non-nav anchor links (nav links handled by initNavbar)
+  document.querySelectorAll('a[href^="#"]:not(.nav-link)').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      const target = href && href.length > 1 ? document.querySelector(href) : null;
+      if (target) {
+        e.preventDefault();
+        const headerHeight = header ? header.offsetHeight : 70;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     });
   });
 }
