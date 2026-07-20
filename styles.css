@@ -2174,7 +2174,15 @@ img { max-width: 100%; height: auto; }
   max-height: 30px;
   overflow: hidden;
 }
-.service-list-item:hover .service-detail-btn {
+@media (hover: hover) {
+  .service-list-item:hover .service-detail-btn {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    pointer-events: none;
+  }
+}
+.service-list-item.expanded .service-detail-btn {
   opacity: 0;
   max-height: 0;
   margin-top: 0;
@@ -2195,7 +2203,14 @@ img { max-width: 100%; height: auto; }
   padding-top: 12px;
   margin-top: 0;
 }
-.service-list-item:hover .service-detail-expand {
+@media (hover: hover) {
+  .service-list-item:hover .service-detail-expand {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 12px;
+  }
+}
+.service-list-item.expanded .service-detail-expand {
   max-height: 1000px;
   opacity: 1;
   margin-top: 12px;

@@ -578,6 +578,17 @@ function initSmoothScroll() {
   });
 }
 
+// ============ SERVICES TOGGLE (MOBILE) ============
+function initServicesToggle() {
+  const serviceItems = document.querySelectorAll('.service-list-item');
+  serviceItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Toggle expanded class on tap/click
+      item.classList.toggle('expanded');
+    });
+  });
+}
+
 // ============ INIT ============
 // ============ TESTIMONIOS CAROUSEL ============
 function initTestimonialsCarousel() {
@@ -698,6 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavTextEffect();
   initTestimonialsCarousel();
   fetchEconomicIndicators();
+  initServicesToggle();
 
   // Load RSS feed initially
   loadAllRSS();
