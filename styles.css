@@ -40,7 +40,7 @@ html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
 body {
   font-family: var(--font-primary);
   color: var(--text-primary);
-  background: var(--off-white);
+  background: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
   font-weight: 300;
