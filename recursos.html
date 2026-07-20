@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Recursos y Capacitación - Zona Tributaria. Normativa tributaria chilena organizada por ley: LIR, IVA, Código Tributario y más." />
+  <title>Centro de Recursos | Zona Tributaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logo_circular.png?v=3" />
+
+  <style>
+    /* ── Shell ── */
+    body { background: var(--off-white); }
+
+    /* ── Hero (same dark banner as main page sections) ── */
+    .rec-hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      padding: 110px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .rec-hero h1 { color: #fff; }
+    .rec-hero .section-subtitle {
+      color: rgba(255,255,255,.78) !important;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .rec-hero .back-btn {
+      position: absolute; top: 36px; left: 5%;
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; font-weight: 600; font-size: .88rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 9px 20px; border-radius: 50px;
+      transition: var(--transition); text-decoration: none;
+    }
+    .rec-hero .back-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    /* ── Main container ── */
+    .rec-main { padding: 64px 0 90px; }
+
+    /* ══ LEVEL 1 — LAW HEADING ══ */
+    .law-block { margin-bottom: 48px; }
+
+    .law-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--primary);
+    }
+    .law-heading h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin: 0;
+    }
+    .law-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      flex-shrink: 0;
+    }
+
+    /* ══ LEVEL 2 — CATEGORY GRID ══ */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .cat-box {
+      background: var(--white);
+      border-right: 1.5px solid var(--border);
+      padding: 0 0 24px;
+    }
+    .cat-box:last-child { border-right: none; }
+
+    /* Colour-coded category title bars — using site palette */
+    .cat-title {
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: #fff;
+      padding: 10px 18px;
+      margin-bottom: 16px;
+      border-bottom: none;
+    }
+    /* Normativo  → corporate blue */
+    .cat-normativo .cat-title { background: var(--primary); }
+    /* Propio     → accent orange */
+    .cat-propio   .cat-title { background: var(--accent); }
+    /* Misceláneos → mid-teal derived from primary */
+    .cat-misc     .cat-title { background: #0a7a9a; }
+
+    /* ══ LEVEL 3 — RESOURCE LIST ══ */
+    .res-list {
+      list-style: none;
+      margin: 0;
+      padding: 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .res-item { display: flex; align-items: flex-start; gap: 8px; }
+    .res-bullet {
+      color: var(--accent);
+      font-size: 1rem;
+      line-height: 1.5;
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    .res-body { display: flex; flex-direction: column; gap: 5px; }
+    .res-name {
+      font-size: .86rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* "Ir al recurso" pill — matches site's btn-outline style */
+    .res-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1.5px solid var(--primary);
+      padding: 3px 11px;
+      border-radius: 50px;
+      transition: var(--transition);
+      align-self: flex-start;
+      white-space: nowrap;
+    }
+    .res-link:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .cat-grid { grid-template-columns: 1fr; }
+      .cat-box  { border-right: none; border-bottom: 1.5px solid var(--border); }
+      .cat-box:last-child { border-bottom: none; }
+    }
+    @media (max-width: 640px) {
+      .rec-hero { padding: 60px 0 40px; }
+      .rec-hero .back-btn { position: static; margin-bottom: 20px; display: inline-flex; }
+    }
+
+    /* ── Logo (same as rest of the site) ── */
+    .logo-horizontal {
+      height: 48px; width: auto; border-radius: 8px; background: #fff;
+      padding: 4px 10px; border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 2px 5px rgba(0,0,0,.05); transition: var(--transition);
+    }
+    .logo-horizontal:hover { transform: translateY(-2px) scale(1.02); }
+    .logo-horizontal-footer {
+      height: 85px; width: auto; border-radius: 12px; background: #fff;
+      padding: 6px 15px; border: 2px solid rgba(0,0,0,.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,.12); transition: var(--transition);
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="header scrolled" id="header" style="position:sticky;top:0;background:rgba(255,255,255,.97);">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <img src="logo_horizontal.png" alt="Zona Tributaria" class="logo-horizontal">
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html#inicio"    class="nav-link" style="color:var(--primary);">Inicio</a></li>
+        <li><a href="index.html#nosotros"  class="nav-link" style="color:var(--primary);">Quiénes Somos</a></li>
+        <li><a href="index.html#servicios" class="nav-link" style="color:var(--primary);">Servicios</a></li>
+        <li><a href="recursos.html"        class="nav-link active" style="color:var(--accent);">Recursos</a></li>
+        <li><a href="index.html#contacto"  class="nav-link" style="color:var(--primary);">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="rec-hero">
+    <a href="index.html#recursos" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
+    <div class="container">
+      <h1 class="section-title-modern">Centro de <span class="text-gradient-gold">Recursos y Capacitación</span></h1>
+      <p class="section-subtitle">
+        Normativa tributaria organizada por ley, con contenido normativo oficial, material propio de Zona Tributaria y archivos misceláneos de ayuda.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== MAIN ===== -->
+  <main class="rec-main">
+    <div class="container">
+
+      <!-- ════════════════════════════════════
+           LEY 1 ▸ LEY DE LA RENTA  D.L. N°824
+      ════════════════════════════════════ -->
+      <section class="law-block">
+        <div class="law-heading">
+          <h2>Ley de la Renta &nbsp;D.L. N°824</h2>
+        </div>
+        <div class="cat-grid">
+
+          <!-- NORMATIVO -->
+          <div class="cat-box cat-normativo">
+            <div class="cat-title">Contenido Normativo</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Circulares</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/circulares/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resoluciones</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/resoluciones/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Oficios</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/jurisprudencia_administrativa/renta/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Decreto Supremo N°100 (Ejemplo)</span>
+                  <a class="res-link" href="#" target="_blank">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PROPIO -->
+          <div class="cat-box cat-propio">
+            <div class="cat-title">Contenido Propio</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resúmenes</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_LIR.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Análisis ZT</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_LIR.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Publicaciones en RRSS</span>
+                  <a class="res-link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_LIR.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Caso Práctico: Renta Líquida (Ejemplo)</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Caso_Practico_Renta.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- MISCELÁNEOS -->
+          <div class="cat-box cat-misc">
+            <div class="cat-title">Archivos Misceláneos de Ayuda</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Formatos</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_LIR.docx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Plantillas</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantillas_LIR.xlsx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Libros</span>
+                  <a class="res-link" href="https://www.bcn.cl/leychile/navegar?idNorma=8279" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_LIR.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Calculadora Tributaria v2 (Ejemplo)</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Calculadora_v2.xlsx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ════════════════════════════════════
+           LEY 2 ▸ IVA  D.L. N°825
+      ════════════════════════════════════ -->
+      <section class="law-block">
+        <div class="law-heading">
+          <h2>Ley sobre Impuesto a las Ventas y Servicios &nbsp;D.L. N°825</h2>
+        </div>
+        <div class="cat-grid">
+
+          <!-- NORMATIVO -->
+          <div class="cat-box cat-normativo">
+            <div class="cat-title">Contenido Normativo</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Ley (texto vigente)</span>
+                  <a class="res-link" href="https://www.bcn.cl/leychile/navegar?idNorma=8190" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Circulares</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/circulares/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resoluciones</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/resoluciones/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Oficios</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/jurisprudencia_administrativa/iva/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PROPIO -->
+          <div class="cat-box cat-propio">
+            <div class="cat-title">Contenido Propio</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resúmenes</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_IVA.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Análisis ZT</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_IVA.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Publicaciones en RRSS</span>
+                  <a class="res-link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_IVA.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- MISCELÁNEOS -->
+          <div class="cat-box cat-misc">
+            <div class="cat-title">Archivos Misceláneos de Ayuda</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Formatos</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_IVA.docx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Plantillas</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantilla_F29.xlsx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Libros</span>
+                  <a class="res-link" href="https://www.bcn.cl/leychile/navegar?idNorma=8190" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_IVA.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ════════════════════════════════════
+           LEY 3 ▸ OTRAS LEYES
+      ════════════════════════════════════ -->
+      <section class="law-block">
+        <div class="law-heading">
+          <h2>Otras Leyes</h2>
+        </div>
+        <div class="cat-grid">
+
+          <!-- NORMATIVO -->
+          <div class="cat-box cat-normativo">
+            <div class="cat-title">Contenido Normativo</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Ley (texto vigente)</span>
+                  <a class="res-link" href="https://www.bcn.cl/leychile" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Circulares</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/circulares/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resoluciones</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/resoluciones/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Oficios</span>
+                  <a class="res-link" href="https://www.sii.cl/normativa_legislacion/jurisprudencia_administrativa/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PROPIO -->
+          <div class="cat-box cat-propio">
+            <div class="cat-title">Contenido Propio</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Resúmenes</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Resumenes_Otras.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Análisis ZT</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Analisis_ZT_Otras.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Publicaciones en RRSS</span>
+                  <a class="res-link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Otras.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- MISCELÁNEOS -->
+          <div class="cat-box cat-misc">
+            <div class="cat-title">Archivos Misceláneos de Ayuda</div>
+            <ul class="res-list">
+              <!-- ============================================================== -->
+              <!-- PARA AGREGAR UN NUEVO ARCHIVO, COPIA Y PEGA ESTE BLOQUE:       -->
+              <!--
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Nombre de tu nuevo archivo</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'TuArchivo.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              -->
+              <!-- ============================================================== -->
+
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Formatos</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Formatos_Otras.docx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Plantillas</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Plantillas_Otras.xlsx')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Libros</span>
+                  <a class="res-link" href="https://www.bcn.cl" target="_blank" rel="noopener">
+                    Ir al recurso <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </li>
+              <li class="res-item">
+                <span class="res-bullet">•</span>
+                <div class="res-body">
+                  <span class="res-name">Otros</span>
+                  <a class="res-link" href="#" onclick="simulateDownload(event,'Otros_Misc_Otras.pdf')">
+                    Ir al recurso <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img src="logo_horizontal.png" alt="Zona Tributaria" class="logo-horizontal-footer">
+            </div>
+            <p class="footer-tagline">
+              <span class="brand-zona">Zona</span> <span class="brand-tributaria">Tributaria</span>:
+              Consultoría y educación tributaria para emprendedores y empresas.
+            </p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Enlaces</h4>
+            <ul>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="recursos.html">Recursos</a></li>
+              <li><a href="index.html#nosotros">Quiénes somos</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Contacto</h4>
+            <p style="font-size:.9rem;color:rgba(255,255,255,.7);">
+              <i class="fas fa-envelope"></i> contacto@zonatributaria.cl<br>
+              <i class="fas fa-map-marker-alt"></i> Santiago, Chile
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Zona Tributaria. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function simulateDownload(event, filename) {
+      event.preventDefault();
+      const link = event.currentTarget;
+      const original = link.innerHTML;
+      link.style.pointerEvents = 'none';
+      link.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      setTimeout(() => {
+        const dummy = document.createElement('a');
+        dummy.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Archivo: ' + filename);
+        dummy.download = filename;
+        document.body.appendChild(dummy);
+        dummy.click();
+        document.body.removeChild(dummy);
+        setTimeout(() => { link.style.pointerEvents = 'auto'; link.innerHTML = original; }, 1500);
+      }, 900);
+    }
+  </script>
+
+</body>
+</html>
