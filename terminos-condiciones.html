@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Términos y Condiciones de uso del sitio web y servicios de Zona Tributaria Chile." />
+  <meta name="robots" content="noindex, follow" />
+  <title>Términos y Condiciones | Zona Tributaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logo_circular.png?v=3" />
+
+  <style>
+    body { background: var(--off-white); }
+
+    .legal-hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 60%, #0a7a9a 100%);
+      padding: 110px 0 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .legal-hero .back-btn {
+      position: absolute; top: 36px; left: 5%;
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; font-weight: 600; font-size: .88rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 9px 20px; border-radius: 50px;
+      transition: var(--transition); text-decoration: none;
+    }
+    .legal-hero .back-btn:hover {
+      background: var(--accent); border-color: var(--accent);
+      transform: translateX(-4px);
+    }
+    .legal-hero h1 {
+      color: #fff; font-size: clamp(2rem,5vw,3.2rem);
+      font-weight: 800; margin-bottom: 16px;
+    }
+    .legal-hero .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(237,110,25,.18);
+      border: 1px solid rgba(237,110,25,.4);
+      color: var(--accent-light); padding: 7px 20px;
+      border-radius: 100px; font-size: .82rem;
+      font-weight: 700; margin-bottom: 22px; letter-spacing: .4px;
+    }
+    .legal-hero .subtitle {
+      color: rgba(255,255,255,.78); font-size: 1.05rem;
+      max-width: 600px; margin: 0 auto; line-height: 1.7;
+    }
+
+    .legal-main { padding: 64px 0 100px; }
+    .legal-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 48px; align-items: start;
+    }
+
+    .legal-toc {
+      position: sticky; top: 100px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .legal-toc h3 {
+      font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--accent); margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(237,110,25,.15);
+    }
+    .legal-toc ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .legal-toc ul li a {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .83rem; color: var(--text-secondary);
+      font-weight: 500; padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition); text-decoration: none;
+    }
+    .legal-toc ul li a:hover {
+      background: rgba(237,110,25,.08);
+      color: var(--accent); transform: translateX(4px);
+    }
+    .legal-toc ul li a i { font-size: .7rem; color: var(--accent); flex-shrink: 0; }
+
+    .legal-content {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px 52px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .legal-update {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(4,49,68,.05);
+      border: 1px solid rgba(4,49,68,.1);
+      color: var(--text-secondary); padding: 8px 18px;
+      border-radius: 100px; font-size: .8rem;
+      font-weight: 600; margin-bottom: 36px;
+    }
+    .legal-update i { color: var(--accent); }
+
+    .legal-section { margin-bottom: 48px; }
+    .legal-section:last-child { margin-bottom: 0; }
+    .legal-section-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px; padding-bottom: 14px;
+      border-bottom: 2px solid rgba(4,49,68,.07);
+    }
+    .legal-section-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-light); font-size: 1rem;
+    }
+    .legal-section h2 { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
+    .legal-section p {
+      font-size: .95rem; color: var(--text-secondary);
+      line-height: 1.85; margin-bottom: 14px;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul {
+      list-style: none; display: flex; flex-direction: column;
+      gap: 10px; margin: 14px 0;
+    }
+    .legal-section ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .95rem; color: var(--text-secondary); line-height: 1.7;
+    }
+    .legal-section ul li::before {
+      content: '→'; color: var(--accent);
+      font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    .legal-highlight {
+      background: linear-gradient(135deg, rgba(237,110,25,.06) 0%, rgba(4,49,68,.04) 100%);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 22px; margin: 20px 0;
+      font-size: .92rem; color: var(--text-secondary); line-height: 1.75;
+    }
+    .legal-highlight strong { color: var(--primary); }
+
+    .legal-contact-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px; margin-top: 48px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .legal-contact-box i { font-size: 2.5rem; color: var(--accent-light); flex-shrink: 0; }
+    .legal-contact-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; }
+    .legal-contact-box p { color: rgba(255,255,255,.78); font-size: .92rem; margin: 0; }
+    .legal-contact-box a { color: var(--accent-light); font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .legal-layout { grid-template-columns: 1fr; }
+      .legal-toc { position: static; }
+      .legal-content { padding: 32px 24px; }
+    }
+    @media (max-width: 640px) {
+      .legal-hero { padding: 80px 0 50px; }
+      .legal-hero .back-btn { position: static; display: inline-flex; margin-bottom: 20px; }
+      .legal-contact-box { flex-direction: column; text-align: center; }
+    }
+
+    .logo-horizontal {
+      height: 48px; width: auto; border-radius: 8px; background: #fff;
+      padding: 4px 10px; border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 2px 5px rgba(0,0,0,.05); transition: var(--transition);
+    }
+    .logo-horizontal:hover { transform: translateY(-2px) scale(1.02); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="header scrolled" id="header" style="position:sticky;top:0;background:rgba(255,255,255,.97);">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <img src="logo_circular.png" alt="Zona Tributaria" class="logo-img" style="animation:none;">
+        <img src="logo_horizontal.png" alt="Zona Tributaria" class="logo-horizontal" style="margin-left:5px;">
+      </a>
+      <ul class="nav-menu" style="display:flex;">
+        <li><a href="index.html#inicio"    class="nav-link" style="color:var(--primary);">Inicio</a></li>
+        <li><a href="index.html#nosotros"  class="nav-link" style="color:var(--primary);">Quiénes Somos</a></li>
+        <li><a href="index.html#servicios" class="nav-link" style="color:var(--primary);">Servicios</a></li>
+        <li><a href="recursos.html"        class="nav-link" style="color:var(--primary);">Recursos</a></li>
+        <li><a href="index.html#contacto"  class="nav-link" style="color:var(--primary);">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+    <div class="container">
+      <div class="hero-badge"><i class="fas fa-file-contract"></i> Documento Legal</div>
+      <h1>Términos y Condiciones</h1>
+      <p class="subtitle">Lee con atención las condiciones que rigen el uso de nuestro sitio web y la contratación de nuestros servicios.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="legal-main">
+    <div class="container">
+      <div class="legal-layout">
+
+        <!-- TOC -->
+        <aside class="legal-toc">
+          <h3><i class="fas fa-list-ul"></i> &nbsp;Contenido</h3>
+          <ul>
+            <li><a href="#aceptacion"><i class="fas fa-chevron-right"></i> 1. Aceptación</a></li>
+            <li><a href="#objeto"><i class="fas fa-chevron-right"></i> 2. Objeto del Sitio</a></li>
+            <li><a href="#uso-permitido"><i class="fas fa-chevron-right"></i> 3. Uso Permitido</a></li>
+            <li><a href="#propiedad"><i class="fas fa-chevron-right"></i> 4. Propiedad Intelectual</a></li>
+            <li><a href="#servicios-tc"><i class="fas fa-chevron-right"></i> 5. Servicios Profesionales</a></li>
+            <li><a href="#responsabilidad"><i class="fas fa-chevron-right"></i> 6. Limitación de Responsabilidad</a></li>
+            <li><a href="#enlaces"><i class="fas fa-chevron-right"></i> 7. Enlaces Externos</a></li>
+            <li><a href="#privacidad-tc"><i class="fas fa-chevron-right"></i> 8. Privacidad</a></li>
+            <li><a href="#modificaciones"><i class="fas fa-chevron-right"></i> 9. Modificaciones</a></li>
+            <li><a href="#legislacion"><i class="fas fa-chevron-right"></i> 10. Legislación Aplicable</a></li>
+            <li><a href="#contacto-tc"><i class="fas fa-chevron-right"></i> 11. Contacto</a></li>
+          </ul>
+        </aside>
+
+        <!-- Content -->
+        <div class="legal-content">
+          <div class="legal-update"><i class="fas fa-calendar-alt"></i> Última actualización: 20 de julio de 2026</div>
+
+          <div class="legal-highlight">
+            <strong>Importante:</strong> Al acceder y utilizar el sitio web de Zona Tributaria (www.zonatributaria.cl), declaras haber leído, comprendido y aceptado estos Términos y Condiciones en su totalidad. Si no estás de acuerdo, te pedimos que no utilices este sitio.
+          </div>
+
+          <div class="legal-section" id="aceptacion">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-handshake"></i></div>
+              <h2>1. Aceptación de los Términos</h2>
+            </div>
+            <p>Los presentes Términos y Condiciones regulan el acceso y uso del sitio web de <strong>Zona Tributaria SpA</strong> (en adelante, "Zona Tributaria", "nosotros" o "la empresa"), con domicilio en General Dunhan 862, Ñuñoa, Santiago, Chile.</p>
+            <p>El acceso y uso del sitio web implica la aceptación plena y sin reservas de todos los términos y condiciones aquí establecidos. Zona Tributaria se reserva el derecho de modificar estos términos en cualquier momento, siendo efectiva la modificación desde su publicación en el sitio.</p>
+          </div>
+
+          <div class="legal-section" id="objeto">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-globe"></i></div>
+              <h2>2. Objeto del Sitio Web</h2>
+            </div>
+            <p>El sitio web de Zona Tributaria tiene como finalidad:</p>
+            <ul>
+              <li>Informar sobre los servicios profesionales de consultoría y educación tributaria que ofrecemos</li>
+              <li>Publicar contenido educativo e informativo en materia tributaria chilena</li>
+              <li>Facilitar el contacto entre usuarios interesados y nuestro equipo profesional</li>
+              <li>Proporcionar acceso a recursos y materiales de apoyo en materia tributaria</li>
+              <li>Difundir noticias e indicadores económicos relevantes</li>
+            </ul>
+            <p>El contenido informativo publicado en este sitio tiene carácter general y educativo, y <strong>no constituye asesoría tributaria personalizada</strong> ni reemplaza la consulta directa con un profesional.</p>
+          </div>
+
+          <div class="legal-section" id="uso-permitido">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-check-circle"></i></div>
+              <h2>3. Uso Permitido del Sitio</h2>
+            </div>
+            <p>El usuario se compromete a utilizar el sitio web de conformidad con la ley, la moral, el orden público y las presentes condiciones. Queda expresamente prohibido:</p>
+            <ul>
+              <li>Utilizar el sitio para fines ilegales, fraudulentos o contrarios a las buenas costumbres</li>
+              <li>Reproducir, copiar, distribuir o modificar los contenidos del sitio sin autorización expresa de Zona Tributaria</li>
+              <li>Introducir o difundir virus o cualquier código malicioso que dañe o impida el funcionamiento del sitio</li>
+              <li>Realizar intentos de acceso no autorizados a los sistemas informáticos del sitio</li>
+              <li>Enviar comunicaciones masivas no solicitadas (spam) a través de los canales de contacto del sitio</li>
+              <li>Suplantar la identidad de Zona Tributaria o de terceros</li>
+            </ul>
+          </div>
+
+          <div class="legal-section" id="propiedad">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-copyright"></i></div>
+              <h2>4. Propiedad Intelectual</h2>
+            </div>
+            <p>Todos los contenidos del sitio web de Zona Tributaria, incluyendo pero no limitado a textos, gráficos, logotipos, imágenes, íconos, archivos descargables, diseño visual y código fuente, son propiedad de <strong>Zona Tributaria SpA</strong> o de sus proveedores de contenido, y están protegidos por las leyes chilenas e internacionales de propiedad intelectual.</p>
+            <p>Se permite la reproducción parcial de contenidos para uso personal y no comercial, siempre que se cite expresamente la fuente como "Zona Tributaria – www.zonatributaria.cl". Cualquier otro uso requiere autorización escrita previa de Zona Tributaria.</p>
+            <div class="legal-highlight">
+              <strong>Marca registrada:</strong> El nombre "Zona Tributaria" y sus logos asociados son marcas de Zona Tributaria SpA. Su uso no autorizado está expresamente prohibido.
+            </div>
+          </div>
+
+          <div class="legal-section" id="servicios-tc">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-briefcase"></i></div>
+              <h2>5. Servicios Profesionales</h2>
+            </div>
+            <p>La contratación de servicios profesionales de asesoría, consultoría o educación tributaria está sujeta a términos específicos acordados por escrito en cada caso particular. Respecto a la información publicada en el sitio:</p>
+            <ul>
+              <li>El contenido informativo tiene carácter orientativo y educativo</li>
+              <li>No constituye asesoría tributaria personalizada ni reemplaza la consulta profesional</li>
+              <li>Zona Tributaria no garantiza la vigencia inmediata de toda la información publicada, dada la constante evolución normativa</li>
+              <li>Las opiniones expresadas en el sitio corresponden a la interpretación de Zona Tributaria y no son vinculantes para el SII u otros organismos reguladores</li>
+            </ul>
+            <p>Para obtener asesoría personalizada, te invitamos a contactarnos directamente a través de nuestros canales oficiales.</p>
+          </div>
+
+          <div class="legal-section" id="responsabilidad">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-exclamation-triangle"></i></div>
+              <h2>6. Limitación de Responsabilidad</h2>
+            </div>
+            <p>Zona Tributaria realiza sus mejores esfuerzos para mantener el sitio web operativo y la información actualizada; no obstante, no garantiza:</p>
+            <ul>
+              <li>La disponibilidad ininterrumpida del sitio web</li>
+              <li>La exactitud, integridad o vigencia de toda la información publicada en todo momento</li>
+              <li>Que el sitio esté libre de errores o virus</li>
+            </ul>
+            <p>Zona Tributaria no será responsable de los daños y perjuicios que pudieran derivarse del uso de la información del sitio sin la correspondiente verificación profesional, ni de las consecuencias derivadas de decisiones adoptadas en base exclusiva al contenido publicado en el sitio.</p>
+            <div class="legal-highlight">
+              <strong>Importante:</strong> Ningún contenido de este sitio web debe interpretarse como un sustituto de la asesoría tributaria profesional personalizada. Siempre recomendamos verificar la información con un profesional calificado antes de tomar decisiones tributarias.
+            </div>
+          </div>
+
+          <div class="legal-section" id="enlaces">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-external-link-alt"></i></div>
+              <h2>7. Enlaces a Sitios Externos</h2>
+            </div>
+            <p>Nuestro sitio puede contener enlaces a sitios web de terceros (SII, Banco Central, TGR, Dirección del Trabajo, Diario Financiero, entre otros) con fines informativos y de referencia.</p>
+            <p>Zona Tributaria no controla ni es responsable del contenido, políticas de privacidad o prácticas de dichos sitios externos. La inclusión de estos enlaces no implica respaldo o recomendación de los mismos. Te recomendamos revisar los términos y condiciones de cada sitio externo que visites.</p>
+          </div>
+
+          <div class="legal-section" id="privacidad-tc">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-shield-alt"></i></div>
+              <h2>8. Privacidad y Protección de Datos</h2>
+            </div>
+            <p>El tratamiento de los datos personales de los usuarios se rige por nuestra <a href="politica-privacidad.html" style="color:var(--accent);font-weight:700;">Política de Privacidad</a>, la cual forma parte integrante de estos Términos y Condiciones.</p>
+            <p>Al utilizar el sitio web y proporcionarnos tus datos personales, consientes el tratamiento de dichos datos conforme a los términos indicados en nuestra Política de Privacidad y en cumplimiento de la Ley N°19.628 sobre Protección de la Vida Privada de Chile.</p>
+          </div>
+
+          <div class="legal-section" id="modificaciones">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-edit"></i></div>
+              <h2>9. Modificaciones</h2>
+            </div>
+            <p>Zona Tributaria se reserva el derecho de modificar en cualquier momento el contenido del sitio web, así como los presentes Términos y Condiciones, sin previo aviso.</p>
+            <p>Las modificaciones entrarán en vigor desde el momento de su publicación en el sitio web. El uso continuado del sitio después de la publicación de cambios implica la aceptación de los nuevos términos. Te recomendamos revisar estos términos periódicamente.</p>
+          </div>
+
+          <div class="legal-section" id="legislacion">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-balance-scale"></i></div>
+              <h2>10. Legislación Aplicable y Jurisdicción</h2>
+            </div>
+            <p>Los presentes Términos y Condiciones se rigen por las leyes de la <strong>República de Chile</strong>. Para la resolución de cualquier controversia derivada del uso del sitio web o de la interpretación de estos términos, las partes se someten a la jurisdicción de los tribunales competentes de la ciudad de <strong>Santiago de Chile</strong>, renunciando a cualquier otro fuero que pudiera corresponderles.</p>
+            <p>En todo lo no regulado por los presentes términos, se estará a lo dispuesto por la legislación chilena vigente, en particular la Ley N°19.496 sobre Protección de los Derechos de los Consumidores, la Ley N°19.628 sobre Protección de la Vida Privada y demás normativa aplicable.</p>
+          </div>
+
+          <div class="legal-section" id="contacto-tc">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-envelope"></i></div>
+              <h2>11. Contacto</h2>
+            </div>
+            <p>Si tienes consultas, observaciones o reclamos relacionados con estos Términos y Condiciones, puedes ponerte en contacto con nosotros a través de los siguientes canales:</p>
+          </div>
+
+          <div class="legal-contact-box">
+            <i class="fas fa-file-signature"></i>
+            <div>
+              <h3>¿Preguntas sobre nuestros términos?</h3>
+              <p>Escríbenos a <a href="mailto:contacto@zonatributaria.cl">contacto@zonatributaria.cl</a> con el asunto <strong>"Términos y Condiciones"</strong> o llámanos al <a href="tel:+56223456789">+56 2 2345 6789</a>. Horario de atención: Lunes a Jueves 09:00–18:00, Viernes 09:00–17:00.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3 class="footer-text-logo"><span class="brand-zona">Zona</span> <span class="brand-tributaria">Tributaria</span></h3>
+            <p class="footer-tagline">Transformamos la complejidad tributaria en decisiones claras y aplicables. Tu socio estratégico para una gestión empresarial segura.</p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Navegación</h4>
+            <ul>
+              <li><a href="index.html#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+              <li><a href="index.html#nosotros"><i class="fas fa-chevron-right"></i> Quiénes Somos</a></li>
+              <li><a href="index.html#servicios"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+              <li><a href="recursos.html"><i class="fas fa-chevron-right"></i> Recursos</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="politica-privacidad.html"><i class="fas fa-chevron-right"></i> Política de Privacidad</a></li>
+              <li><a href="terminos-condiciones.html"><i class="fas fa-chevron-right"></i> Términos y Condiciones</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-flex">
+          <p>&copy; 2026 Zona Tributaria. Todos los derechos reservados.</p>
+          <div class="footer-bottom-links">
+            <a href="politica-privacidad.html">Política de Privacidad</a>
+            <a href="terminos-condiciones.html">Términos y Condiciones</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Política de Privacidad de Zona Tributaria. Conoce cómo protegemos y gestionamos tus datos personales." />
+  <meta name="robots" content="noindex, follow" />
+  <title>Política de Privacidad | Zona Tributaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logo_circular.png?v=3" />
+
+  <style>
+    body { background: var(--off-white); }
+
+    .legal-hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 60%, #0a7a9a 100%);
+      padding: 110px 0 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .legal-hero .back-btn {
+      position: absolute; top: 36px; left: 5%;
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; font-weight: 600; font-size: .88rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 9px 20px; border-radius: 50px;
+      transition: var(--transition); text-decoration: none;
+    }
+    .legal-hero .back-btn:hover {
+      background: var(--accent); border-color: var(--accent);
+      transform: translateX(-4px);
+    }
+    .legal-hero h1 {
+      color: #fff; font-size: clamp(2rem,5vw,3.2rem);
+      font-weight: 800; margin-bottom: 16px;
+    }
+    .legal-hero .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(237,110,25,.18);
+      border: 1px solid rgba(237,110,25,.4);
+      color: var(--accent-light); padding: 7px 20px;
+      border-radius: 100px; font-size: .82rem;
+      font-weight: 700; margin-bottom: 22px; letter-spacing: .4px;
+    }
+    .legal-hero .subtitle {
+      color: rgba(255,255,255,.78); font-size: 1.05rem;
+      max-width: 600px; margin: 0 auto; line-height: 1.7;
+    }
+
+    .legal-main { padding: 64px 0 100px; }
+    .legal-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 48px; align-items: start;
+    }
+
+    .legal-toc {
+      position: sticky; top: 100px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .legal-toc h3 {
+      font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--accent); margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(237,110,25,.15);
+    }
+    .legal-toc ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .legal-toc ul li a {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .83rem; color: var(--text-secondary);
+      font-weight: 500; padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition); text-decoration: none;
+    }
+    .legal-toc ul li a:hover {
+      background: rgba(237,110,25,.08);
+      color: var(--accent); transform: translateX(4px);
+    }
+    .legal-toc ul li a i { font-size: .7rem; color: var(--accent); flex-shrink: 0; }
+
+    .legal-content {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px 52px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .legal-update {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(4,49,68,.05);
+      border: 1px solid rgba(4,49,68,.1);
+      color: var(--text-secondary); padding: 8px 18px;
+      border-radius: 100px; font-size: .8rem;
+      font-weight: 600; margin-bottom: 36px;
+    }
+    .legal-update i { color: var(--accent); }
+
+    .legal-section { margin-bottom: 48px; }
+    .legal-section:last-child { margin-bottom: 0; }
+    .legal-section-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px; padding-bottom: 14px;
+      border-bottom: 2px solid rgba(4,49,68,.07);
+    }
+    .legal-section-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-light); font-size: 1rem;
+    }
+    .legal-section h2 { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
+    .legal-section p {
+      font-size: .95rem; color: var(--text-secondary);
+      line-height: 1.85; margin-bottom: 14px;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul {
+      list-style: none; display: flex; flex-direction: column;
+      gap: 10px; margin: 14px 0;
+    }
+    .legal-section ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .95rem; color: var(--text-secondary); line-height: 1.7;
+    }
+    .legal-section ul li::before {
+      content: '→'; color: var(--accent);
+      font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    .legal-highlight {
+      background: linear-gradient(135deg, rgba(237,110,25,.06) 0%, rgba(4,49,68,.04) 100%);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 22px; margin: 20px 0;
+      font-size: .92rem; color: var(--text-secondary); line-height: 1.75;
+    }
+    .legal-highlight strong { color: var(--primary); }
+
+    .legal-contact-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px; margin-top: 48px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .legal-contact-box i { font-size: 2.5rem; color: var(--accent-light); flex-shrink: 0; }
+    .legal-contact-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; }
+    .legal-contact-box p { color: rgba(255,255,255,.78); font-size: .92rem; margin: 0; }
+    .legal-contact-box a { color: var(--accent-light); font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .legal-layout { grid-template-columns: 1fr; }
+      .legal-toc { position: static; }
+      .legal-content { padding: 32px 24px; }
+    }
+    @media (max-width: 640px) {
+      .legal-hero { padding: 80px 0 50px; }
+      .legal-hero .back-btn { position: static; display: inline-flex; margin-bottom: 20px; }
+      .legal-contact-box { flex-direction: column; text-align: center; }
+    }
+
+    .logo-horizontal {
+      height: 48px; width: auto; border-radius: 8px; background: #fff;
+      padding: 4px 10px; border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 2px 5px rgba(0,0,0,.05); transition: var(--transition);
+    }
+    .logo-horizontal:hover { transform: translateY(-2px) scale(1.02); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="header scrolled" id="header" style="position:sticky;top:0;background:rgba(255,255,255,.97);">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <img src="logo_circular.png" alt="Zona Tributaria" class="logo-img" style="animation:none;">
+        <img src="logo_horizontal.png" alt="Zona Tributaria" class="logo-horizontal" style="margin-left:5px;">
+      </a>
+      <ul class="nav-menu" style="display:flex;">
+        <li><a href="index.html#inicio"    class="nav-link" style="color:var(--primary);">Inicio</a></li>
+        <li><a href="index.html#nosotros"  class="nav-link" style="color:var(--primary);">Quiénes Somos</a></li>
+        <li><a href="index.html#servicios" class="nav-link" style="color:var(--primary);">Servicios</a></li>
+        <li><a href="recursos.html"        class="nav-link" style="color:var(--primary);">Recursos</a></li>
+        <li><a href="index.html#contacto"  class="nav-link" style="color:var(--primary);">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+    <div class="container">
+      <div class="hero-badge"><i class="fas fa-shield-alt"></i> Documento Legal</div>
+      <h1>Política de Privacidad</h1>
+      <p class="subtitle">En Zona Tributaria valoramos y protegemos tu privacidad. Conoce cómo tratamos tu información personal.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="legal-main">
+    <div class="container">
+      <div class="legal-layout">
+
+        <!-- TOC -->
+        <aside class="legal-toc">
+          <h3><i class="fas fa-list-ul"></i> &nbsp;Contenido</h3>
+          <ul>
+            <li><a href="#responsable"><i class="fas fa-chevron-right"></i> 1. Responsable del Tratamiento</a></li>
+            <li><a href="#datos"><i class="fas fa-chevron-right"></i> 2. Datos que Recopilamos</a></li>
+            <li><a href="#finalidad"><i class="fas fa-chevron-right"></i> 3. Finalidad del Tratamiento</a></li>
+            <li><a href="#base-legal"><i class="fas fa-chevron-right"></i> 4. Base Legal</a></li>
+            <li><a href="#cesion"><i class="fas fa-chevron-right"></i> 5. Cesión de Datos</a></li>
+            <li><a href="#derechos"><i class="fas fa-chevron-right"></i> 6. Tus Derechos</a></li>
+            <li><a href="#seguridad"><i class="fas fa-chevron-right"></i> 7. Seguridad</a></li>
+            <li><a href="#cookies"><i class="fas fa-chevron-right"></i> 8. Cookies</a></li>
+            <li><a href="#menores"><i class="fas fa-chevron-right"></i> 9. Menores de Edad</a></li>
+            <li><a href="#cambios"><i class="fas fa-chevron-right"></i> 10. Cambios a esta Política</a></li>
+            <li><a href="#contacto-pp"><i class="fas fa-chevron-right"></i> 11. Contacto</a></li>
+          </ul>
+        </aside>
+
+        <!-- Content -->
+        <div class="legal-content">
+          <div class="legal-update"><i class="fas fa-calendar-alt"></i> Última actualización: 20 de julio de 2026</div>
+
+          <div class="legal-highlight">
+            <strong>Resumen:</strong> Zona Tributaria recopila únicamente la información necesaria para prestarte nuestros servicios. No vendemos ni compartimos tus datos con terceros con fines comerciales. Cumplimos con la Ley N°19.628 sobre Protección de la Vida Privada de Chile.
+          </div>
+
+          <div class="legal-section" id="responsable">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-building"></i></div>
+              <h2>1. Responsable del Tratamiento de Datos</h2>
+            </div>
+            <p>El responsable del tratamiento de los datos personales recabados a través de este sitio web es <strong>Zona Tributaria SpA</strong>, empresa constituida y domiciliada en Chile.</p>
+            <ul>
+              <li><strong>Razón Social:</strong> Zona Tributaria SpA</li>
+              <li><strong>Dirección:</strong> General Dunhan 862, Ñuñoa, Santiago, Chile</li>
+              <li><strong>Correo electrónico:</strong> contacto@zonatributaria.cl</li>
+              <li><strong>Teléfono:</strong> +56 2 2345 6789</li>
+            </ul>
+          </div>
+
+          <div class="legal-section" id="datos">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-database"></i></div>
+              <h2>2. Datos Personales que Recopilamos</h2>
+            </div>
+            <p>Recopilamos datos personales únicamente cuando tú nos los proporcionas de forma voluntaria, principalmente a través de nuestro formulario de contacto y canales de comunicación directa:</p>
+            <ul>
+              <li>Nombre completo</li>
+              <li>Correo electrónico</li>
+              <li>Número de teléfono (cuando se comunica vía WhatsApp)</li>
+              <li>Nombre de empresa u organización</li>
+              <li>Información contenida en el mensaje o consulta que nos envíes</li>
+              <li>Datos de navegación (a través de cookies técnicas)</li>
+            </ul>
+            <p>No recopilamos datos sensibles como información financiera personal, RUT u otros datos tributarios, a menos que sean expresamente proporcionados en el contexto de una asesoría contratada.</p>
+          </div>
+
+          <div class="legal-section" id="finalidad">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-bullseye"></i></div>
+              <h2>3. Finalidad del Tratamiento</h2>
+            </div>
+            <p>Los datos personales que recopilamos son utilizados exclusivamente para los siguientes fines:</p>
+            <ul>
+              <li>Responder a consultas, solicitudes de información o agendamiento de asesorías</li>
+              <li>Prestación de los servicios de consultoría y educación tributaria contratados</li>
+              <li>Envío de información relevante sobre noticias tributarias o actualizaciones normativas (solo si el usuario lo solicita)</li>
+              <li>Mejora de la experiencia de navegación en nuestro sitio web</li>
+              <li>Cumplimiento de obligaciones legales aplicables</li>
+            </ul>
+          </div>
+
+          <div class="legal-section" id="base-legal">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-gavel"></i></div>
+              <h2>4. Base Legal del Tratamiento</h2>
+            </div>
+            <p>El tratamiento de tus datos personales se realiza conforme a la <strong>Ley N°19.628 sobre Protección de la Vida Privada</strong> de Chile. Las bases legales que justifican el tratamiento son:</p>
+            <ul>
+              <li><strong>Consentimiento:</strong> cuando completas nuestro formulario de contacto o nos escribes directamente</li>
+              <li><strong>Ejecución de un contrato:</strong> cuando hemos suscrito una relación de asesoría contigo</li>
+              <li><strong>Cumplimiento de obligaciones legales:</strong> cuando la ley así lo exige</li>
+              <li><strong>Interés legítimo:</strong> para mejorar nuestros servicios y la seguridad del sitio</li>
+            </ul>
+          </div>
+
+          <div class="legal-section" id="cesion">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-share-alt"></i></div>
+              <h2>5. Cesión y Comunicación de Datos a Terceros</h2>
+            </div>
+            <p><strong>No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.</strong></p>
+            <p>Tus datos únicamente podrán ser comunicados a terceros en los siguientes casos excepcionales:</p>
+            <ul>
+              <li>Cuando exista una obligación legal o requerimiento de autoridad competente</li>
+              <li>A proveedores de servicios tecnológicos que utilizamos para operar el sitio (hosting, correo), quienes actúan bajo instrucciones estrictas de confidencialidad</li>
+              <li>Cuando sea necesario para la prestación del servicio contratado y hayas prestado tu consentimiento</li>
+            </ul>
+            <div class="legal-highlight">
+              <strong>Nota:</strong> Nuestro sitio utiliza servicios de terceros como Google Fonts, Font Awesome y APIs públicas para indicadores económicos. Estos servicios pueden recopilar datos de navegación conforme a sus propias políticas de privacidad.
+            </div>
+          </div>
+
+          <div class="legal-section" id="derechos">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-user-shield"></i></div>
+              <h2>6. Tus Derechos</h2>
+            </div>
+            <p>De acuerdo con la Ley N°19.628, tienes derecho a:</p>
+            <ul>
+              <li><strong>Acceso:</strong> conocer qué datos personales tuyos tratamos</li>
+              <li><strong>Rectificación:</strong> solicitar la corrección de datos inexactos o incompletos</li>
+              <li><strong>Cancelación:</strong> solicitar la eliminación de tus datos cuando ya no sean necesarios</li>
+              <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos para determinadas finalidades</li>
+              <li><strong>Bloqueo:</strong> solicitar que se suspenda temporalmente el tratamiento de tus datos</li>
+            </ul>
+            <p>Para ejercer cualquiera de estos derechos, escríbenos a <strong>contacto@zonatributaria.cl</strong> con el asunto "Derechos ARCO". Responderemos en un plazo máximo de 30 días hábiles.</p>
+          </div>
+
+          <div class="legal-section" id="seguridad">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-lock"></i></div>
+              <h2>7. Seguridad de los Datos</h2>
+            </div>
+            <p>Implementamos medidas técnicas y organizativas apropiadas para proteger tus datos personales contra acceso no autorizado, pérdida, alteración o divulgación:</p>
+            <ul>
+              <li>Transmisión de datos mediante protocolo HTTPS (cifrado SSL/TLS)</li>
+              <li>Acceso restringido a los datos únicamente al personal autorizado</li>
+              <li>Revisión periódica de nuestras prácticas de seguridad</li>
+            </ul>
+            <p>Sin embargo, ningún sistema de transmisión de datos puede garantizar una seguridad absoluta. Te recomendamos no compartir información especialmente sensible a través del formulario de contacto público.</p>
+          </div>
+
+          <div class="legal-section" id="cookies">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-cookie-bite"></i></div>
+              <h2>8. Uso de Cookies</h2>
+            </div>
+            <p>Nuestro sitio web utiliza cookies técnicas esenciales para su correcto funcionamiento. No utilizamos cookies de seguimiento publicitario ni de análisis de comportamiento.</p>
+            <ul>
+              <li><strong>Cookies de sesión:</strong> necesarias para el funcionamiento básico del sitio, se eliminan al cerrar el navegador</li>
+              <li><strong>Cookies de preferencias:</strong> para recordar configuraciones básicas de navegación</li>
+            </ul>
+            <p>Puedes configurar tu navegador para rechazar cookies; sin embargo, esto podría afectar el correcto funcionamiento de algunas secciones del sitio.</p>
+          </div>
+
+          <div class="legal-section" id="menores">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-child"></i></div>
+              <h2>9. Menores de Edad</h2>
+            </div>
+            <p>Nuestros servicios están dirigidos exclusivamente a personas mayores de 18 años. No recopilamos intencionadamente datos personales de menores de edad. Si tomamos conocimiento de que hemos recopilado datos de un menor sin el consentimiento de sus padres o tutores, los eliminaremos de forma inmediata.</p>
+          </div>
+
+          <div class="legal-section" id="cambios">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-sync-alt"></i></div>
+              <h2>10. Cambios a esta Política de Privacidad</h2>
+            </div>
+            <p>Nos reservamos el derecho de actualizar esta Política de Privacidad cuando sea necesario. Cualquier modificación relevante será comunicada mediante la actualización de la fecha de "Última actualización". El uso continuado de nuestro sitio después de cualquier cambio implica la aceptación de la política actualizada.</p>
+          </div>
+
+          <div class="legal-section" id="contacto-pp">
+            <div class="legal-section-header">
+              <div class="legal-section-icon"><i class="fas fa-envelope"></i></div>
+              <h2>11. Contacto</h2>
+            </div>
+            <p>Si tienes preguntas o deseas ejercer tus derechos respecto al tratamiento de tus datos personales, puedes contactarnos a través de los canales indicados a continuación.</p>
+          </div>
+
+          <div class="legal-contact-box">
+            <i class="fas fa-envelope-open-text"></i>
+            <div>
+              <h3>¿Tienes preguntas sobre tu privacidad?</h3>
+              <p>Escríbenos a <a href="mailto:contacto@zonatributaria.cl">contacto@zonatributaria.cl</a> con el asunto <strong>"Privacidad"</strong> o llámanos al <a href="tel:+56223456789">+56 2 2345 6789</a>. También puedes visitarnos en General Dunhan 862, Ñuñoa, Santiago.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3 class="footer-text-logo"><span class="brand-zona">Zona</span> <span class="brand-tributaria">Tributaria</span></h3>
+            <p class="footer-tagline">Transformamos la complejidad tributaria en decisiones claras y aplicables. Tu socio estratégico para una gestión empresarial segura.</p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Navegación</h4>
+            <ul>
+              <li><a href="index.html#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+              <li><a href="index.html#nosotros"><i class="fas fa-chevron-right"></i> Quiénes Somos</a></li>
+              <li><a href="index.html#servicios"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+              <li><a href="recursos.html"><i class="fas fa-chevron-right"></i> Recursos</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="politica-privacidad.html"><i class="fas fa-chevron-right"></i> Política de Privacidad</a></li>
+              <li><a href="terminos-condiciones.html"><i class="fas fa-chevron-right"></i> Términos y Condiciones</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-flex">
+          <p>&copy; 2026 Zona Tributaria. Todos los derechos reservados.</p>
+          <div class="footer-bottom-links">
+            <a href="politica-privacidad.html">Política de Privacidad</a>
+            <a href="terminos-condiciones.html">Términos y Condiciones</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
