@@ -19,7 +19,7 @@
     /* ── Hero (same dark banner as main page sections) ── */
     .rec-hero {
       background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-      padding: 110px 0 60px;
+      padding: 130px 0 60px;
       text-align: center;
       position: relative;
     }
@@ -30,13 +30,13 @@
       margin: 0 auto;
     }
     .rec-hero .back-btn {
-      position: absolute; top: 36px; left: 5%;
       display: inline-flex; align-items: center; gap: 8px;
       color: #fff; font-weight: 600; font-size: .88rem;
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.2);
       padding: 9px 20px; border-radius: 50px;
       transition: var(--transition); text-decoration: none;
+      margin-bottom: 24px;
     }
     .rec-hero .back-btn:hover {
       background: var(--accent);
@@ -162,6 +162,28 @@
       transform: translateX(3px);
     }
 
+    /* ── Back to Top Button ── */
+    .back-to-top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: transparent;
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .back-to-top-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(6, 76, 104, 0.2);
+    }
+
     /* ── Responsive ── */
     @media (max-width: 860px) {
       .cat-grid { grid-template-columns: 1fr; }
@@ -169,9 +191,8 @@
       .cat-box:last-child { border-bottom: none; }
     }
     @media (max-width: 640px) {
-      .rec-hero { padding: 70px 0 40px; }
+      .rec-hero { padding: 110px 0 40px; }
       .rec-hero h1 { font-size: 1.8rem; }
-      .rec-hero .back-btn { position: static; margin-bottom: 20px; display: inline-flex; }
       
       /* Mejoras UX para celulares: convertir links en tarjetas grandes */
       .res-list { padding: 0 15px; gap: 12px; }
@@ -825,6 +846,13 @@
 
         </div>
       </section>
+
+      <!-- Botón Volver Arriba -->
+      <div style="text-align: center; margin-top: 60px;">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top-btn">
+          <i class="fas fa-arrow-up"></i> Volver Arriba
+        </button>
+      </div>
 
     </div>
   </main>
