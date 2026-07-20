@@ -582,7 +582,20 @@ function initSmoothScroll() {
 function initServicesToggle() {
   const serviceItems = document.querySelectorAll('.service-list-item');
   serviceItems.forEach(item => {
-    item.addEventListener('click', () => {
+    // For desktop hover
+    item.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') {
+        item.classList.add('expanded');
+      }
+    });
+    item.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') {
+        item.classList.remove('expanded');
+      }
+    });
+    
+    // For tap toggle
+    item.addEventListener('click', (e) => {
       // Toggle expanded class on tap/click
       item.classList.toggle('expanded');
     });
