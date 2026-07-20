@@ -570,10 +570,15 @@ async function fetchEconomicIndicators() {
     const data = await response.json();
     
     if (data.uf && data.dolar) {
-      // Format UF
-      const ufVal = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(data.uf.valor);
-      // Format Dolar
-      const dolarVal = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(data.dolar.valor);
+      // Format UF & Dolar with exactly 2 decimal places using 'es-CL' (comma as decimal separator)
+      const formatter = new Intl.NumberFormat('es-CL', { 
+        style: 'currency', 
+        currency: 'CLP',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      const ufVal = formatter.format(data.uf.valor);
+      const dolarVal = formatter.format(data.dolar.valor);
       
       ufEl.textContent = ufVal;
       dolarEl.textContent = dolarVal;
@@ -587,6 +592,37 @@ async function fetchEconomicIndicators() {
     dolarEl.textContent = '$962,50';
   }
 }
+// ============ BIOGRAPHY MODALS ============
+function openBioModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevents scrolling behind modal
+  }
+}
+
+function closeBioModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = ''; // Restores scrolling
+  }
+}
+
+// Bind to window for global inline onclick event access
+window.openBioModal = openBioModal;
+window.closeBioModal = closeBioModal;
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const activeModal = document.querySelector('.bio-modal.active');
+    if (activeModal) {
+      closeBioModal(activeModal.id);
+    }
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();

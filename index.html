@@ -203,6 +203,33 @@
           <a href="#contacto" class="btn btn-primary" style="margin-top: 30px;">
             Agenda una asesoría <i class="fas fa-arrow-right"></i>
           </a>
+
+          <!-- Team Mini Section -->
+          <div class="team-mini-section">
+            <h3 class="team-subtitle">Nuestro Equipo de Liderazgo</h3>
+            <div class="team-grid-simple">
+              <!-- Gerente 1 -->
+              <div class="team-member-card" onclick="openBioModal('gerente1')" style="cursor: pointer;">
+                <div class="member-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop" alt="Cristian Rivas" class="member-img-placeholder">
+                </div>
+                <div class="member-info">
+                  <h4>Cristian Rivas</h4>
+                  <p>Gerente General y Socio</p>
+                </div>
+              </div>
+              <!-- Gerente 2 -->
+              <div class="team-member-card" onclick="openBioModal('gerente2')" style="cursor: pointer;">
+                <div class="member-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=256&auto=format&fit=crop" alt="Mariana Gómez" class="member-img-placeholder">
+                </div>
+                <div class="member-info">
+                  <h4>Mariana Gómez</h4>
+                  <p>Gerente de Asesoría</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="about-visual-modern">
@@ -222,34 +249,113 @@
   </section>
 
   <!-- ===== SECCIÓN PROPUESTA DE VALOR ===== -->
-  <section class="section" id="propuesta">
-    <div class="container">
+  <section class="section" id="propuesta" style="background: linear-gradient(to bottom, #ffffff, var(--off-white)); position: relative; overflow: hidden;">
+    <!-- Decorative background elements -->
+    <div style="position: absolute; top: 10%; right: -5%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(237,110,25,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+    <div style="position: absolute; bottom: 10%; left: -5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(4,49,68,0.03) 0%, transparent 70%); border-radius: 50%;"></div>
+
+    <div class="container" style="position: relative; z-index: 2;">
       <div class="section-header">
         <div class="section-tag">Lo que nos diferencia</div>
         <h2 class="section-title">Nuestra Propuesta de Valor</h2>
       </div>
-      <div class="value-prop-grid">
-        <div class="value-card">
-          <i class="fas fa-search-dollar value-icon"></i>
-          <h3><strong>Interpretación Normativa</strong></h3>
-          <p>Convertimos leyes complejas en acciones directas.</p>
-        </div>
-        <div class="value-card">
-          <i class="fas fa-chess value-icon"></i>
-          <h3><strong>Acompañamiento Estratégico</strong></h3>
-          <p>Te orientamos paso a paso en decisiones clave.</p>
-        </div>
-        <div class="value-card">
-          <i class="fas fa-shield-alt value-icon"></i>
-          <h3><strong>Prevención de Riesgos</strong></h3>
-          <p>Evitamos observaciones y multas ante el SII.</p>
-        </div>
-        <div class="value-card">
-          <i class="fas fa-book-reader value-icon"></i>
-          <h3><strong>Educación Aplicada</strong></h3>
-          <p>Entregamos conocimiento práctico y actualizado.</p>
-        </div>
+
+      <!-- Intro -->
+      <div style="text-align: center; max-width: 850px; margin: 0 auto 56px;">
+        <p style="font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8;">
+          En Zona Tributaria creemos que la experiencia tributaria no debe vivirse desde la incertidumbre, la complejidad o el temor a cometer errores. Nuestro propósito es acompañar a personas y organizaciones en un entorno normativo que cambia rápido y exige decisiones informadas, oportunas y seguras. Por eso, nuestra propuesta de valor se construye sobre cuatro pilares que, juntos, forman una ruta clara: <strong>comprender, decidir, prevenir y aprender</strong>.
+        </p>
       </div>
+
+      <!-- Grid de 4 Pilares -->
+      <style>
+        .pillar-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 24px;
+          margin-bottom: 56px;
+        }
+        .pillar-card {
+          background: #ffffff;
+          padding: 40px 30px;
+          border-radius: var(--radius-lg);
+          border: 1px solid rgba(0,0,0,0.05);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          position: relative;
+          overflow: hidden;
+          cursor: default;
+          display: flex;
+          flex-direction: column;
+        }
+        .pillar-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+        .pillar-border-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); transition: width 0.3s ease; }
+        .pillar-border-primary { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); transition: width 0.3s ease; }
+        
+        /* Optional: subtle border expand on hover */
+        .pillar-card:hover .pillar-border-accent, .pillar-card:hover .pillar-border-primary { width: 6px; }
+      </style>
+
+      <div class="pillar-grid">
+        
+        <!-- Pilar 1 -->
+        <div class="pillar-card" onclick="openBioModal('pilar1')" style="cursor: pointer;">
+          <div class="pillar-border-accent"></div>
+          <div style="width: 56px; height: 56px; background: rgba(237,110,25,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.5rem; margin-bottom: 24px; transition: transform 0.3s ease;" class="pillar-icon">
+            <i class="fas fa-search-dollar"></i>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Interpretación Normativa</h3>
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 16px;">Donde la complejidad se convierte en claridad</p>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 5px; margin-top: auto;">Leer más <i class="fas fa-external-link-alt"></i></span>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="pillar-card" onclick="openBioModal('pilar2')" style="cursor: pointer;">
+          <div class="pillar-border-primary"></div>
+          <div style="width: 56px; height: 56px; background: rgba(4,49,68,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 24px;" class="pillar-icon">
+            <i class="fas fa-chess"></i>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Acompañamiento Estratégico</h3>
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 16px;">Te orientamos paso a paso en decisiones clave</p>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 5px; margin-top: auto;">Leer más <i class="fas fa-external-link-alt"></i></span>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="pillar-card" onclick="openBioModal('pilar3')" style="cursor: pointer;">
+          <div class="pillar-border-accent"></div>
+          <div style="width: 56px; height: 56px; background: rgba(237,110,25,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.5rem; margin-bottom: 24px;" class="pillar-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Prevención de Riesgos</h3>
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 16px;">Velamos por el cumplimiento y evitamos multas</p>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 5px; margin-top: auto;">Leer más <i class="fas fa-external-link-alt"></i></span>
+        </div>
+
+        <!-- Pilar 4 -->
+        <div class="pillar-card" onclick="openBioModal('pilar4')" style="cursor: pointer;">
+          <div class="pillar-border-primary"></div>
+          <div style="width: 56px; height: 56px; background: rgba(4,49,68,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 24px;" class="pillar-icon">
+            <i class="fas fa-book-reader"></i>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Educación Aplicada</h3>
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 16px;">Entregamos conocimiento práctico y actualizado</p>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 5px; margin-top: auto;">Leer más <i class="fas fa-external-link-alt"></i></span>
+        </div>
+
+      </div>
+
+      <!-- Outro / Síntesis -->
+      <div style="background: rgba(4,49,68,0.03); border: 1px solid rgba(4,49,68,0.08); border-radius: var(--radius-lg); padding: 40px; text-align: center; max-width: 900px; margin: 0 auto; position: relative; overflow: hidden;">
+        <i class="fas fa-quote-left" style="position: absolute; top: 20px; left: 30px; font-size: 3rem; color: rgba(237,110,25,0.08);"></i>
+        <h3 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 16px; position: relative; z-index: 2;">Síntesis Integradora</h3>
+        <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; margin: 0; position: relative; z-index: 2;">
+          Nuestra propuesta de valor es una experiencia completa: interpretamos la normativa, acompañamos decisiones, prevenimos riesgos y enseñamos de manera aplicada. Cuatro pilares que se articulan para ofrecer un servicio que no solo resuelve dudas, sino que construye confianza, orden y visión en la gestión tributaria.
+        </p>
+      </div>
+
     </div>
   </section>
 
@@ -266,50 +372,113 @@
       <div class="services-list">
         <!-- Item 1 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-briefcase"></i></div>
+          <div class="service-list-icon"><i class="fas fa-chalkboard-teacher"></i></div>
           <div class="service-list-content">
-            <h3>1. Asesoría Tributaria Integral</h3>
-            <p>Análisis, orientación y acompañamiento permanente para una gestión tributaria segura.</p>
+            <h3>1. Educación continua</h3>
+            <p class="service-brief">Entregamos educación continua a contadores, emprendedores y pymes.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Nuestras áreas de educación son:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Ley de La Renta</li>
+                <li>Ley de sobre impuestos a las ventas y servicios</li>
+                <li>Otros impuestos tales como: municipales, timbres y estampillas, Impuesto específico al Petróleo Diesel</li>
+                <li>Apoyo a emprendedores</li>
+                <li>Cursos cerrados a empresas</li>
+                <li>Cursos personalizados</li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- Item 2 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-file-invoice"></i></div>
+          <div class="service-list-icon"><i class="fas fa-briefcase"></i></div>
           <div class="service-list-content">
-            <h3>2. Declaraciones de Renta (F22)</h3>
-            <p>Preparación, revisión, rectificaciones y prevención de observaciones.</p>
+            <h3>2. Asesoría Tributaria</h3>
+            <p class="service-brief">Te asesoramos de manera integral, abarcando toda la vida de tu negocio.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Desde la constitución de tu empresa y hasta la disolución. Nuestros servicios comprenden:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Constitución de empresa</li>
+                <li>Inicio de actividades, elección de régimen tributario y verificaciones de actividades</li>
+                <li>Transformación de empresa y reorganización empresarial (fusión y división)</li>
+                <li>Planificación tributaria</li>
+                <li>Procesos de reclamaciones (RAV-RAF)</li>
+                <li>Representación y gestión de citaciones/fiscalizaciones</li>
+                <li>Levantamiento de observaciones y bloqueos</li>
+                <li>Término de giro</li>
+                <li>Disolución de empresa</li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- Item 3 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-clipboard-check"></i></div>
+          <div class="service-list-icon"><i class="fas fa-file-invoice"></i></div>
           <div class="service-list-content">
-            <h3>3. Revisión de Cumplimiento Tributario</h3>
-            <p>Detección de riesgos, inconsistencias y oportunidades de mejora.</p>
+            <h3>3. Declaraciones e impuestos anuales</h3>
+            <p class="service-brief">Somos profesionales rigurosos y te ayudamos en tu declaración anual.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Nuestros servicios en este ámbito incluyen:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Confección y presentación de declaración de renta formulario 22</li>
+                <li>Confección y presentación de declaración juradas</li>
+                <li>Rectificación de declaración de renta</li>
+                <li>Corrección de observaciones</li>
+                <li>Gestión y representación en revisión de declaración de renta</li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- Item 4 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="service-list-icon"><i class="fas fa-calendar-check"></i></div>
           <div class="service-list-content">
-            <h3>4. Educación Tributaria</h3>
-            <p>Infografías, guías, talleres y contenido claro para emprendedores y equipos.</p>
+            <h3>4. Declaraciones e impuestos mensuales</h3>
+            <p class="service-brief">Somos tu pilar de apoyo en el cumplimiento mensual de impuestos.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Nos encargamos de las siguientes declaraciones:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Declaración de impuestos mensuales formulario 29</li>
+                <li>Declaración de impuesto adicional y otros impuestos formularios 50</li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- Item 5 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-user-shield"></i></div>
+          <div class="service-list-icon"><i class="fas fa-receipt"></i></div>
           <div class="service-list-content">
-            <h3>5. Apoyo en Fiscalizaciones y Citaciones</h3>
-            <p>Acompañamiento técnico ante requerimientos del SII.</p>
+            <h3>5. Otros impuestos</h3>
+            <p class="service-brief">Efectuamos declaración y/o gestión de impuestos y patentes específicas.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Abarcamos impuestos adicionales tales como:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Patentes Municipales</li>
+                <li>Impuestos de timbres y estampillas</li>
+                <li>Impuestos a la donaciones y herencias</li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- Item 6 -->
         <div class="service-list-item">
-          <div class="service-list-icon"><i class="fas fa-map-signs"></i></div>
+          <div class="service-list-icon"><i class="fas fa-users"></i></div>
           <div class="service-list-content">
-            <h3>6. Planificación Tributaria Básica</h3>
-            <p>Estrategias simples y aplicables para optimizar cargas y evitar contingencias.</p>
+            <h3>6. Recursos Humanos y remuneraciones</h3>
+            <p class="service-brief">Te asesoramos en materias laborales y cálculo de planillas.</p>
+            <span class="service-detail-btn">Ver detalle <i class="fas fa-chevron-down"></i></span>
+            <div class="service-detail-expand">
+              <p>Te asesoramos en las siguientes materias:</p>
+              <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <li>Cálculo de remuneraciones y finiquitos</li>
+                <li>Carga de información en Dirección del trabajo</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -590,6 +759,120 @@
       </div>
     </div>
   </footer>
+
+  <!-- ===== MODALS DE PROPUESTA DE VALOR ===== -->
+  <!-- Pilar 1 -->
+  <div id="pilar1" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('pilar1')">&times;</span>
+      <div class="bio-modal-header" style="align-items: center;">
+        <div style="width: 56px; height: 56px; background: rgba(237,110,25,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.5rem; margin-right: 15px; flex-shrink: 0;">
+          <i class="fas fa-search-dollar"></i>
+        </div>
+        <div>
+          <h3 style="color: var(--primary);">Interpretación Normativa</h3>
+          <p style="color: var(--accent); font-weight: 600;">Donde la complejidad se convierte en claridad</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>La normativa tributaria es extensa, técnica y en constante evolución. Cada reforma, circular u oficio abre nuevas preguntas y redefine obligaciones. En Zona Tributaria transformamos esa complejidad en claridad operativa. Leemos la ley con rigor, identificamos impactos reales y convertimos el contenido técnico en acciones concretas. Nuestro rol es ser el puente entre el texto legal y la decisión práctica, entregando certeza donde antes había dudas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pilar 2 -->
+  <div id="pilar2" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('pilar2')">&times;</span>
+      <div class="bio-modal-header" style="align-items: center;">
+        <div style="width: 56px; height: 56px; background: rgba(4,49,68,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-right: 15px; flex-shrink: 0;">
+          <i class="fas fa-chess"></i>
+        </div>
+        <div>
+          <h3 style="color: var(--primary);">Acompañamiento Estratégico</h3>
+          <p style="color: var(--primary); font-weight: 600;">Te orientamos paso a paso en decisiones clave</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>Las decisiones tributarias y empresariales nunca ocurren en el vacío: afectan procesos, riesgos, inversiones y proyecciones. Por eso, acompañamos a nuestros clientes en cada etapa del camino. Analizamos escenarios, ordenamos prioridades y guiamos la implementación de cada acción. No entregamos respuestas aisladas; construimos rutas de decisión que combinan cumplimiento, eficiencia y visión de futuro.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pilar 3 -->
+  <div id="pilar3" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('pilar3')">&times;</span>
+      <div class="bio-modal-header" style="align-items: center;">
+        <div style="width: 56px; height: 56px; background: rgba(237,110,25,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.5rem; margin-right: 15px; flex-shrink: 0;">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div>
+          <h3 style="color: var(--primary);">Prevención de Riesgos</h3>
+          <p style="color: var(--accent); font-weight: 600;">Velamos por el cumplimiento y evitamos multas</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>La mejor manera de enfrentar una contingencia es evitar que ocurra. La prevención de riesgos es un trabajo silencioso pero decisivo: revisar procesos, detectar brechas, corregir desviaciones y anticipar criterios del SII. Nuestro enfoque es proactivo y sistemático. Buscamos los riesgos antes de que se materialicen y fortalecemos el cumplimiento para proteger la estabilidad y reputación del contribuyente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pilar 4 -->
+  <div id="pilar4" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('pilar4')">&times;</span>
+      <div class="bio-modal-header" style="align-items: center;">
+        <div style="width: 56px; height: 56px; background: rgba(4,49,68,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-right: 15px; flex-shrink: 0;">
+          <i class="fas fa-book-reader"></i>
+        </div>
+        <div>
+          <h3 style="color: var(--primary);">Educación Aplicada</h3>
+          <p style="color: var(--primary); font-weight: 600;">Entregamos conocimiento práctico y actualizado</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>El conocimiento es una herramienta de autonomía. En Zona Tributaria creemos en una educación que no se queda en la teoría, sino que se conecta con la práctica diaria. Explicamos la normativa con claridad, contextualizamos sus efectos y enseñamos cómo actuar frente a cada cambio. Actualizamos, simplificamos y empoderamos. Cuando el cliente comprende, decide mejor y su gestión es más segura.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODALS DE BIOGRAFÍA ===== -->
+  <!-- Modal Gerente 1 -->
+  <div id="gerente1" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('gerente1')">&times;</span>
+      <div class="bio-modal-header">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop" alt="Cristian Rivas">
+        <div>
+          <h3>Cristian Rivas</h3>
+          <p>Gerente General y Socio</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>Contador Auditor con más de 15 años de experiencia liderando equipos contables y tributarios. Especialista en planificación estratégica y optimización de cargas tributarias para grandes empresas y pymes. Su visión se centra en transformar la complejidad fiscal en una ventaja competitiva para los clientes.</p>
+        <p><strong>Especialidades:</strong> Planificación Tributaria, Reestructuración Empresarial, Defensa ante el SII.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Gerente 2 -->
+  <div id="gerente2" class="bio-modal">
+    <div class="bio-modal-content">
+      <span class="bio-modal-close" onclick="closeBioModal('gerente2')">&times;</span>
+      <div class="bio-modal-header">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=256&auto=format&fit=crop" alt="Mariana Gómez">
+        <div>
+          <h3>Mariana Gómez</h3>
+          <p>Gerente de Asesoría</p>
+        </div>
+      </div>
+      <div class="bio-modal-body">
+        <p>Abogada tributarista con extensa trayectoria en el sector público y privado. Posee un profundo conocimiento de la normativa vigente y un enfoque práctico para resolver contingencias. Mariana es la encargada de asegurar el cumplimiento normativo impecable de todos los procesos asesorados por la firma.</p>
+        <p><strong>Especialidades:</strong> Cumplimiento Normativo (Compliance), Declaraciones de Renta, Resolución de Controversias.</p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
